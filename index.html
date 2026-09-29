@@ -1,0 +1,2621 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000"><meta name="color-scheme" content="dark">
+<title>Ôn tập</title>
+<style>
+:root{--bg:#000;--s1:#050505;--card:#0a0a0a;--card2:#111;--bd:#1f1f22;--tx:#f2f2f3;--mut:#8b8b94;--ac:#8ab4ff;--acd:rgba(138,180,255,.12);--ok:#4ade80;--okb:#06210f;--no:#ff6b6b;--nob:#260c0c;--r:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+main{max-width:640px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;text-align:left;transition:transform .12s ease,background .2s ease,border-color .2s ease,opacity .2s ease}
+button:active:not(:disabled){transform:scale(.97)}
+h1{font-size:24px;line-height:1.25;margin:0 0 6px}h2{margin:0 0 6px;font-size:19px}
+p{margin:0}.mut{color:var(--mut);font-size:14px}
+.screen.enter{animation:in .26s ease backwards}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+.stagger>*{animation:in .32s ease backwards;animation-delay:calc(var(--i,0)*45ms)}
+/* home */
+.hero{text-align:center;padding:28px 0 22px}.hero .logo{font-size:44px}.hero h1{letter-spacing:.14em;font-size:22px;margin-top:8px}
+.grid{display:grid;gap:12px}@media(min-width:560px){.grid.two{grid-template-columns:1fr 1fr}}
+.tile{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;min-height:76px}
+.tile .ico{flex:none;width:48px;height:48px;border-radius:14px;background:var(--card2);display:grid;place-items:center;font-size:26px}
+.tile .tt{flex:1;min-width:0}.tile b{display:block;font-size:17px;overflow-wrap:anywhere}
+.tile .go{color:var(--mut);font-size:20px}
+.tile.off{opacity:.45;cursor:default}.tile.off:active{transform:none}
+@media(hover:hover){.tile:not(.off):hover{border-color:#34343a;background:var(--card2)}}
+.tile.chap{align-items:flex-start;flex-direction:column;gap:4px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;color:var(--mut);border:1px solid var(--bd);border-radius:99px;padding:2px 10px}
+/* top bars */
+.top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.icon-btn{flex:none;width:44px;height:44px;border-radius:12px;background:var(--card);border:1px solid var(--bd);display:grid;place-items:center;font-size:20px;text-align:center}
+.top .ttl{font-weight:700;font-size:18px;overflow-wrap:anywhere}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:12px}
+/* intro */
+.big{font-size:22px;font-weight:700;line-height:1.3;margin:4px 0 8px;overflow-wrap:anywhere}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+.pick button{border:1.5px solid var(--bd);border-radius:12px;padding:10px 14px;min-height:44px;background:var(--s1)}
+.pick button.on{border-color:var(--ac);background:var(--acd);color:var(--ac);font-weight:600}
+.rules{margin-top:14px;display:grid;gap:4px}
+/* summary */
+.sum{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.sum summary{list-style:none;cursor:pointer;padding:15px 18px;min-height:52px;display:flex;align-items:center;justify-content:space-between;font-weight:700;-webkit-user-select:none;user-select:none}
+.sum summary::-webkit-details-marker{display:none}
+.sum .chev{color:var(--mut);font-size:22px;transition:transform .25s ease}.sum[open] .chev{transform:rotate(90deg)}
+.sumbody{padding:0 18px 16px;animation:in .25s ease backwards}
+.sh{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--ac);margin-top:16px}
+.sn{flex:none;width:24px;height:24px;border-radius:8px;background:var(--acd);display:grid;place-items:center;font-size:13px}
+.sumbody ul{margin:6px 0 0;padding-left:20px}.sumbody li{margin:5px 0;color:#d6d6db;overflow-wrap:anywhere;font-size:15px}.sumbody li b{color:var(--tx)}
+/* buttons */
+.btn{display:block;width:100%;background:var(--ac);color:#000;font-weight:700;text-align:center;border-radius:14px;padding:15px 18px;min-height:52px;margin-top:10px}
+.btn:disabled{opacity:.35}.btn.alt{background:var(--card);color:var(--tx);border:1.5px solid var(--bd);font-weight:600}
+.dock{position:sticky;bottom:0;margin:0 -16px;padding:18px 16px calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 40%)}
+.dock .btn{margin-top:0}
+/* quiz */
+.qhead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:6px;background:var(--card2);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--ac);border-radius:4px;transform-origin:left;transition:transform .45s cubic-bezier(.3,.7,.2,1)}
+.count{font-size:13px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.tag{font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px}
+.q{font-weight:700;font-size:17px;white-space:pre-line;overflow-wrap:anywhere;margin-bottom:6px}
+.opt{display:flex;gap:10px;width:100%;background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:13px 14px;margin:8px 0;min-height:50px;overflow-wrap:anywhere}
+.opt b{flex:none}.opt span{min-width:0}
+.opt.sel{border-color:var(--ac);background:var(--acd)}
+.opt.ok{border-color:var(--ok);background:var(--okb);animation:pop .3s ease}
+.opt.bad{border-color:var(--no);background:var(--nob)}
+.locked .opt.bad{animation:shake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:8}
+.snd{width:40px;height:40px;font-size:18px;border-radius:12px}
+@keyframes pop{50%{transform:scale(1.015)}}
+.locked .opt{pointer-events:none}
+.row{border-top:1px solid var(--bd);padding:10px 0}.row:first-child{border:0}
+.row .st{overflow-wrap:anywhere}.row .st b{color:var(--mut)}
+.tf{display:flex;gap:8px;margin-top:6px}.tf .opt{margin:0;justify-content:center;text-align:center}
+.msg{font-weight:700;margin-top:12px;animation:in .25s ease backwards}.msg.ok{color:var(--ok)}.msg.bad{color:var(--no)}
+/* result */
+.result{text-align:center;padding-top:14px}
+.result .emoji{font-size:52px;display:inline-block;animation:bounce .7s cubic-bezier(.3,1.6,.5,1) backwards}
+@keyframes bounce{from{transform:scale(.2);opacity:0}}
+.ring{position:relative;width:170px;height:170px;margin:14px auto}
+.ring svg{width:100%;height:100%}.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .rt{stroke:var(--card2)}.ring .rf{stroke:var(--ac);transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.2,1)}
+.ring .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .rc b{font-size:30px;line-height:1.1}.ring .rc span{color:var(--mut);font-size:15px;font-variant-numeric:tabular-nums}
+.stats{display:flex;gap:10px;margin:6px 0 14px}.stat{flex:1;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;color:var(--mut);font-size:14px}
+.stat b{display:block;font-size:24px}.stat.ok b{color:var(--ok)}.stat.no b{color:var(--no)}
+/* review + modal */
+.opt.static{pointer-events:none}
+.pill{font-size:12px;font-weight:700;border-radius:99px;padding:1px 9px;margin-left:6px}.pill.ok{background:var(--okb);color:var(--ok)}.pill.no{background:var(--nob);color:var(--no)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:20px;z-index:9;animation:fade .2s ease}
+.dialog{width:100%;max-width:360px;background:var(--card2);border:1px solid var(--bd);border-radius:20px;padding:20px;animation:in .25s ease backwards}
+@keyframes fade{from{opacity:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+</style></head><body><main id="app"></main><div id="modal"></div>
+<script>
+/* ============================================================
+   1. DATA — thêm môn/bài mới chỉ cần thêm object vào đây.
+   subject : { id, name, icon, description, chapters: [ chapter ] }
+   chapter : { id, title, subtitle, description?, summary?: [{ title, points[] }], questions: [ question ] }
+     (summary: hiện ở ô "Tóm tắt" ở màn giới thiệu bài; dùng **đậm** để nhấn mạnh)
+   question: { id, type, tag, ... }  (tag = nhãn nhóm, ví dụ "Biết", "Hiểu")
+     type "single"     : question, options[], answer (chỉ số đáp án đúng, 0 = A)
+     type "true_false" : question (đoạn dẫn), statements[{ text, answer:true|false }]
+   Muốn thêm loại câu hỏi mới: thêm một mục vào TYPES ở phần 2.
+   ============================================================ */
+const quizData = {
+  subjects: [
+    {
+      id: "history", name: "Lịch sử", icon: "🏛️", description: "Lịch sử 12",
+      chapters: [
+        { id: "history-1", title: "Bài 1", subtitle: "Liên hợp quốc", summary: [
+          { title: "Bối cảnh ra đời", points: [
+            "CTTG thứ hai bước vào **giai đoạn cuối**; yêu cầu bức thiết của Đồng minh: tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới.",
+            "Nhân dân thế giới thấm thía hậu quả tàn khốc của chiến tranh, khát vọng **hòa bình**.",
+            "Vai trò chủ yếu: **Liên Xô, Mỹ, Anh**."
+          ] },
+          { title: "Quá trình hình thành (1941 – 1945)", points: [
+            "**1/1/1942** (Oa-sinh-tơn): 26 nước ký **Tuyên bố Liên hợp quốc**.",
+            "**Cuối 1943** – Hội nghị **Tê-hê-ran**: Liên Xô, Mỹ, Anh khẳng định quyết tâm thành lập LHQ.",
+            "**2/1945** – Hội nghị **I-an-ta**: quyết định thành lập LHQ.",
+            "**4 – 6/1945** – Hội nghị **Xan Phran-xi-xcô** (Mỹ): thông qua **Hiến chương** LHQ.",
+            "Quá trình dài, qua nhiều hội nghị (Muy-nich 1938 KHÔNG liên quan)."
+          ] },
+          { title: "Mục tiêu và nguyên tắc (Hiến chương)", points: [
+            "Mục tiêu **hàng đầu**, là cơ sở cho các mục tiêu khác: duy trì **hòa bình, an ninh quốc tế**.",
+            "Các mục tiêu khác: phát triển quan hệ hữu nghị, hợp tác quốc tế (kinh tế, xã hội), thúc đẩy quyền con người.",
+            "Nguyên tắc: tôn trọng nghĩa vụ và luật pháp quốc tế; giải quyết tranh chấp bằng **biện pháp hòa bình**; **không can thiệp** công việc nội bộ của nước nào.",
+            "Cơ quan chính được quy định: **Hội đồng Bảo an**."
+          ] },
+          { title: "Vai trò của Liên hợp quốc", points: [
+            "**Hòa bình, an ninh**: ngăn chiến tranh thế giới mới, hòa giải xung đột; Hiệp ước cấm phổ biến vũ khí hạt nhân.",
+            "**Thủ tiêu thuộc địa**: năm **1960** thông qua Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân.",
+            "**Nhân quyền**: Tuyên ngôn Quốc tế Nhân quyền (**1948**); công ước về quyền trẻ em, phụ nữ.",
+            "**Thúc đẩy phát triển**: hỗ trợ vốn, tri thức, kĩ thuật, nhân lực; Mục tiêu Thiên niên kỷ (**2000**: xóa đói giảm nghèo, bình đẳng giới); Chương trình nghị sự **2030** (thông qua **2015**).",
+            "**Nhân đạo**: cứu trợ, ví dụ Cao ủy Tị nạn (UNHCR)."
+          ] },
+          { title: "Hạn chế và liên hệ Việt Nam", points: [
+            "Hiệu quả hoạt động bị ảnh hưởng bởi so sánh lực lượng, lợi ích các quốc gia và khó khăn tài chính, nên cần **cải tổ toàn diện**.",
+            "Việt Nam ủng hộ mục tiêu của LHQ; hai lần là ủy viên không thường trực HĐBA (**2008 – 2009** và **2020 – 2021**), nâng cao vị thế quốc tế.",
+            "Lợi ích khi gia nhập: nâng cao năng lực, thể chế luật pháp, cải cách hành chính."
+          ] },
+          { title: "Dễ nhầm", points: [
+            "\"Giải quyết tranh chấp bằng biện pháp hòa bình\" là **nguyên tắc**, không phải mục tiêu.",
+            "\"Hợp tác kinh tế, xã hội\" là **mục tiêu**, không phải nguyên tắc.",
+            "LHQ **không** can thiệp công việc nội bộ các nước."
+          ] }
+        ],
+          questions: [
+      { id: "history-1-B-01", type: "single", tag: "Biết",
+        question: "Yêu cầu bức thiết nào sau đây được đặt ra cho các nước Đồng minh khi cuộc chiến tranh thế giới thứ hai bước vào giai đoạn cuối?",
+        options: [
+          "Đẩy mạnh xu thế khu vực hóa và toàn cầu hóa kinh tế.",
+          "Thành lập tổ chức Hội Quốc liên để ngăn chặn chiến tranh.",
+          "Tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới.",
+          "Thủ tiêu tất cả các hình thức của chế độ phân biệt chủng tộc."
+        ],
+        answer: 2 },
+      { id: "history-1-B-02", type: "single", tag: "Biết",
+        question: "Tổ chức Liên hợp quốc ra đời trong bối cảnh nào sau đây?",
+        options: [
+          "Chiến tranh thế giới thứ hai bước vào giai đoạn cuối.",
+          "Chiến tranh thế giới thứ hai đã hoàn toàn kết thúc.",
+          "Chiến tranh thế giới thứ hai mới bắt đầu bùng nổ.",
+          "Chiến tranh thế giới thứ nhất bước vào giai đoạn cuối."
+        ],
+        answer: 0 },
+      { id: "history-1-B-03", type: "single", tag: "Biết",
+        question: "Tổ chức Liên hợp quốc được thành lập trong bối cảnh nhân dân thế giới ý thức sâu sắc về hậu quả tàn khốc của",
+        options: [
+          "Chiến tranh lạnh.",
+          "Khủng hoảng kinh tế.",
+          "Phân hóa giàu nghèo.",
+          "Chiến tranh thế giới."
+        ],
+        answer: 3 },
+      { id: "history-1-B-04", type: "single", tag: "Biết",
+        question: "Nguyên thủ các quốc gia nào tham dự Hội nghị lanta (2-1945)?",
+        options: [
+          "Liên Xô, Mĩ, Anh.",
+          "Liên Xô, Mĩ, Pháp.",
+          "Hà Lan, Anh, Mĩ.",
+          "Ấn Độ, Anh, Pháp."
+        ],
+        answer: 0 },
+      { id: "history-1-B-05", type: "single", tag: "Biết",
+        question: "Nhằm duy trì hoà bình và an ninh thế giới sau chiến tranh, Hội nghị I-an-ta (2/1945) có quyết định quan trọng nào sau đây?",
+        options: [
+          "Thành lập Ban Thư kí Liên hợp quốc.",
+          "Thành lập tổ chức Hội Quốc liên.",
+          "Thành lập tổ chức Liên hợp quốc.",
+          "Duy trì và mở rộng Hội Quốc liên."
+        ],
+        answer: 2 },
+      { id: "history-1-B-06", type: "single", tag: "Biết",
+        question: "Các nước Đồng minh đã thành lập tổ chức nào để phù hợp với khát vọng được sống trong hòa bình của nhân dân thế giới?",
+        options: [
+          "Hội Quốc Liên.",
+          "Liên hợp quốc.",
+          "Liên minh châu Âu.",
+          "Ngân hàng thế giới."
+        ],
+        answer: 1 },
+      { id: "history-1-B-07", type: "single", tag: "Biết",
+        question: "Quá trình hình thành Liên hợp quốc diễn ra trong khoảng thời gian nào sau đây?",
+        options: [
+          "Từ năm 1941 đến năm 1943.",
+          "Từ năm 1941 đến năm 1944.",
+          "Từ năm 1941 đến năm 1945.",
+          "Từ năm 1941 đến năm 1946."
+        ],
+        answer: 2 },
+      { id: "history-1-B-08", type: "single", tag: "Biết",
+        question: "Sự ra đời của tổ chức Liên hợp quốc gắn với vai trò chủ yếu của quốc gia nào sau đây?",
+        options: [
+          "Mỹ.",
+          "Đức.",
+          "Trung Quốc.",
+          "Nhật Bản."
+        ],
+        answer: 0 },
+      { id: "history-1-B-09", type: "single", tag: "Biết",
+        question: "Sự ra đời của tổ chức Liên hợp quốc gắn với vai trò chủ yếu của quốc gia nào sau đây?",
+        options: [
+          "Liên Xô.",
+          "Đức.",
+          "Trung Quốc.",
+          "Nhật Bản."
+        ],
+        answer: 0 },
+      { id: "history-1-B-10", type: "single", tag: "Biết",
+        question: "Quá trình hình thành Liên hợp quốc gắn liền với vai trò quan trọng của các quốc gia nào?",
+        options: [
+          "Liên Xô, Trung Quốc, Đức.",
+          "Liên Xô, Mỹ, Anh.",
+          "Liên Xô, Mỹ, Đức.",
+          "Mỹ, Anh, Pháp."
+        ],
+        answer: 1 },
+      { id: "history-1-B-11", type: "single", tag: "Biết",
+        question: "Tại Hội nghị Tê-hê-ran (I-ran), nguyên thủ 3 nước Liên Xô, Mĩ, Anh khẳng định",
+        options: [
+          "quyết tâm thành lập Liên hợp quốc.",
+          "nhanh chóng đánh bại phát xít Đức.",
+          "nguyên tắc phân chia nước Đức.",
+          "thành lập quân đội giữ gìn hòa bình."
+        ],
+        answer: 0 },
+      { id: "history-1-B-12", type: "single", tag: "Biết",
+        question: "Ngày 1/1/1942, tại Oa-sinh-tơn (Mỹ), đại diện của 26 nước đã ký văn kiện nào sau đây?",
+        options: [
+          "Tuyên bố Liên hợp quốc.",
+          "Hiệp ước Maxtrich.",
+          "Hiệp ước Rôma.",
+          "Hiệp định Muynich."
+        ],
+        answer: 0 },
+      { id: "history-1-B-13", type: "single", tag: "Biết",
+        question: "Một trong những cơ quan chính của Liên hợp quốc được quy định trong Hiến chương Liên hợp quốc (năm 1945) là",
+        options: [
+          "Ngân hàng Thế giới.",
+          "Quỹ Nhi đồng.",
+          "Hội đồng Bảo an.",
+          "Tổ chức Thương mại Thế giới."
+        ],
+        answer: 2 },
+      { id: "history-1-B-14", type: "single", tag: "Biết",
+        question: "Năm 1945, bản Hiến chương Liên hợp quốc được thông qua tại",
+        options: [
+          "hội nghị Tam cường I-an-ta.",
+          "hội nghị Xan Phran-xi-xcô.",
+          "hội nghị Bàn Môn Điếm.",
+          "hội nghị Vécxai - Oasinhtơn."
+        ],
+        answer: 1 },
+      { id: "history-1-B-15", type: "single", tag: "Biết",
+        question: "Duy trì hòa bình và an ninh thế giới, phát triển các mối quan hệ hữu nghị và tiến hành hợp tác quốc tế giữa các nước là mục đích của",
+        options: [
+          "Liên hợp quốc.",
+          "Hội Quốc liên.",
+          "Hội Liên hiệp quốc tế.",
+          "Liên minh châu Âu."
+        ],
+        answer: 0 },
+      { id: "history-1-B-16", type: "single", tag: "Biết",
+        question: "Một trong những văn kiện quan trọng được Liên hợp quốc ban hành nhằm duy trì hòa bình và an ninh thế giới là",
+        options: [
+          "Tuyên ngôn Quốc tế Nhân quyền.",
+          "Chương trình nghị sự 2030.",
+          "Công ước Liên hợp quốc về quyền trẻ em.",
+          "Hiệp ước cấm phổ biến vũ khí hạt nhân."
+        ],
+        answer: 3 },
+      { id: "history-1-B-17", type: "single", tag: "Biết",
+        question: "Đâu là một trong những mục tiêu của tổ chức Liên hợp quốc?",
+        options: [
+          "Cân bằng quyền lực các nước.",
+          "Xoá bỏ chế độ thực dân kiểu cũ.",
+          "Duy trì hòa bình, an ninh thế giới.",
+          "Thực hiện quyền tự do hàng hải."
+        ],
+        answer: 2 },
+      { id: "history-1-B-18", type: "single", tag: "Biết",
+        question: "Một trong những biểu hiện duy trì hòa bình và an ninh quốc tế của Liên hợp quốc là",
+        options: [
+          "thông qua cơ quan chuyên môn thúc đẩy sự phát triển kinh tế.",
+          "ngăn chặn không để xảy ra một cuộc chiến tranh thế giới mới.",
+          "thực hiện nhiều dự án, chương trình hỗ trợ cải thiện đời sống.",
+          "thực hiện các hoạt động chống biến đổi khí hậu và dịch bệnh."
+        ],
+        answer: 1 },
+      { id: "history-1-B-19", type: "single", tag: "Biết",
+        question: "Một trong những nguyên tắc hoạt động của Liên hợp quốc được quy định trong Hiến chương Liên hợp quốc (năm 1945) là",
+        options: [
+          "tôn trọng các nghĩa vụ và luật pháp quốc tế.",
+          "tôn trọng quyết định của 5 nước Uỷ viên thường trực.",
+          "không đưa quân đội Liên hợp quốc vào các khu vực.",
+          "tôn trọng độc lập của 50 nước sáng lập Liên hợp quốc."
+        ],
+        answer: 0 },
+      { id: "history-1-B-20", type: "single", tag: "Biết",
+        question: "Mục tiêu và nguyên tắc hoạt động của tổ chức Liên hợp quốc đều được quy định rõ trong văn kiện nào sau đây?",
+        options: [
+          "Công ước Liên hợp quốc về Luật biển.",
+          "Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân.",
+          "Hiến chương Liên hợp quốc.",
+          "Tuyên ngôn Quốc tế về Nhân quyền."
+        ],
+        answer: 2 },
+      { id: "history-1-H-01", type: "single", tag: "Hiểu",
+        question: "Tổ chức Liên hợp quốc ra đời không phải là kết quả của những quyết định tại hội nghị nào?",
+        options: [
+          "Tê-hê-ran (I-ran, năm 1943).",
+          "I-an-ta (Liên Xô, năm 1945).",
+          "Muy-nich (Đức, năm 1938).",
+          "Xan Phran-xi-xcô (Mĩ, năm 1945)."
+        ],
+        answer: 2 },
+      { id: "history-1-H-02", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây không phản ánh đúng bối cảnh lịch sử hình thành tổ chức Liên hợp quốc?",
+        options: [
+          "Nhân dân thế giới có khát vọng được chung sống hòa bình.",
+          "Chủ nghĩa phát xít xuất hiện và cầm quyền ở nhiều nước.",
+          "Nhu cầu thành lập tổ chức quốc tế mới thay thế tổ chức cũ.",
+          "Xan Phran-xi-xcô (Mĩ, năm 1945)."
+        ],
+        answer: 3 },
+      { id: "history-1-H-03", type: "single", tag: "Hiểu",
+        question: "Mục tiêu nào sau đây của Liên hợp quốc là cơ sở cho các mục tiêu khác",
+        options: [
+          "duy trì hòa bình an ninh quốc tế.",
+          "thúc đẩy quan hệ hữu nghị giữa các dân tộc.",
+          "giải quyết các vấn đề về an ninh kinh tế xã hội.",
+          "đảm bảo quyền con người, không phân biệt chủng tộc."
+        ],
+        answer: 0 },
+      { id: "history-1-H-04", type: "single", tag: "Hiểu",
+        question: "Tổ chức Liên hợp quốc được thành lập năm 1945 nhằm đáp ứng nhu cầu nào sau đây của toàn thể nhân loại?",
+        options: [
+          "Bảo vệ hòa bình, an ninh toàn thế giới.",
+          "Chống biến đổi khí hậu trên toàn cầu.",
+          "Nâng cao đời sống tinh thần con người.",
+          "Thúc đẩy khoa học công nghệ phát triển."
+        ],
+        answer: 0 },
+      { id: "history-1-H-05", type: "single", tag: "Hiểu",
+        question: "Nhận xét nào sau đây phản ánh đúng về sự thành lập tổ chức Liên hợp quốc?",
+        options: [
+          "Là kết quả của những thỏa thuận giữa Liên Xô và Anh.",
+          "Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.",
+          "Các nước phát xít giữ vai trò chủ đạo trong việc thành lập.",
+          "Quá trình thành lập lâu dài và chịu ảnh hưởng của Chiến tranh lạnh."
+        ],
+        answer: 1 },
+      { id: "history-1-H-06", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây không phản ánh đúng mục tiêu hoạt động của tổ chức Liên hợp quốc?",
+        options: [
+          "Thúc đẩy quan hệ hữu nghị giữa các dân tộc trên thế giới.",
+          "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.",
+          "Hợp tác quốc tế để giải quyết các vấn đề kinh tế, xã hội.",
+          "Trung tâm điều hòa các nỗ lực quốc tế vì mục tiêu chung."
+        ],
+        answer: 1 },
+      { id: "history-1-H-07", type: "single", tag: "Hiểu",
+        question: "Nhận xét nào sau đây đúng về sự ra đời của tổ chức Liên hợp quốc?",
+        options: [
+          "Có sự tham gia chuẩn bị của các nước mới giành độc lập.",
+          "Quá trình hình thành kéo dài với nhiều hội nghị quan trọng.",
+          "Nhanh chóng hoàn thiện về mặt tổ chức, gắn với vai trò của Mỹ.",
+          "Được chính thức thành lập ngay trong Chiến tranh thế giới thứ hai."
+        ],
+        answer: 1 },
+      { id: "history-1-H-08", type: "single", tag: "Hiểu",
+        question: "Nội dung nào thể hiện vai trò duy trì hoà bình, an ninh quốc tế của tổ chức Liên hợp quốc?",
+        options: [
+          "Tạo môi trường thuận lợi để thúc đẩy hợp tác quốc tế về kinh tế giữa các nước.",
+          "Có vai trò quan trọng trong cuộc đấu tranh nhằm thủ tiêu hệ thống thuộc địa.",
+          "Góp phần vào các hoạt động chống biến đổi khí hậu, dịch bệnh,... trên thế giới.",
+          "Đóng vai trò quan trọng trong việc xây dựng các quỹ tài trợ quốc tế để phát triển."
+        ],
+        answer: 1 },
+      { id: "history-1-H-09", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây không phải là nguyên tắc hoạt động của Liên hợp quốc?",
+        options: [
+          "Không can thiệp vào công việc nội bộ của bất kì nước nào.",
+          "Hợp tác quốc tế để giải quyết các vấn đề kinh tế, xã hội.",
+          "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.",
+          "Tôn trọng các nghĩa vụ quốc tế và luật pháp quốc tế."
+        ],
+        answer: 1 },
+      { id: "history-1-H-10", type: "single", tag: "Hiểu",
+        question: "Tuyên ngôn Quốc tế Nhân quyền (1948) thể hiện được vai trò nào của Liên hợp quốc?",
+        options: [
+          "Thúc đẩy quan hệ hữu nghị giữa các dân tộc trên thế giới.",
+          "Thúc đẩy phát triển kinh tế, văn hóa.",
+          "Góp phần bảo đảm quyền con người.",
+          "Góp phần giải trừ chủ nghĩa quân bị."
+        ],
+        answer: 2 },
+      { id: "history-1-H-11", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây phản ánh không đúng nguyên tắc hoạt động của tổ chức Liên hợp quốc?",
+        options: [
+          "Bình đẳng chủ quyền giữa các quốc gia.",
+          "Giải quyết tranh chấp bằng biện pháp hòa bình.",
+          "Không sử dụng vũ lực hoặc đe dọa vũ lực với nhau.",
+          "Có thể can thiệp vào công việc nội bộ của các nước."
+        ],
+        answer: 3 },
+      { id: "history-1-H-12", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây phản ánh không đúng biểu hiện duy trì hòa bình và an ninh quốc tế của Liên hợp quốc?",
+        options: [
+          "Xây dựng các công ước quốc tế về chống chạy đua vũ trang.",
+          "Ngăn chặn không để xảy ra một cuộc chiến tranh thế giới mới.",
+          "Làm trung tâm hòa giải các cuộc xung đột tại nhiều khu vực.",
+          "Phát triển, hợp tác kinh tế và thúc đẩy thương mại quốc tế."
+        ],
+        answer: 3 },
+      { id: "history-1-H-13", type: "single", tag: "Hiểu",
+        question: "Hoạt động nào sau đây thể hiện vai trò thúc đẩy phát triển của Liên hợp quốc?",
+        options: [
+          "Đề ra nhiều chương trình hỗ trợ các nước về vốn, tri thức, kĩ thuật.",
+          "Đề ra mục tiêu phát triển Thiên niên kỉ nhằm xoá bỏ đói nghèo.",
+          "Kí điều ước quốc tế về quyền phụ nữ và trẻ em.",
+          "Giải quyết tranh chấp quốc tế bằng biện pháp hoà bình."
+        ],
+        answer: 0 },
+      { id: "history-1-H-14", type: "single", tag: "Hiểu",
+        question: "Một trong những mục tiêu mang tính toàn cầu của Chương trình nghị sự 2030 vì sự phát triển bền vững (năm 2015) là",
+        options: [
+          "giáo dục có chất lượng.",
+          "giải quyết nạn di dân.",
+          "cắt giảm đầu tư công.",
+          "trợ cấp thất nghiệp."
+        ],
+        answer: 0 },
+      { id: "history-1-H-15", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây là vai trò của Liên hợp quốc về thúc đẩy phát triển kinh tế tài chính, thương mại quốc tế, nâng cao đời sống người dân?",
+        options: [
+          "Giảm lãi suất cho vay ở hầu hết các nước phát triển.",
+          "Hỗ trợ các nước về vốn, tri thức, kĩ thuật, nhân lực.",
+          "Cải thiện năng lực công nghệ thông tin.",
+          "Hoàn thành phổ cập giáo dục đại học."
+        ],
+        answer: 1 },
+      { id: "history-1-H-16", type: "single", tag: "Hiểu",
+        question: "Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến năm 2030 của Liên hợp quốc?",
+        options: [
+          "Chống nạn thất nghiệp.",
+          "Quyền tự do, dân sinh, dân chủ.",
+          "Chống bạo lực gia đình.",
+          "Năng lượng sạch và bền vững."
+        ],
+        answer: 3 },
+      { id: "history-1-H-17", type: "single", tag: "Hiểu",
+        question: "Hoạt động nào sau đây thể hiện vai trò thúc đẩy phát triển của Liên hợp quốc?",
+        options: [
+          "Đề ra nhiều chương trình hỗ trợ các nước về vốn, tri thức, kĩ thuật.",
+          "Đề ra mục tiêu phát triển Thiên niên kỉ nhằm xoá bỏ đói nghèo.",
+          "Kí điều ước quốc tế về quyền phụ nữ và trẻ em.",
+          "Giải quyết tranh chấp quốc tế bằng biện pháp hoà bình."
+        ],
+        answer: 0 },
+      { id: "history-1-H-18", type: "single", tag: "Hiểu",
+        question: "Tuyên ngôn Quốc tế Nhân quyền (1948) thể hiện được vai trò nào của Liên hợp quốc?",
+        options: [
+          "Duy trì hòa bình và an ninh quốc tế.",
+          "Thúc đẩy phát triển kinh tế, văn hóa.",
+          "Góp phần bảo đảm quyền con người.",
+          "Góp phần giải trừ chủ nghĩa quân bị."
+        ],
+        answer: 2 },
+      { id: "history-1-H-19", type: "single", tag: "Hiểu",
+        question: "Nội dung nào được Liên hợp quốc chú trọng, xem đó là công cụ phát triển kinh tế các nước thành viên",
+        options: [
+          "xây dựng bản sắc văn hoá chung.",
+          "phát triển hợp tác kinh tế, thương mại quốc tế.",
+          "đảm bảo quyền cơ bản của con người.",
+          "Giải quyết tranh chấp quốc tế bằng biện pháp hoà bình."
+        ],
+        answer: 1 },
+      { id: "history-1-H-20", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây là mục tiêu, hành động của Chương trình nghị sự 2030 vì sự phát triển bền vững (thông qua năm 2015)?",
+        options: [
+          "Phát triển kinh tế các nước thành viên.",
+          "Duy trì an ninh trên biển.",
+          "Bảo vệ nguồn nước ngọt.",
+          "Hoà bình, công lí và các thể chế mạnh mẽ."
+        ],
+        answer: 3 },
+      { id: "history-1-V-01", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây không phản ánh đúng bối cảnh lịch sử hình thành tổ chức Liên hợp quốc?",
+        options: [
+          "Nhân dân thế giới có khát vọng được chung sống hòa bình.",
+          "Chủ nghĩa phát xít xuất hiện và cầm quyền ở nhiều nước.",
+          "Ý thức của các nước Đồng minh về việc tổ chức thế giới.",
+          "Nhu cầu thành lập tổ chức quốc tế mới thay thế tổ chức cũ."
+        ],
+        answer: 1 },
+      { id: "history-1-V-02", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào sau đây về sự thành lập tổ chức Liên hợp quốc là không đúng?",
+        options: [
+          "Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.",
+          "Quá trình hình thành trải qua nhiều hội nghị quốc tế khác nhau.",
+          "Các cường quốc Đồng minh giữ vai trò chủ đạo trong việc thành lập.",
+          "Quá trình thành lập lâu dài và chịu ảnh hưởng của chiến tranh lạnh."
+        ],
+        answer: 3 },
+      { id: "history-1-V-03", type: "single", tag: "Vận dụng",
+        question: "“Hiến chương này hoàn toàn không cho phép Liên hợp quốc được can thiệp vào những công việc thực chất thuộc thẩm quyền nội bộ của bất cứ quốc gia nào, và không đòi hỏi các thành viên của Liên hợp quốc phải đưa những công việc loại này ra giải quyết theo quy định của Hiến chương”. (Trích: Điều 2, Hiến chương Liên hợp quốc) Đoạn tư liệu trên phản ánh nguyên tắc hoạt động nào của tổ chức Liên hợp quốc?",
+        options: [
+          "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.",
+          "Từ bỏ đe dọa bằng hoặc sử dụng vũ lực trong quan hệ quốc tế.",
+          "Không can thiệp vào công việc nội bộ của bất kì nước nào.",
+          "Bình đẳng về chủ quyền của tất cả các quốc gia thành viên."
+        ],
+        answer: 2 },
+      { id: "history-1-V-04", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây vừa là nguyên tắc hoạt động của Liên hợp quốc, vừa là nguyên tắc của Việt Nam trong việc giải quyết các vấn đề ở Biển Đông hiện nay?",
+        options: [
+          "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.",
+          "Không can thiệp vào công việc nội bộ của bất kì nước nào.",
+          "Sử dụng vũ lực là con đường duy nhất để giải quyết xung đột.",
+          "Bình đẳng về chủ quyền của tất cả các quốc gia trên thế giới."
+        ],
+        answer: 0 },
+      { id: "history-1-V-05", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào là cơ sở để tổ chức Liên hợp quốc đề ra nguyên tắc “Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình”?",
+        options: [
+          "Hòa bình là nguyện vọng, xu thế của các dân tộc trên thế giới.",
+          "Hòa bình là điều kiện quyết định để duy trì chế độ chính trị.",
+          "Mục đích của Liên hợp quốc là cân bằng lợi ích của các nước.",
+          "Tranh chấp, xung đột xảy ra ở hầu hết các khu vực trên thế giới."
+        ],
+        answer: 0 },
+      { id: "history-1-V-06", type: "single", tag: "Vận dụng",
+        question: "Việc Việt Nam được bầu làm ủy viên không thường trực Hội đồng Bảo an Liên hợp quốc nhiệm kì 2008 – 2009 và 2020 – 2021 có ý nghĩa nào sau đây?",
+        options: [
+          "Tạo cơ hội để Việt Nam hòa nhập với cộng đồng quốc tế.",
+          "Nâng cao vị thế quốc tế của Việt Nam trên trường thế giới.",
+          "Nâng cao hiệu quả hợp tác kinh tế của Việt Nam với các nước.",
+          "Thúc đẩy việc ký kết các hiệp định thương mại của nước ta."
+        ],
+        answer: 1 },
+      { id: "history-1-V-07", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào sau đây phản ánh đúng vai trò của Liên hợp quốc trước những biến động của tình hình thế giới hiện nay?",
+        options: [
+          "Là trung gian hòa giải các cuộc xung đột nhằm duy trì hòa bình, an ninh thế giới.",
+          "Đi đầu trong cuộc đấu tranh bảo vệ chủ quyền và quyền tự quyết của các dân tộc.",
+          "Là tổ chức có vai trò quyết định ngăn chặn đại dịch đe dọa sức khỏe của loài người.",
+          "Là diễn đàn đi đầu trong việc bảo vệ các di sản trên thế giới, cứu trợ nhân đạo."
+        ],
+        answer: 0 },
+      { id: "history-1-V-08", type: "single", tag: "Vận dụng",
+        question: "Hiệp hội các quốc gia Đông Nam Á và tổ chức Liên hợp quốc đều chú trọng đến",
+        options: [
+          "hợp tác phát triển giữa các thành viên.",
+          "việc hạn chế những ảnh hưởng của Mỹ.",
+          "xây dựng các chế độ xã hội khác nhau.",
+          "xây đựng tiềm lực kinh tế và quân sự."
+        ],
+        answer: 0 },
+      { id: "history-1-V-09", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào sau đây là đúng về tổ chức Liên Hợp quốc?",
+        options: [
+          "Là một nhà nước siêu quốc gia.",
+          "Là một tổ chức đa phương toàn cầu.",
+          "Là một trung tâm kinh tế - tải chính lớn.",
+          "Là liên minh khu vực lớn nhất hành tinh."
+        ],
+        answer: 1 },
+      { id: "history-1-V-10", type: "single", tag: "Vận dụng",
+        question: "Một trong những lợi ích với Việt Nam khi gia nhập tổ chức Liên hợp quốc là",
+        options: [
+          "nâng cao năng lực, thể chế luật pháp và cải cách hành chính.",
+          "giải quyết được tình trạng chênh lệch giàu nghèo ở các vùng.",
+          "bảo đảm quyền con người và quyền của mọi công dân triệt để.",
+          "bảo vệ môi trường trong sạch, giữ được cảnh quan hệ sinh thái."
+        ],
+        answer: 0 },
+      { id: "history-1-T-01", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Duy trì hoà bình và an ninh quốc tế, và để đạt được mục đích đó, thi hành những biện pháp tập thể có hiệu quả để phòng ngừa và loại trừ các mối đe dọa hoà bình, cấm mọi hành vì xâm lược và phá hoại hoà bình khác, điều chỉnh hoặc giải quyết các vụ tranh chấp hoặc những tình thế có tính chất quốc tế có thể đưa đến sự phá hoại hoà bình, bằng phương pháp hòa bình theo đúng nguyên tắc của công lý và pháp luật quốc tế”. (Trích: Điều 1, Hiến chương Liên hợp quốc)",
+        statements: [
+          { text: "Theo đoạn tư liệu trên, mục tiêu của Liên hợp quốc được thể hiện tại Điều 1 của Hiến chương Liên hợp quốc.", answer: true },
+          { text: "Hiến chương có nhiều mục tiêu, trong đó mục đích quan trọng nhất là duy trì hoà bình và an ninh quốc tế.", answer: true },
+          { text: "Mục tiêu duy trì hoà bình, an ninh quốc tế được chú trọng và là cơ sở thứ yếu để thực hiện các mục tiêu khác.", answer: false },
+          { text: "Mục tiêu duy trì hoà bình và an ninh thế giới là cơ sở quan trọng nhất để kết thúc các cuộc xung đột, nội chiến trên thế giới.", answer: false }
+        ] },
+      { id: "history-1-T-02", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Mọi người sinh ra đều được tự do và bình đẳng về nhân quyền và các quyền. Mọi người đều được tạo hóa ban cho lí trí, lương tâm và cần phải đối xử với nhau bằng tình anh em”. (Trích: Điều 1, Tuyên ngôn Quốc tế Nhân quyền của Liên hợp quốc)",
+        statements: [
+          { text: "Tuyên ngôn Quốc tế Nhân quyền của Liên hợp quốc là tuyên ngôn về các quyền của con người nói chung, không có sự phân biệt nước lớn, nước nhỏ.", answer: true },
+          { text: "Theo Điều 1 của Tuyên ngôn Quốc tế Nhân quyền, chỉ các dân tộc trên thế giới sau khi giành được độc lập mới có quyền tự do và bình đẳng.", answer: false },
+          { text: "Tuyên ngôn Quốc tế Nhân quyền đã góp phần xây dựng một thế giới công bằng hơn, tạo cơ hội phát triển cho tất cả mọi người ở mọi quốc gia trên thế giới.", answer: true },
+          { text: "Trong việc bảo đảm quyền con người, Liên hợp quốc chỉ tập trung bảo vệ quyền phụ nữ và trẻ em ở các nước đang chịu “di chứng” của chủ nghĩa thực dân.", answer: false }
+        ] },
+      { id: "history-1-T-03", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng dữ kiện sau về quá trình hình thành tổ chức Liên hợp quốc. 1/1/1942 – Đại diện 26 nước đã kí bản Tuyên bố Liên hợp quốc, cam kết thành lập một tổ chức quốc tế vì hòa bình và an ninh sau chiến tranh.; 28/11 1/12/1943 – Tại hội nghị Tê-hê-ran (I-ran), ba nước Liên Xô, Mỹ, Anh khẳng định quyết tâm thành lập Liên hợp quốc thay cho Hội Quốc liên.; 2/1945 – Ba nước Liên Xô, Mỹ, Anh họp hội nghị tại I-an-ta ra quyết định về việc thành lập Liên hợp quốc và đồng ý triệu tập hội nghị để thông qua Hiến chương Liên hợp quốc.; 25/4/1945 26/6/1945 – Hội nghị quốc tế được tổ chức tại Xan Phran-xi-xcô (Mỹ) đã thông qua bản Hiến chương Liên hợp quốc.; 24/10/ 1945 – Với sự phê chuẩn Hiến chương của các nước thành viên, Liên hợp quốc chính thức được thành lập.;",
+        statements: [
+          { text: "Theo quyết định của hội nghị I-an-ta, từ tháng 4 đến tháng 6/ 1945, một hội nghị quốc tế được tổ chức tại Xan Phran-xi-xcô (Mỹ) đã thông qua bản Hiến chương Liên hợp quốc.", answer: true },
+          { text: "Tổ chức Liên hợp quốc chính thức được thành lập khi cuộc chiến tranh thế giới thứ hai bước vào giai đoạn cuối.", answer: false },
+          { text: "Quá trình thành lập Liên hợp quốc diễn ra vào nửa đầu những năm 40 của thế kỉ XX, trải qua nhiều hội nghị quốc tế khác nhau.", answer: true },
+          { text: "Sự ra đời của Liên hợp quốc chứng tỏ duy trì hòa bình thế giới là vấn đề toàn cầu, cần có sự chung tay của toàn thể nhân loại và một công cụ để bảo vệ nó.", answer: true }
+        ] },
+      { id: "history-1-T-04", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Việt Nam luôn ủng hộ các mục tiêu hàng đầu của Liên hợp quốc, như duy trì hòa bình và an ninh, chống chạy đua vũ trang, giải trừ quân bị, ngăn ngừa và giải quyết các tranh chấp, xung đột bằng biện pháp hòa bình, tăng cường quan hệ hữu nghị giữa các dân tộc. Việt Nam cũng là nước tham gia ký kết nhiều điều ước quốc tế do Liên hợp quốc tổ chức”.",
+        statements: [
+          { text: "Duy trì hòa bình, an ninh thế giới là mục tiêu của Liên hợp quốc.", answer: true },
+          { text: "Liên hợp quốc ủng hộ việc chạy đua vũ trang để bảo vệ đất nước.", answer: false },
+          { text: "Liên hợp quốc đã góp phần chấm dứt Chiến tranh thế giới thứ hai và đảm bảo hòa bình bền vững cho nhân loại.", answer: false },
+          { text: "Từ khi gia nhập Liên hợp quốc, Việt Nam không dùng bạo lực để giải quyết vấn đề dân tộc.", answer: false }
+        ] },
+      { id: "history-1-T-05", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Tổ chức Liên hợp quốc ra đời thực sự có ý nghĩa to lớn trong đời sống chính trị quốc tế trong gần 60 năm qua. Đây là sự kiện quan trọng đánh dấu sự xuất hiện của các hoạt động ngoại giao đa phương hiện đại, một bước ngoặt quyết định trong lịch sử phát triển của nền ngoại giao đa phương nói chung. Gần 60 năm tồn tại và phát triển của mình, Liên hợp quốc có đóng góp rất quan trọng trong việc giữ gìn hoà bình và an ninh thế giới, những đóng góp đáng kể vào tiến trình phi thực dân hóa, những nỗ lực trong việc giải trừ quân bị và hạn chế sản xuất vũ khí hạt nhân...”. (Trần Nam Tiến (Chủ biên), Lịch sử quan hệ quốc tế hiện đại (1945-2000), Nxb Giáo dục, 2010, tr.24)",
+        statements: [
+          { text: "Tổ chức Liên hợp quốc có những đóng góp đáng kể vào tiến trình đấu tranh giải phóng dân tộc trên thế giới.", answer: true },
+          { text: "Tổ chức Liên hợp quốc ra đời đã mở đầu cho sự xuất hiện của các hoạt động ngoại giao song phương hiện đại.", answer: false },
+          { text: "Liên hợp quốc đã ban hành nhiều công ước về hạn chế sản xuất vũ khí hạt nhân.", answer: true },
+          { text: "Đoạn tư liệu trên đánh giá về các nguyên tắc hoạt động của tổ chức Liên hợp quốc.", answer: false }
+        ] },
+      { id: "history-1-T-06", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Duy trì hoà bình và an ninh quốc tế, để đạt được mục đích đó, thi hành những biện pháp tập thể có hiệu quả để phòng ngừa và loại trừ các mối đe doạ hoà bình, cấm mọi hành vi xâm lược và phá hoại hoà bình khác, điều chỉnh hoặc giải quyết các vụ tranh chấp hoặc những tình thế có tính chất quốc tế có thể đưa đến sự phá hoại hoà bình, bằng biện pháp hoà bình theo đúng nguyên tắc của công lí và pháp luật quốc tế”. (Trích: Điều 1, Hiến chương Liên hợp quốc)",
+        statements: [
+          { text: "Đoạn tư liệu thể hiện mục tiêu của Liên hợp quốc là duy trì hoà bình và an ninh quốc phòng cho tất cả các quốc gia.", answer: false },
+          { text: "Trong số các mục tiêu của Liên hợp quốc, duy trì hoà bình và an ninh quốc tế là mục tiêu được đặt lên hàng đầu.", answer: true },
+          { text: "Một trong những mục tiêu của Liên hợp quốc là giải quyết các vụ tranh chấp quốc tế bằng pháp luật của các quốc gia.", answer: false },
+          { text: "Ngày nay, Liên hợp quốc vẫn tiếp tục thực hiện mục tiêu giải quyết các vụ tranh chấp, xung đột quốc tế bằng biện pháp hoà bình.", answer: true }
+        ] },
+      { id: "history-1-T-07", type: "true_false", tag: "Đúng/Sai",
+        question: "Đọc đoạn tư liệu sau: “[Năm 1960] Đại hội đồng Liên hợp quốc đã thông qua bản Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân, trao trả độc lập cho các quốc gia và dân tộc thuộc địa. Đó là một sự kiện chính trị quan trọng. Như thế, Tuyên ngôn đã khẳng định các nước thực dân đã vi phạm nguyên tắc quan trọng nhất của luật pháp quốc tế; khẳng định rõ ràng cơ sở pháp lí quốc tế của cuộc đấu tranh giành độc lập của các dân tộc bị áp bức”. (Nguyễn Quốc Hùng, Nguyễn Hồng Quân, Liên hợp quốc và Lực lượng gìn giữ hòa bình Liên hợp quốc, NXB Chính trị Quốc gia, Hà Nội, 2008, (tr.46)",
+        statements: [
+          { text: "Liên hợp quốc đã đưa ra văn bản quan trọng nhằm thủ tiêu hệ thống thuộc địa của chủ nghĩa thực dân trên thế giới.", answer: true },
+          { text: "Bản Tuyên ngôn của Liên hợp quốc đã có tác động tiêu cực đến phong trào đấu tranh giải phóng ở các nước thuộc địa và phụ thuộc trên thế giới.", answer: false },
+          { text: "Lực lượng gìn giữ hòa bình của Liên hợp quốc giúp tổ chức này thực thi nhiệm vụ bảo vệ nền hòa bình của các nước thuộc địa.", answer: false },
+          { text: "Đây là một trong những văn bản quan trọng thể hiện vai trò và đóng góp của Liên hợp quốc vì sự tiến bộ của nhân loại.", answer: true }
+        ] },
+      { id: "history-1-T-08", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Chúng ta thừa nhận rằng, bên cạnh trách nhiệm riêng với các xã hội của chúng ta, chúng ta còn có một trách nhiệm chung là ủng hộ các nguyên tắc về nhân phẩm con người, về bình đẳng và công bằng ở cấp độ toàn cầu. Bởi vậy, với tư cách là những nhà lãnh đạo, chúng ta có một trách nhiệm với tất cả nhân dân thế giới, đặc biệt là với những người dễ bị tổn thương nhất, mà đặc biệt là với trẻ em của thế giới, đối tượng mà tương lai của chúng ta phụ thuộc vào”. (Trích các Mục tiêu phát triển Thiên niên kỷ, đã được Hội nghị Thượng đỉnh Thiên niên kỷ (9/2000) thông qua).",
+        statements: [
+          { text: "Liên hợp quốc đặc biệt chú ý đến trách nhiệm với trẻ em, đối tượng dễ bị tổn thương nhất.", answer: true },
+          { text: "Từ năm 2000, Liên hợp quốc thúc đẩy việc thực hiện các Mục tiêu phát triển Thiên niên kỷ.", answer: true },
+          { text: "Liên hợp quốc không có trách nhiệm nào khác ngoài bảo vệ, duy trì hoà bình, an ninh thế giới.", answer: false },
+          { text: "Các Mục tiêu phát triển Thiên niên kỷ của Liên hợp quốc nhằm xoá đói giảm nghèo, thực hiện bình đẳng giới.", answer: true }
+        ] },
+      { id: "history-1-T-09", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Liên hợp quốc đã có nhiều biện pháp, như đề cao các công ước, tuyên bố về quyền trẻ em, phụ nữ, về biến đổi khí hậu,... kêu gọi các nước ủng hộ sứ mệnh của Liên hợp quốc trong việc thúc đẩy phát triển con người. Lĩnh vực đặc biệt thể hiện vai trò của Liên hợp quốc trong lịch sử chính trị quốc tế đó là nhân đạo. Các hoạt động cứu trợ nhân đạo của Liên hợp quốc hiện nay ở những “điểm nóng” trên thế giới được cộng đồng quốc tế đánh giá cao. Cơ quan cứu trợ khẩn cấp của Liên hợp quốc có trách nhiệm ứng phó kịp thời và thúc đẩy các hoạt động nhân đạo. Hằng năm, Cao ủy Tị nạn Liên hợp quốc (UNHCR) giúp khoảng 32 triệu người trên 110 quốc gia; Chương trình lương thực thế giới là tổ chức nhân đạo lớn nhất hiện nay, cung cấp lương thực khẩn cấp trên toàn thế giới, trung bình cho 100 triệu người ở trên 80 quốc gia; phòng, chống và giúp khắc phục hậu quả thiên tai quy mô lớn, như trận động đất sóng thần Đại Tây Dương năm 2004, động đất tại Ha-i-ti năm 2010...",
+        statements: [
+          { text: "“… đề cao các công ước, tuyên bố về quyền trẻ em, phụ nữ” là một trong những biện pháp của tổ chức Liên hợp quốc nhằm mục tiêu cuối cùng là thúc đẩy sự phát triển con người.", answer: true },
+          { text: "Cao ủy Tị nạn Liên hợp quốc (UNHCR) là một trong những cơ quan, tổ chức chuyên môn của Liên hợp quốc nhằm thực hiện vai trò cứu trợ nhân đạo.", answer: true },
+          { text: "Các hoạt động cứu trợ nhân đạo của Liên hợp quốc hiện nay chỉ diễn ra ở những vùng được cho là “điểm nóng” trên thế giới.", answer: false },
+          { text: "Đoạn tư liệu cung cấp thông tin về vai trò của tổ chức Liên hợp quốc trong việc duy trì hòa bình và an ninh thế giới.", answer: false }
+        ] },
+      { id: "history-1-T-10", type: "true_false", tag: "Đúng/Sai",
+        question: "Đọc đoạn tư liệu: “ … do quá trình hình thành và phát triển của LHQ phản ánh bối cảnh và so sánh lực lượng trên thế giới, chịu tác động của lợi ích các quốc gia, bên cạnh đó là những khó khăn về tài chính và huy động nguồn lực, nên hiệu quả hoạt động của LHQ trên nhiều lĩnh vực còn hạn chế, chưa đáp ứng được với những thay đổi và thách thức toàn cầu mới cũng như những biến chuyển về so sánh lực lượng bên trong LHQ, nhất là việc gia tăng số lượng thành viên, trong một số trường hợp hoạt động không hiệu quả, thiếu minh bạch, bị lợi dụng và áp dụng tiêu chuẩn kép để gây sức ép và can thiệp”.",
+        statements: [
+          { text: "Một trong những nguyên nhân dẫn đến việc hoạt động không hiệu quả của tổ chức LHQ chính là do những biến chuyển về so sánh lực lượng bên trong của tổ chức này.", answer: true },
+          { text: "Đoạn tư liệu phản ánh những thách thức mà tổ chức Liên Hợp quốc phải đối diện với tình hình mới hiện nay.", answer: true },
+          { text: "LHQ là một tổ chức với vai trò chính là duy trì hòa bình an ninh thế giới vì vậy không bị chi phối bởi lợi ích giữa các quốc gia.", answer: false },
+          { text: "Để nâng cao hiệu quả hoạt động của LHQ, việc cải tổ Liên hợp quốc một cách toàn diện và có hệ thống, phù hợp với tình hình quốc tế mới là một yêu cầu cấp thiết khách quan.", answer: true }
+        ] }
+        ] },
+        { id: "history-2", title: "Bài 2", subtitle: "Trật tự thế giới trong Chiến tranh lạnh", summary: [
+          { title: "Hội nghị I-an-ta (2/1945)", points: [
+            "Bối cảnh: CTTG thứ hai sắp kết thúc; vấn đề cấp bách: nhanh chóng đánh bại hoàn toàn phát xít.",
+            "Tham dự: **Xta-lin** (Liên Xô), **Ru-dơ-ven** (Mỹ), **Sớc-sin** (Anh). Pháp không có mặt.",
+            "Quyết định: tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật; **thành lập LHQ**; Liên Xô tham chiến chống Nhật ở châu Á sau khi đánh bại Đức (điều kiện: giữ nguyên trạng, công nhận độc lập của Mông Cổ).",
+            "Nội dung tranh cãi nhất: **phân chia khu vực đóng quân và phạm vi ảnh hưởng**.",
+            "Cùng Hội nghị **Pốt-xđam** (1945): khép lại trật tự cũ, xác lập trật tự thế giới **hai cực I-an-ta**. I-an-ta chỉ là khuôn khổ, chưa hoàn chỉnh ngay."
+          ] },
+          { title: "Phạm vi ảnh hưởng", points: [
+            "**Liên Xô**: Đông Đức, Đông Béc-lin và các nước Đông Âu.",
+            "**Mỹ và phương Tây**: Tây Âu; Đông Nam Á, Nam Á, Tây Á vẫn thuộc phương Tây (bất lợi cho cách mạng Việt Nam).",
+            "Triều Tiên chia theo **vĩ tuyến 38**. **Phần Lan** và **Áo** không thuộc phạm vi ảnh hưởng của các cường quốc."
+          ] },
+          { title: "Đặc trưng trật tự hai cực (1945 – 1991)", points: [
+            "**Hai cực, hai phe**: Mỹ đứng đầu tư bản chủ nghĩa, Liên Xô đứng đầu xã hội chủ nghĩa; quy mô toàn cầu.",
+            "Nguyên nhân đối đầu: **đối lập mục tiêu và chiến lược** (ý thức hệ, kinh tế, địa – chính trị); quan hệ chuyển từ đồng minh sang đối đầu.",
+            "Hạn chế: phục vụ lợi ích cường quốc thắng trận, chia cắt quốc gia (Đức), các tổ chức quốc tế bị giới hạn trong mâu thuẫn Xô – Mỹ."
+          ] },
+          { title: "Chiến tranh lạnh (1947 – 1989)", points: [
+            "Khởi đầu: **Thông điệp Tơ-ru-man** (12/3/1947), Mỹ chống Liên Xô, muốn bá chủ thế giới.",
+            "Kinh tế: **Kế hoạch Mác-san** (1947, Mỹ) đối lập **Hội đồng tương trợ kinh tế** (1949, Liên Xô).",
+            "Quân sự: **NATO** (4/1949) đối lập **Vác-sa-va** (1955); chạy đua vũ trang.",
+            "Chiến tranh cục bộ: Triều Tiên (1950 – 1953), Đông Dương, Việt Nam (1954 – 1975). Bức tường Béc-lin là biểu tượng.",
+            "Đặc điểm: Xô – Mỹ **tránh đối đầu quân sự trực tiếp** (sợ chiến tranh thế giới mới); vẫn có hòa hoãn bộ phận."
+          ] },
+          { title: "Hai giai đoạn của trật tự hai cực", points: [
+            "**1945 – đầu thập niên 70**: xác lập và phát triển.",
+            "**Đầu thập niên 70 – 1991**: suy yếu và sụp đổ.",
+            "Hòa hoãn Đông – Tây: gặp gỡ cấp cao Xô – Mỹ, **1972** thỏa thuận hạn chế vũ khí chiến lược (Hiệp ước chống tên lửa đạn đạo); Hiệp định Pa-ri (1973).",
+            "**12/1989** – đảo Man-ta: Bu-sơ và Gooc-ba-chốp tuyên bố **chấm dứt Chiến tranh lạnh**; **1991** Liên Xô tan rã, trật tự hai cực sụp đổ."
+          ] },
+          { title: "Nguyên nhân sụp đổ và tác động", points: [
+            "Chạy đua vũ trang khiến Xô – Mỹ **tốn kém, suy giảm thế mạnh**; Nhật Bản, Tây Âu vươn lên.",
+            "Cách mạng Trung Quốc thắng lợi (**1949**) là bước đột phá đầu tiên làm xói mòn trật tự; phong trào giải phóng dân tộc phát triển.",
+            "Yếu tố **quyết định**: chủ nghĩa xã hội ở Liên Xô khủng hoảng và tan rã.",
+            "Tác động: mở rộng quan hệ quốc tế, thúc đẩy **toàn cầu hóa**; một số cường quốc nâng cao vị trí.",
+            "Với Việt Nam: quốc tế hóa chiến tranh, là nơi hội tụ mâu thuẫn Đông – Tây."
+          ] },
+          { title: "Dễ nhầm", points: [
+            "Chiến tranh lạnh **không** phải đối đầu quân sự trực tiếp Xô – Mỹ.",
+            "Trật tự hai cực **không** hoàn chỉnh ngay trong I-an-ta: I-an-ta là khuôn khổ, cùng Pốt-xđam mới xác lập trật tự.",
+            "Nhân tố làm sụp đổ **không** phải là \"thành công cải cách ở Đông Âu\"."
+          ] }
+        ],
+          questions: [
+      { id: "history-2-B-01", type: "single", tag: "Biết",
+        question: "Hội nghị Ianta diễn ra trong bối cảnh",
+        options: [
+          "Chiến tranh thế giới thứ hai chưa diễn ra.",
+          "Chiến tranh thế giới thứ hai đang diễn ra quyết liệt.",
+          "Chiến tranh thế giới thứ hai sắp kết thúc.",
+          "Chiến tranh thế giới thứ hai đã kết thúc."
+        ],
+        answer: 2 },
+      { id: "history-2-B-02", type: "single", tag: "Biết",
+        question: "Quan hệ giữa hai nước Liên Xô và Mỹ chuyển sang căng thẳng sau sự kiện nào sau đây?",
+        options: [
+          "Thông điệp của Tổng thống Mỹ Tơ-ru-man (12/3/1947).",
+          "Những quyết định của Hội nghị Pốt-xđam (1945).",
+          "Các điều khoản trong Hiệp định Giơ-ne-vơ (1954).",
+          "Các điều khoản trong Hiệp định Pa-ri về Việt Nam (1973)."
+        ],
+        answer: 0 },
+      { id: "history-2-B-03", type: "single", tag: "Biết",
+        question: "Xu hướng hòa hoãn bắt đầu xuất hiện từ đầu những năm 70 của thế kỷ XX với việc",
+        options: [
+          "Liên Xô - Mỹ tiến hành cuộc gặp gỡ cấp cao và thoả thuận về hạn chế vũ khí chiến lược (1972).",
+          "2 siêu cường Xô - Mỹ tiến hành những cuộc gặp gỡ cấp cao tại đảo Man-ta (1989).",
+          "33 nước châu Âu, Mỹ và Ca-na-đa đó ký Định ước Hen-xin-ky.",
+          "Đông Đức – Tây Đức ký hiệp định về những cơ sở quan hệ 2 nước."
+        ],
+        answer: 0 },
+      { id: "history-2-B-04", type: "single", tag: "Biết",
+        question: "Tháng 12/1989, tại đảo Manta (Địa Trung Hải), Tổng thống Mỹ (Bus) và Tổng thống Liên Xô (Goóp-ba-chốp) đã tuyên bố",
+        options: [
+          "Phát động chiến tranh lạnh.",
+          "Chấm dứt chiến tranh lạnh.",
+          "Hiệp định về một giải pháp toàn diện về Campuchia.",
+          "Ký hiệp ước cắt giảm vũ khí tiến công chiến lược."
+        ],
+        answer: 1 },
+      { id: "history-2-B-05", type: "single", tag: "Biết",
+        question: "Từ ngày 4 - 12/2/1945, trên thế giới đã diễn ra sự kiện",
+        options: [
+          "Hội nghị Véc-xai",
+          "Hội nghị Pôx-đam.",
+          "Hội nghị Xanphơranxco",
+          "Hội nghị Ianta."
+        ],
+        answer: 3 },
+      { id: "history-2-B-06", type: "single", tag: "Biết",
+        question: "Quốc gia nào ở châu Âu không thuộc phạm vi ảnh hưởng của các cường quốc theo quy định của Hội nghị Ianta (2/1945)?",
+        options: [
+          "Tiệp Khắc.",
+          "Đức.",
+          "Anbani.",
+          "Phần Lan."
+        ],
+        answer: 3 },
+      { id: "history-2-B-07", type: "single", tag: "Biết",
+        question: "Tổ chức Hiệp ước Bắc Đại Tây Dương (1949) và tổ chức Hiệp ước Vácsava (1955) là một trong những biểu hiện về sự đối đầu của lĩnh vực nào?",
+        options: [
+          "Quân sự.",
+          "Kinh tế.",
+          "Chính trị.",
+          "Văn hóa."
+        ],
+        answer: 0 },
+      { id: "history-2-B-08", type: "single", tag: "Biết",
+        question: "Trật tự thế giới hai cực I-an-ta được hình thành trong bối cảnh nào sau đây?",
+        options: [
+          "Các nước Đồng minh muốn nhanh chóng đánh bại chủ nghĩa phát xít.",
+          "Chiến tranh thế giới thứ hai đã kết thúc ở châu Á và châu Phi.",
+          "Sau Chiến tranh thế giới thứ hai, các nước Đồng minh tổ chức lại thế giới.",
+          "Sau Chiến tranh thế giới thứ hai, các nước Đồng mình phân chia quyền lợi."
+        ],
+        answer: 2 },
+      { id: "history-2-B-09", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây là biểu hiện của Chiến tranh lạnh?",
+        options: [
+          "Các cuộc chiến tranh cục bộ diễn ra ở nhiều nơi.",
+          "Trung Quốc và Liên Xô chạy đua vũ trang.",
+          "Trung Quốc và Mỹ trở thành hai cực lớn nhất.",
+          "Mỹ phát triển trở thành một cực duy nhất."
+        ],
+        answer: 0 },
+      { id: "history-2-B-10", type: "single", tag: "Biết",
+        question: "Những năm 70 của thế kỉ XX, thế giới xuất hiện xu thế nào sau đây ảnh hưởng đến cục diện của Chiến tranh lạnh?",
+        options: [
+          "Đa quốc gia.",
+          "Hoà hoãn Đông - Tây.",
+          "Công nghiệp hoá.",
+          "Đơn cực."
+        ],
+        answer: 1 },
+      { id: "history-2-B-11", type: "single", tag: "Biết",
+        question: "Sự kiện nào đã bước đầu tạo ra khuôn khổ của trật tự thế giới hai cực trong thế kỷ XX?",
+        options: [
+          "Hội nghị Ianta (1945).",
+          "Hội nghị Vécxai (1919).",
+          "Thông điệp của Truman (1947).",
+          "Hội nghị Pốt đam (1945)."
+        ],
+        answer: 0 },
+      { id: "history-2-B-12", type: "single", tag: "Biết",
+        question: "Tổ chức nào ra đời là hệ quả trực tiếp của cuộc chiến tranh lạnh do Mỹ phát động?",
+        options: [
+          "Liên minh châu Âu.",
+          "Liên minh vì tiến bộ.",
+          "Tổ chức Hiệp ước Vácsava.",
+          "Hiệp hội các nước Đông Nam Á."
+        ],
+        answer: 2 },
+      { id: "history-2-B-13", type: "single", tag: "Biết",
+        question: "Trong những cuộc gặp gỡ cấp cao năm 1972, Liên Xô và Mỹ đã ký kết văn kiện nào?",
+        options: [
+          "Công ước cầm vũ khí hoá học.",
+          "Công ước cấm vũ khí hạt nhân.",
+          "Hiệp ước chống tên lửa đạn đạo.",
+          "Hiệp ước cấm phổ biến vũ khí hạt nhân."
+        ],
+        answer: 2 },
+      { id: "history-2-B-14", type: "single", tag: "Biết",
+        question: "Sự kiện nào thể hiện sự cân bằng quyền lực trong quan hệ quốc tế giữa Liên Xô và Mỹ trong Chiến tranh thế giới thứ hai?",
+        options: [
+          "Những quyết định của Hội nghị Ianta.",
+          "Sự ra đời của tổ chức NATO và Vácsava.",
+          "Việc thực hiện kế hoạch Mácsan ở châu Âu.",
+          "Hội đồng tương trợ kinh tế (SEV) thành lập."
+        ],
+        answer: 0 },
+      { id: "history-2-B-15", type: "single", tag: "Biết",
+        question: "Theo quyết định của Hội nghị Ianta (2/1945), Liên Xô có nhiệm vụ nào sau đây?",
+        options: [
+          "Chuẩn bị cho sự ra đời của tổ chức Liên hợp quốc.",
+          "Thu hồi chủ quyền ở vùng biển Thái Bình Dương.",
+          "Tham chiến ở khu vực châu Á - Thái Bình Dương.",
+          "Giúp đỡ Bắc Triều Tiên xây dựng chủ nghĩa xã hội."
+        ],
+        answer: 2 },
+      { id: "history-2-B-16", type: "single", tag: "Biết",
+        question: "Những nguyên thủ tham dự Hội nghị Ianta(2/1945) gồm",
+        options: [
+          "Xta-lin, Ru-dơ-ven, Sớc-sin",
+          "Ru-dơ-ven, Na-va, Xta-lin.",
+          "Xtalin, Tơ-ru-man, Bi-đôn",
+          "Sớc-sin, Xtalin, Ai-xen-hao."
+        ],
+        answer: 0 },
+      { id: "history-2-B-17", type: "single", tag: "Biết",
+        question: "Nước nào sau đây không có mặt ở Hội nghị cấp cao Ianta(2/1945)?",
+        options: [
+          "Anh.",
+          "Mĩ.",
+          "Pháp.",
+          "Liên Xô."
+        ],
+        answer: 2 },
+      { id: "history-2-B-18", type: "single", tag: "Biết",
+        question: "Theo quy định của Hội nghị Ianta(2/1945), quân đội Liên Xô chiếm đóng",
+        options: [
+          "Tây Đức, Tây Béclin và các nước Tây Âu.",
+          "Đông Đức, Đông Béclin và các nước Đông Âu.",
+          "Nhật Bản, Triều Tiên, các nước Đông Nam Á.",
+          "Trung Quốc, Đông Nam Á, Tây Âu."
+        ],
+        answer: 1 },
+      { id: "history-2-B-19", type: "single", tag: "Biết",
+        question: "Hội nghị Ianta chấp nhận một trong những điều kiện gì để Liên Xô tham chiến chống Nhật?",
+        options: [
+          "Duy trì nguyên trạng và công nhận độc lập của Mông Cổ.",
+          "Liên Xô chiếm đóng vùng Đông Đức, Đông Béc-lin, các nước Đông Âu.",
+          "Trung Quốc, Bắc Triều Tiên do quân đội Liên Xô chiếm đóng.",
+          "Quân đội Liên Xô và Mỹ Trung Quốc đều có quyền lợi ở Trung Quốc."
+        ],
+        answer: 0 },
+      { id: "history-2-B-20", type: "single", tag: "Biết",
+        question: "Theo nội dung của Hội nghị Ianta(2/1945), các vùng Đông Nam Á, Nam Á, Tây Á thuộc phạm vi ảnh hưởng của các nước",
+        options: [
+          "Phương Tây.",
+          "Anh.",
+          "Mỹ.",
+          "Liên Xô."
+        ],
+        answer: 0 },
+      { id: "history-2-B-21", type: "single", tag: "Biết",
+        question: "Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Mỹ là",
+        options: [
+          "Tây Âu.",
+          "Đông Âu.",
+          "Mông Cổ.",
+          "Trung Đông."
+        ],
+        answer: 0 },
+      { id: "history-2-B-22", type: "single", tag: "Biết",
+        question: "Đâu là ranh giới phân chia phạm vi chiếm đóng Triều Tiên của Mỹ và Liên Xô được Hội nghị I-an-ta (2/1945) quy định?",
+        options: [
+          "Vĩ tuyến 38.",
+          "Sông Áp Lục.",
+          "Vĩ tuyến 17.",
+          "Cảng Icheon."
+        ],
+        answer: 0 },
+      { id: "history-2-B-23", type: "single", tag: "Biết",
+        question: "Trật tự thế giới mới được hình thành sau chiến tranh thế giới thứ hai (1945) là",
+        options: [
+          "đơn cực.",
+          "I-an-ta.",
+          "Vec-xai.",
+          "đa cực."
+        ],
+        answer: 1 },
+      { id: "history-2-B-24", type: "single", tag: "Biết",
+        question: "Quốc gia đứng đầu khối tư bản chủ nghĩa sau Chiến tranh thế giới thứ hai (1945) là",
+        options: [
+          "Anh.",
+          "Pháp.",
+          "Mỹ.",
+          "Đức."
+        ],
+        answer: 2 },
+      { id: "history-2-B-25", type: "single", tag: "Biết",
+        question: "Quốc gia đứng đầu khối xã hội chủ nghĩa sau chiến tranh thế giới hai (1945) là",
+        options: [
+          "Trung Quốc.",
+          "Việt Nam.",
+          "Triều Tiên.",
+          "Liên Xô."
+        ],
+        answer: 3 },
+      { id: "history-2-B-26", type: "single", tag: "Biết",
+        question: "Để tiêu diệt chủ nghĩa quân phiệt Nhật Bản và nhanh chóng kết thúc chiến tranh, hội nghị I-an-ta đã quyết định",
+        options: [
+          "Anh, Pháp, Mỹ sẽ tham gia chiến tranh chống Nhật ở châu Âu.",
+          "Anh và Liên Xô tiêu diệt lực lượng quân Nhật tại Trung Quốc.",
+          "Liên Xô sẽ đánh Nhật ở Châu Á sau khi đánh bại phát xít Đức.",
+          "Liên Xô không đưa quân đội tham gia chống Nhật tại Châu Á."
+        ],
+        answer: 2 },
+      { id: "history-2-B-27", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây là một trong những quyết định của Hội nghị I-an-ta (2/1945)?",
+        options: [
+          "Tiêu diệt tận gốc chủ nghĩa phát xít Đức và chủ nghĩa quân phiệt Nhật Bản.",
+          "Xây dựng một trật tự thế giới mới nhằm giải quyết các vấn đề hậu chiến tranh.",
+          "Đồng ý thành lập tổ chức Hội Quốc liên để duy trì hoà bình và an ninh thế giới.",
+          "Thoả thuận việc phân chia phạm vi ảnh hưởng của Mỹ và Liên Xô ở châu Phi."
+        ],
+        answer: 0 },
+      { id: "history-2-B-28", type: "single", tag: "Biết",
+        question: "Sự kiện nào được xem là khởi đầu cho chính sách chống Liên Xô của Mỹ, gây nên cuộc Chiến tranh lạnh?",
+        options: [
+          "Thông điệp Tổng thống Tơ-ru-man (3/1947).",
+          "Sự ra đời của kế hoạch Mác-san (6/1947).",
+          "Hội đồng tương trợ kinh tế ra đời (1/1949).",
+          "Thành lập Tổ chức quân sự NATO (4/1949)."
+        ],
+        answer: 0 },
+      { id: "history-2-B-29", type: "single", tag: "Biết",
+        question: "Một trong những biểu hiện của xu thế hòa hoãn Đông - Tây là",
+        options: [
+          "các cuộc gặp gỡ cấp cao Xô - Mỹ.",
+          "khủng hoảng năng lượng, dầu mỏ.",
+          "Cách mạng Trung Quốc thắng lợi.",
+          "sự vươn lên mạnh mẽ của Nhật Bản."
+        ],
+        answer: 0 },
+      { id: "history-2-B-30", type: "single", tag: "Biết",
+        question: "Kế hoạch Mác-san (1947) và Hội đồng tương trợ kinh tế (1949) là một trong những biểu hiện sự đổi đâu của trật tự thế giới hai cực I-an-ta trên lĩnh vực",
+        options: [
+          "quân sự.",
+          "văn hoá.",
+          "pháp lí.",
+          "kinh tế."
+        ],
+        answer: 3 },
+      { id: "history-2-B-31", type: "single", tag: "Biết",
+        question: "Năm 1947, Mỹ phát động Chiến tranh lạnh nhằm mục đích là",
+        options: [
+          "cướp đoạt thuộc địa.",
+          "chống lại Liên Xô.",
+          "cướp đoạt tài nguyên.",
+          "thống trị châu Âu."
+        ],
+        answer: 1 },
+      { id: "history-2-B-32", type: "single", tag: "Biết",
+        question: "Giai đoạn từ năm 1945 – đến đầu những năm 70 của thế kỷ XX là",
+        options: [
+          "giai đoạn hình thành và tồn tại của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn xác lập và phát triển của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn phát triển hoàng kim của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn suy yếu và sụp đổ của Trật tự thế giới hai cực Ianta."
+        ],
+        answer: 1 },
+      { id: "history-2-B-33", type: "single", tag: "Biết",
+        question: "Giai đoạn từ đầu những năm 70 của thế kỷ XX – đến năm 1991 là",
+        options: [
+          "giai đoạn hình thành và tồn tại của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn xác lập và phát triển của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn phát triển hoàng kim của Trật tự thế giới hai cực Ianta.",
+          "giai đoạn suy yếu và sụp đổ của Trật tự thế giới hai cực Ianta."
+        ],
+        answer: 3 },
+      { id: "history-2-H-01", type: "single", tag: "Hiểu",
+        question: "Tháng 2/1945, tại thành phố I-an-ta (Liên Xô), ba cường quốc Liên Xô, Mỹ, Anh đã",
+        options: [
+          "thành lập Tổ chức Hiệp ước Bắc Đại Tây Dương (NATO).",
+          "thành lập Hội Quốc liên để duy trì hoà bình và an ninh quốc tế.",
+          "thoả thuận về việc phân chia phạm vi ảnh hưởng.",
+          "phân chia phạm vi ảnh hưởng của Mỹ và Liên Xô ở châu Phi."
+        ],
+        answer: 2 },
+      { id: "history-2-H-02", type: "single", tag: "Hiểu",
+        question: "Trật tự thế giới hai cực Ianta có phạm vi ảnh hưởng như thế nào?",
+        options: [
+          "Tập trung ở châu Á.",
+          "Có quy mô toàn cầu.",
+          "Không có ở châu Phi.",
+          "Chỉ ở trung tâm châu Âu."
+        ],
+        answer: 1 },
+      { id: "history-2-H-03", type: "single", tag: "Hiểu",
+        question: "Trong Hội nghị lanta (2/1945), Liên Xô và Mỹ đều",
+        options: [
+          "từ bỏ mâu thuẩn truyền thống.",
+          "thiết lập được đồng minh mới.",
+          "đã cơ bản đạt được mục tiêu.",
+          "mở rộng được hệ thống thuộc địa."
+        ],
+        answer: 2 },
+      { id: "history-2-H-04", type: "single", tag: "Hiểu",
+        question: "Nội dung căn bản của quan hệ quốc tế trong thời kỳ Chiến tranh lạnh xoay quanh vấn đề",
+        options: [
+          "Cạnh tranh kinh tế.",
+          "Chạy đua vũ trang.",
+          "Xâm chiếm thuộc địa.",
+          "Thiết lập trật tự đa cực."
+        ],
+        answer: 1 },
+      { id: "history-2-H-05", type: "single", tag: "Hiểu",
+        question: "Sau Chiến tranh thế giới thứ hai, phạm vi ảnh hưởng của Mỹ và Liên Xô trên thế giới đều:",
+        options: [
+          "Bị mất dần.",
+          "Thu hẹp dần.",
+          "Được mở rộng.",
+          "Duy trì ổn định."
+        ],
+        answer: 2 },
+      { id: "history-2-H-06", type: "single", tag: "Hiểu",
+        question: "Bức tường Béclin trong thế kỷ XX từng được xem là",
+        options: [
+          "Biểu tượng của Chiến tranh lạnh.",
+          "Biên giới chia cắt lâu dài châu Âu.",
+          "Căn cứ tiền phương chống Liên Xô.",
+          "Biểu tượng bất bình đẳng nước Đức."
+        ],
+        answer: 0 },
+      { id: "history-2-H-07", type: "single", tag: "Hiểu",
+        question: "Nguyên nhân chủ yếu dẫn tới cục diện hai cực, hai phe sau Chiến tranh thế giới thứ hai là gì?",
+        options: [
+          "Do sự đối lập về mục tiêu và chiến lược giữa hai cường quốc Liên Xô và Mỹ.",
+          "Mâu thuẫn về vấn đề thị trường và thuộc địa của các nước tư bản chủ nghĩa.",
+          "Trật tự thế giới có quá nhiều mâu thuẫn của các nước bại trận và thắng trận.",
+          "Ý muốn tiêu diệt Liên Xô của giới tư bản ở Mỹ để độc chiếm nguồn dầu mỏ."
+        ],
+        answer: 0 },
+      { id: "history-2-H-08", type: "single", tag: "Hiểu",
+        question: "Trật tự thế giới hai cực I-an-ta được hình thành bắt nguồn từ những quyết định của",
+        options: [
+          "Liên Xô và Mỹ ở Hội nghị Xan Phran-xi-xcô.",
+          "Hội nghị I-an-ta (1945) và Hội nghị Pốt-xđam (1945).",
+          "Liên Xô, Mỹ, Anh trong Hội nghị Tê-hê-ran.",
+          "Hội nghị Tê-hê-ran (1943) và Hội nghị I-an-ta (1945)."
+        ],
+        answer: 1 },
+      { id: "history-2-H-09", type: "single", tag: "Hiểu",
+        question: "Trong giai đoạn từ năm 1945 đến đầu những năm 70 của thế kỉ XX, Trật tự thế giới hai cực I-an-ta có biểu hiện nào sau đây?",
+        options: [
+          "Từ đối kháng chuyển sang đối đầu giữa hai hệ thống xã hội đối lập.",
+          "Xác lập và phát triển nhanh với sự đối đầu diễn ra trên nhiều lĩnh vực.",
+          "Phát triển mạnh và dẫn tới các cuộc chiến tranh cục bộ giữa Liên Xô – Mỹ.",
+          "Từ đối đầu căng thẳng chuyển sang hoà dịu và hoà hoãn Đông - Tây."
+        ],
+        answer: 1 },
+      { id: "history-2-H-10", type: "single", tag: "Hiểu",
+        question: "Từ đầu những năm 70 của thế kỉ XX, quan hệ Mỹ – Liên Xô chuyển dần sang hòa dịu, sau đó kết thúc Chiến tranh lạnh (1989) là do",
+        options: [
+          "chịu nhiều tốn kém và bị suy giảm thế mạnh về nhiều mặt.",
+          "xu thế liên kết khu vực và toàn cầu hoá diễn ra mạnh mẽ.",
+          "quá trình mở rộng không ngừng của Liên minh châu Âu (EU).",
+          "trật tự nhất siêu, nhiều cường đang trong quá trình mở rộng."
+        ],
+        answer: 0 },
+      { id: "history-2-H-11", type: "single", tag: "Hiểu",
+        question: "Hội nghị Ianta (2/1945) diễn ra nhằm giải quyết vấn đề cấp bách nhất",
+        options: [
+          "nhanh chóng đánh bại hoàn toàn các nước phát xít.",
+          "Thành lập tổ chức Liên hợp quốc.",
+          "Phân chia phạm vi ảnh hưởng ở Châu Âu và Châu Á.",
+          "Bàn biện pháp kết thúc sớm chiến tranh."
+        ],
+        answer: 0 },
+      { id: "history-2-H-12", type: "single", tag: "Hiểu",
+        question: "Đâu không phải là nguyên nhân sụp đổ của trật tự 2 cực Ianta?",
+        options: [
+          "Liên Xô và Mỹ quá tốn kém và bị suy giảm thế mạnh trên nhiều mặt.",
+          "Những chuyển biến theo hướng hòa dịu trong quan hệ giữa các nước.",
+          "Cuộc khủng hoảng và những sai lầm trong cải tổ dẫn đến sự tan rã của Liên Xô.",
+          "Thắng lợi của cách mạng thế giới đã đưa đến sự ra đời của các quốc gia độc lập."
+        ],
+        answer: 3 },
+      { id: "history-2-H-13", type: "single", tag: "Hiểu",
+        question: "Đến cuối những năm 80 của thế kỷ XX, khi vị trí kinh tế trên thế giới bị suy giảm, Mỹ và Liên Xô đã",
+        options: [
+          "Huỷ bỏ các liên minh quân sự.",
+          "Hợp tác chặt chẽ để cùng phát triển.",
+          "Quyết định dừng chạy đua vũ trang.",
+          "Tuyên bố xoá bỏ trật tự hai cực lanta."
+        ],
+        answer: 2 },
+      { id: "history-2-H-14", type: "single", tag: "Hiểu",
+        question: "Sự kiện nào đã mở ra bước đột phá đầu tiên làm trật tự thế giới hai cực Ianta bắt đầu bị xói mòn?",
+        options: [
+          "Sự thống nhất hai nhà nước ở Đức.",
+          "Thắng lợi của cách mạng ở Đông Âu.",
+          "Thắng lợi của cách mạng Trung Quốc.",
+          "Sự ra đời của tổ chức NATO và Vácsava."
+        ],
+        answer: 2 },
+      { id: "history-2-H-15", type: "single", tag: "Hiểu",
+        question: "Chủ trương của các nước tham dự Hội nghị lanta đối với các nước phát xít là",
+        options: [
+          "Kiên quyết xóa bỏ chủ nghĩa phát xít.",
+          "Dung dưỡng để bảo vệ hòa bình thế giới.",
+          "Sử dụng làm tay sai để đảm bảo lợi ích.",
+          "Ký hỏa ước để thu lại thị trường thế giới."
+        ],
+        answer: 0 },
+      { id: "history-2-H-16", type: "single", tag: "Hiểu",
+        question: "Nội dung nào là đặc điểm nổi bật của quan hệ quốc tế từ đầu những năm 70 của thế kỷ XX đến năm 1991",
+        options: [
+          "Hình thành một trật tự thế giới mới với xu thế đa cực.",
+          "Trật tự thế giới hai cực Ianta suy yếu và đi đến sụp đổ.",
+          "Chính thức xác lập cục diện hai cực hai phe trên thế giới.",
+          "Hệ thống xã hội chủ nghĩa được hình thành và mở rộng."
+        ],
+        answer: 1 },
+      { id: "history-2-H-17", type: "single", tag: "Hiểu",
+        question: "Nội dung nào là đặc điểm nổi bật của quan hệ quốc tế từ năm 1945 đến đầu những năm 70 của thế kỷ XX?",
+        options: [
+          "Hình thành một trật tự thế giới mới với xu thế đa cực.",
+          "Trật tự thế giới hai cực lanta suy yếu và đi đến sụp đổ.",
+          "Xác lập và phát triển của Trật tự thế giới hai cực lanta.",
+          "Chủ nghĩa tư bản xác lập sự thống trị trên toàn thế giới."
+        ],
+        answer: 2 },
+      { id: "history-2-H-18", type: "single", tag: "Hiểu",
+        question: "Sự đối lập về kinh tế của hai cực trong Trật tự thế giới hai cực lanta được thể hiện rõ trong sự kiện nào?",
+        options: [
+          "Sự ra đời của tổ chức Thương mại thế giới và Quỹ tiền tệ quốc tế.",
+          "Kế hoạch Mácsan của Mỹ và sự ra đời của Hội đồng tương trợ kinh tế.",
+          "Sự ra đời của Liên hợp quốc và hệ thống xã hội chủ nghĩa trên thế giới.",
+          "Tổ chức Hiệp ước Bắc Đại Tây Dương (1949) và tổ chức Hiệp ước Vácxava."
+        ],
+        answer: 1 },
+      { id: "history-2-H-19", type: "single", tag: "Hiểu",
+        question: "Những quyết định của Hội nghị Ianta trở thành khuôn khổ của trật tự thế giới mới",
+        options: [
+          "Trật tự Vécxay- Oasinhtơn.",
+          "Trật tự đa cực.",
+          "Trật tự đơn cực.",
+          "Trật tự 2 cực Ianta."
+        ],
+        answer: 3 },
+      { id: "history-2-H-20", type: "single", tag: "Hiểu",
+        question: "Mục đích của tổ chức Hiệp ước Bắc Đại Tây Dương(NATO - 4/1949)?",
+        options: [
+          "Nhằm cạnh tranh với Liên Xô và các nước Đông Âu.",
+          "Nhằm chống lại phong trào giải phóng dân tộc.",
+          "Nhằm chống lại Liên Xô, các nước Đông Âu.",
+          "nhằm hợp tác kinh tế giữa các nước chủ nghĩa tư bản."
+        ],
+        answer: 2 },
+      { id: "history-2-H-21", type: "single", tag: "Hiểu",
+        question: "Những quyết định của Hội nghị I-an-ta cùng sự thoả thuận của Liên Xô, Mỹ và Anh ở Hội nghị Pốt-xđam (1945) đã trở thành khuôn khổ của một trật tự thế giới mới, vì",
+        options: [
+          "các nước tham chiến được hưởng nhiều quyền lợi sau chiến tranh.",
+          "khép lại trật tự thế giới cũ và xác lập trật tự thế giới “hai cực” đối lập.",
+          "mở đầu quá trình giải thể chủ nghĩa thực dân mới ở các thuộc địa.",
+          "đã phân chia xong phạm vi ảnh hưởng giữa các nước thắng trận."
+        ],
+        answer: 1 },
+      { id: "history-2-H-22", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây là nhân tố hàng đầu chi phối toàn bộ đời sống chính trị thế giới trong phần lớn thời gian nửa sau thế kỉ XX?",
+        options: [
+          "Cục diện trật tự hai cực, hai phe: tư bản chủ nghĩa và xã hội chủ nghĩa.",
+          "Hai hệ thống xã hội đối lập ra đời: tư bản chủ nghĩa và xã hội chủ nghĩa.",
+          "Xu hướng liên kết khu vực và xu thế toàn cầu hoá diễn ra mạnh mẽ.",
+          "Các cuộc “chiến tranh nóng” ở châu Á liên tiếp diễn ra không có hồi kết."
+        ],
+        answer: 0 },
+      { id: "history-2-H-23", type: "single", tag: "Hiểu",
+        question: "Quan hệ Mỹ – Liên Xô trong và sau Chiến tranh thế giới thứ hai đã chuyển biến từ",
+        options: [
+          "đối đầu sang đối thoại.",
+          "đối đầu sang thoả hiệp.",
+          "đồng minh sang đối đầu.",
+          "đồng minh sang đối tác."
+        ],
+        answer: 2 },
+      { id: "history-2-H-24", type: "single", tag: "Hiểu",
+        question: "Nội dung gây nhiều tranh cãi nhất giữa ba cường quốc Liên Xô, Mỹ, Anh tại Hội nghị Ianta",
+        options: [
+          "Nhanh chóng tiêu diệt chủ nghĩa phát xít Đức và chủ nghĩa quân phiệt Nhật.",
+          "Thành lập tổ chức Liên Hợp Quốc nhằm duy trì hòa bình, an ninh thế giới.",
+          "Phân chia khu vực đóng quân và phạm vi ảnh hưởng ở châu Âu và châu Á.",
+          "Giải quyết các hậu quả chiến tranh thế giới và phân chia chiến lợi phẩm."
+        ],
+        answer: 2 },
+      { id: "history-2-H-25", type: "single", tag: "Hiểu",
+        question: "Nguyên nhân quan trọng nhất khiến Mỹ và Liên Xô lại chuyển sang đối đầu sau chiến tranh thế giới thứ hai?",
+        options: [
+          "đều có kẻ thù chung là chủ nghĩa phát xít.",
+          "có sự đối lập về mục tiêu và chiến lược.",
+          "đều muốn khẳng định ưu thế của mình trên nhiều lĩnh vực.",
+          "đều muốn vươn lên đứng đầu thế giới."
+        ],
+        answer: 1 },
+      { id: "history-2-H-26", type: "single", tag: "Hiểu",
+        question: "Nguyên nhân quan trọng nhất khiến Liên Xô và Mỹ tuyên bố chấm dứt chiến tranh lạnh?",
+        options: [
+          "Liên Xô và Mỹ quá tốn kém và bị suy giảm thế mạnh trên nhiều mặt.",
+          "Sự vươn lên mạnh mẽ của các nước Tây Âu và Nhật Bản.",
+          "Cuộc cách mạng khoa học công nghệ ngày càng phát triển.",
+          "Cuộc chiến tranh kinh tế toàn cầu mà cả thế giới đang ra sức chạy đua."
+        ],
+        answer: 0 },
+      { id: "history-2-H-27", type: "single", tag: "Hiểu",
+        question: "Hội nghị Ianta(2/1945) diễn ra căng thẳng, quyết liệt chủ yếu là do các nước tham dự hội nghị",
+        options: [
+          "có quan điểm khác nhau về việc tiêu diệt chủ nghĩa phát xít.",
+          "mâu thuẫn về vấn đề thuộc địa sau chiến tranh.",
+          "bất đồng về mục tiêu và chiến lược giữa các cường quốc.",
+          "muốn giành quyền lợi tương xứng với vai trò của mình."
+        ],
+        answer: 3 },
+      { id: "history-2-H-28", type: "single", tag: "Hiểu",
+        question: "Sự ra đời cùa tổ chức Hiệp ước Bắc Đại Tây dương(NATO – 1949) và Tổ chức Hiệp ước Vác-sa-va (1955) đã tác động như thế nào đến quan hệ quốc tế ?",
+        options: [
+          "đánh dấu cuộc chiến tranh lạnh chính thức bắt đầu.",
+          "tạo nên sự phân chia đối lập giữa Đông Âu và Tây Âu.",
+          "xác lập cục diện 2 cực, 2 phe, chiến tranh lạnh bao trùm cả thế giới.",
+          "đặt nhân loại đứng trước nguy cơ của cuộc chiến tranh thế giới mới."
+        ],
+        answer: 2 },
+      { id: "history-2-H-29", type: "single", tag: "Hiểu",
+        question: "Quyết định nào sau đây không phải là của Hội nghị I-an-ta (2/1945)?",
+        options: [
+          "Thành lập tổ chức quốc tế là Liên hợp quốc.",
+          "Thống nhất tiêu diệt tận gốc chủ nghĩa phát xít.",
+          "Hình thành trật tự thế giới mới sau chiến tranh.",
+          "Phân chia phạm vi ảnh hưởng của Liên Xô, Mỹ."
+        ],
+        answer: 2 },
+      { id: "history-2-H-30", type: "single", tag: "Hiểu",
+        question: "Sự kiện có tính đột phá, làm xói mòn trật tự 2 cực Ianta là",
+        options: [
+          "3 nước In-đo-nê-xi-a, Việt Nam, Lào tuyên bố độc lập năm 1945.",
+          "cách mạng Trung Quốc thành công năm 1949.",
+          "thắng lợi của cuộc cách mạng ở Cuba năm 1959.",
+          "thắng lợi của Việt Nam năm 1954 trong cuộc kháng chiến chống Pháp."
+        ],
+        answer: 1 },
+      { id: "history-2-H-31", type: "single", tag: "Hiểu",
+        question: "Mục tiêu chung được các cường quốc thỏa thuận trong hội nghị I-an-ta (2/1945) là",
+        options: [
+          "chấm dứt tình trạng nội chiến ở Trung Quốc, Áo và Phần Lan.",
+          "thủ tiêu chủ nghĩa thực dân và chủ nghĩa phân biệt chủng tộc.",
+          "xây dựng nước Đức trở thành quốc gia thống nhất và dân chủ.",
+          "tiêu diệt tận gốc phát xít Đức và chủ nghĩa quân phiệt Nhật Bản."
+        ],
+        answer: 3 },
+      { id: "history-2-H-32", type: "single", tag: "Hiểu",
+        question: "Xu thế hòa hoãn Đông-Tây xuất hiện có tác động như thế nào đến trật tự hai cực I-an-ta?",
+        options: [
+          "Đã xuất hiện xu thế đa cực.",
+          "Các mâu thuẫn càng sâu sắc.",
+          "Làm suy yếu trật tự hai cực.",
+          "Đã củng cố trật tự hai cực."
+        ],
+        answer: 2 },
+      { id: "history-2-H-33", type: "single", tag: "Hiểu",
+        question: "Một trong những mục đích của Mỹ khi triển khai thực hiện kế hoạch Mác-san (6/1947) đối với các nước Tây Âu là",
+        options: [
+          "phát xít hóa cho nước Đức.",
+          "tiêu diệt Đảng Cộng sản Ý.",
+          "hỗ trợ khôi phục kinh tế Tây Âu.",
+          "chiếm thuộc địa của Tây Âu."
+        ],
+        answer: 2 },
+      { id: "history-2-H-34", type: "single", tag: "Hiểu",
+        question: "Vì sao từ sau Chiến tranh thế giới thứ hai (1945), Mỹ và Liên Xô đối đầu gay gắt?",
+        options: [
+          "Khác nhau về mục tiêu và đường lối chiến lược.",
+          "Do những mâu thuẫn trong hội nghị I-an-ta (1945).",
+          "Mâu thuẫn gay gắt về vấn đề thị trường, thuộc địa.",
+          "Sự cạnh tranh gay gắt về ngành công nghiệp vũ trụ."
+        ],
+        answer: 0 },
+      { id: "history-2-H-35", type: "single", tag: "Hiểu",
+        question: "Mục đích chủ yếu của Mỹ khi triển khai chiến lược toàn cầu từ sau Chiến tranh thế giới thứ hai đến kết thúc Chiến tranh lạnh là",
+        options: [
+          "bá chủ, lãnh đạo thế giới.",
+          "tiêu diệt các nước Tây Âu.",
+          "khống chế Đức, Ý, Nhật.",
+          "bảo vệ các nước đồng minh."
+        ],
+        answer: 0 },
+      { id: "history-2-H-36", type: "single", tag: "Hiểu",
+        question: "Đâu là một trong những nguyên nhân Mỹ và Liên Xô quyết định chấm dứt cuộc Chiến tranh lạnh (1947-1989)?",
+        options: [
+          "Sự vươn lên mạnh mẽ của Nhật Bản, Tây Âu.",
+          "Các nước Cộng hòa trong liên bang đòi ly khai.",
+          "Nước Mỹ khủng hoảng kinh tế, chính trị sâu sắc.",
+          "Nhân dân hai nước đều phản đối Chiến tranh lạnh."
+        ],
+        answer: 0 },
+      { id: "history-2-H-37", type: "single", tag: "Hiểu",
+        question: "Đâu là biện pháp chủ yếu mà Mỹ và Liên Xô sử dụng để kết thúc các cuộc chiến tranh cục bộ trong Chiến tranh lạnh (1947-1989)?",
+        options: [
+          "Kinh tế.",
+          "Chính trị.",
+          "Ngoại giao.",
+          "Quân sự."
+        ],
+        answer: 2 },
+      { id: "history-2-H-38", type: "single", tag: "Hiểu",
+        question: "Quyết định nào sau đây của Hội nghị I-an-ta (2/1945) tạo nên những bất lợi cho cách mạng Việt Nam trong những năm 1945 – 1946?",
+        options: [
+          "Quân Anh cùng với quân Pháp làm nhiệm vụ giải giáp quân đội Nhật.",
+          "Quân Anh và quân Trung Hoa Dân quốc vào kiểm soát Đông Dương.",
+          "Liên Xô có phạm vi ảnh hưởng và kiểm soát ở các nước Đông Dương.",
+          "Đông Nam Á vẫn thuộc phạm vi ảnh hưởng của các nước phương Tây."
+        ],
+        answer: 3 },
+      { id: "history-2-H-39", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây là yếu tố quyết định dẫn đến Trật tự thế giới hai cực I-an-ta sụp đổ?",
+        options: [
+          "Tác động của cuộc Cách mạng công nghiệp lần thứ ba.",
+          "Sự vươn lên mạnh mẽ của các nước và tổ chức quốc tế.",
+          "Liên Xô và Mỹ bị suy giảm vị thế do phải chạy đua vũ trang.",
+          "Chủ nghĩa xã hội ở Liên Xô lâm vào khủng hoảng và tan rã."
+        ],
+        answer: 3 },
+      { id: "history-2-H-40", type: "single", tag: "Hiểu",
+        question: "Nhân tố nào không tác động đến sự rạn nứt bước đầu của Trật tự thế giới hai cực Ianta?",
+        options: [
+          "Thắng lợi của cách mạng Trung Quốc.",
+          "Thắng lợi của phong trào giải phóng dân tộc.",
+          "Sự lớn mạnh của các nước Tây Âu, Nhật Bản.",
+          "Thành công trong cải cách ở các nước Đông Âu."
+        ],
+        answer: 3 },
+      { id: "history-2-H-41", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây không phải là tác động của Trật tự thế giới hai cực I-an-ta?",
+        options: [
+          "Cuộc chiến tranh của Mỹ ở Việt Nam.",
+          "Sự xuất hiện của chủ nghĩa khủng bố.",
+          "Chiến tranh giữa hai miền Triều Tiên.",
+          "Bức tường Béc-lin chia đôi nước Đức."
+        ],
+        answer: 1 },
+      { id: "history-2-H-42", type: "single", tag: "Hiểu",
+        question: "Nội dung nào là ảnh hưởng của Hội nghị Ianta (2/1945) đối với tình hình thế giới?",
+        options: [
+          "Dẫn tới sự chia cắt của một số quốc gia.",
+          "Đưa chiến tranh bước vào giai đoạn đỉnh cao.",
+          "Thúc đẩy cuộc cách mạng khoa học công nghệ.",
+          "Thúc đẩy xu hướng liên kết kinh tế thế giới."
+        ],
+        answer: 0 },
+      { id: "history-2-H-43", type: "single", tag: "Hiểu",
+        question: "Theo thoả thuận của Hội nghị Ianta (2/1945), Áo là quốc gia",
+        options: [
+          "Thuộc phạm vi ảnh hưởng của Mỹ và đồng minh.",
+          "Chịu sự kiểm soát của quân đội Liên Xô và Đông Âu.",
+          "Chịu ảnh hưởng sâu sắc của các nước phương Tây.",
+          "Không thuộc phạm vi ảnh hưởng của các cường quốc."
+        ],
+        answer: 3 },
+      { id: "history-2-H-44", type: "single", tag: "Hiểu",
+        question: "Nội dung nào không phản ánh đúng về trật tự hai cực Ianta?",
+        options: [
+          "Được hoàn chỉnh ngay trong Hội nghị Ianta.",
+          "Được đặt dưới sự chi phối của các cường quốc.",
+          "Nhân tố hàng đầu chi phối nền chính trị thế giới.",
+          "Phản ánh sự đối đầu căng thẳng giữa Mỹ và Liên Xô."
+        ],
+        answer: 0 },
+      { id: "history-2-H-45", type: "single", tag: "Hiểu",
+        question: "Hội nghị lanta không diễn ra trong bối cảnh nào sau đây?",
+        options: [
+          "Phe Đồng minh đang giành thắng lợi trên chiến trường.",
+          "Các nước Đồng mình lên kế hoạch phân chia ảnh hưởng.",
+          "Những hậu quả nặng nề của chiến tranh đối với nhân loại.",
+          "Các nước phát xít tăng cường liên kết để phân chia thế giới."
+        ],
+        answer: 3 },
+      { id: "history-2-H-46", type: "single", tag: "Hiểu",
+        question: "Tại sao chạy đua vũ trang là một trong những nguyên nhân quan trọng làm sụp đổ Trật tự thế giới hai cực lanta?",
+        options: [
+          "Vì tốn kém, làm suy giảm thế mạnh của Liên Xô và Mỹ.",
+          "Vì là nguyên nhân trực tiếp dẫn tới khủng hoảng năng lượng.",
+          "Vì tạo ra nguy cơ của cuộc chiến tranh thế giới mới thay thế.",
+          "Vì đó là sự đối đầu duy nhất của hai nước trong Chiến tranh lạnh."
+        ],
+        answer: 0 },
+      { id: "history-2-H-47", type: "single", tag: "Hiểu",
+        question: "Thỏa thuận của các nước trong Hội nghị lanta về việc đóng quân tại các nước nhằm giải giáp quân đội phát xít và phân chia phạm vi ảnh hưởng ở châu Âu, châu Á đã",
+        options: [
+          "Đáp ứng được nguyện vọng chính đáng của nhân dân thế giới.",
+          "Trở thành vấn đề căng thẳng và quyết liệt nhất giữa các nước.",
+          "Khắc phục được những hạn chế của trật tự Vécxai - Oasinhton.",
+          "Quyết định đến sự thành bại của phong trào giải phóng dân tộc."
+        ],
+        answer: 1 },
+      { id: "history-2-H-48", type: "single", tag: "Hiểu",
+        question: "Nội dung nào không phải đặc trưng của Trật tự hai cực Ianta giai đoạn từ năm 1945 đến đầu những năm 70 của thế kỷ XX?",
+        options: [
+          "Sự thiết lập các khối kinh tế và quân sự đối đầu giữa Mỹ và Liên Xô.",
+          "Sự đối đầu về tư tưởng, chính trị, kinh tế, quân sự giữa Mỹ và Liên Xô.",
+          "Các cuộc chiến tranh cục bộ, xung đột quân sự đã xảy ra ở nhiều khu vực.",
+          "Mỹ và Liên Xô điều chỉnh chính sách đối ngoại theo hướng tích cực, tiến bộ."
+        ],
+        answer: 3 },
+      { id: "history-2-V-01", type: "single", tag: "Vận dụng",
+        question: "Nhận xét vào đúng về Trật tự thế giới hai cực Ianta?",
+        options: [
+          "Ảnh hưởng chủ yếu ở châu Phi.",
+          "Do mâu thuẫn sắc tộc chi phối.",
+          "Có sự phân tuyển một cách triệt để.",
+          "Có sản phẩm là xu thế toàn cầu hoá."
+        ],
+        answer: 2 },
+      { id: "history-2-V-02", type: "single", tag: "Vận dụng",
+        question: "Chiến tranh lạnh trong thế kỷ XX thực chất là cuộc đối đầu giữa hai phe xã hội chủ nghĩa và tư bản chủ nghĩa về",
+        options: [
+          "Tham vọng làm bá chủ thế giới.",
+          "Tiến trình hội nhập quốc tế.",
+          "Phạm vi chiếm đóng ở thuộc địa.",
+          "Ý thức hệ, kinh tế và địa - chính trị."
+        ],
+        answer: 3 },
+      { id: "history-2-V-03", type: "single", tag: "Vận dụng",
+        question: "Để tiến hành Chiến tranh lạnh với Liên Xô, Mỹ đã không thực hiện biện pháp nào?",
+        options: [
+          "Thành lập các khối quân sự ở một số khu vực.",
+          "Tăng cường ngân sách đầu tư cho quân sự.",
+          "Lôi kéo các nước đồng minh ủng hộ mình.",
+          "Thực hiện chiến lược cam kết và mở rộng."
+        ],
+        answer: 3 },
+      { id: "history-2-V-04", type: "single", tag: "Vận dụng",
+        question: "Những quyết định của Hội nghị Ianta năm 1945 không ảnh hưởng trực tiếp đến",
+        options: [
+          "Số phận của phát xít Đức, Nhật Bản.",
+          "Sự hình thành Cộng đồng ASEAN.",
+          "Cách mạng tháng Tám (1945) ở Việt Nam.",
+          "quan hệ giữa Liên Xô và Mỹ sau chiến tranh."
+        ],
+        answer: 1 },
+      { id: "history-2-V-05", type: "single", tag: "Vận dụng",
+        question: "Trong những năm 70 - 80 của thế kỷ XX, thỏa thuận hạn chế chạy đua vũ trang của Liên Xô và Mỹ đã chứng tỏ",
+        options: [
+          "Hai nước ngừng việc chế 2 tạo bom nguyên tử.",
+          "Quan hệ giữa hai nước trở nên hoà dịu hơn.",
+          "Quá trình phi hạt nhân giữa hai nước bắt đầu.",
+          "Phương tiện chiến tranh của hai nước lạc hậu."
+        ],
+        answer: 1 },
+      { id: "history-2-V-06", type: "single", tag: "Vận dụng",
+        question: "Tình hình các nước châu Âu ngay sau Chiến tranh thế giới thứ hai có điểm gì nổi bật?",
+        options: [
+          "Liên kết khu vực diễn ra mạnh mẽ.",
+          "Có sự phân chia theo hai cực, hai phe.",
+          "Không duy trì được hệ thống thuộc địa.",
+          "Xuất hiện xu thế hòa hoãn Đông - Tây."
+        ],
+        answer: 1 },
+      { id: "history-2-V-07", type: "single", tag: "Vận dụng",
+        question: "Sự kiện nào sau đây không chịu tác động lớn của Trật tự thế giới hai cực Ianta?",
+        options: [
+          "Sự chia cắt nước Đức thành hai quốc gia đối lập.",
+          "Chiến tranh giữa hai miền Triều Tiên (1950-1953).",
+          "Cuộc chiến tranh của Mỹ ở Việt Nam (1954 - 1975).",
+          "Phong trào giải phóng dân tộc ở Ấn Độ (1945 - 1950)."
+        ],
+        answer: 3 },
+      { id: "history-2-V-08", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào đúng về Chiến tranh lạnh (1947 - 1989)?",
+        options: [
+          "Diễn ra gay gắt nhưng vẫn có hòa hoãn bộ phận.",
+          "Có những xung đột quân sự trực tiếp giữa hai siêu cường.",
+          "Hai phe giằng co dai dẳng và phân chia được thắng bại.",
+          "Thực chất là mâu thuẫn về vẫn đề chiến tranh hạt nhân."
+        ],
+        answer: 0 },
+      { id: "history-2-V-09", type: "single", tag: "Vận dụng",
+        question: "Trật tự thế giới mới được thiết lập sau Chiến tranh thế giới thứ hai đã có tác động nào tới tình hình thế giới?",
+        options: [
+          "Hai hệ thống xã hội đẩy mạnh chạy đua vũ trang.",
+          "Quan hệ quốc tế chuyển từ đối đầu sang hoà dịu.",
+          "Nhiều dân tộc trên thế giới bị nô dịch, khống chế.",
+          "Phong trào cách mạng thế giới phát triển thuận lợi."
+        ],
+        answer: 0 },
+      { id: "history-2-V-10", type: "single", tag: "Vận dụng",
+        question: "Trong thời kỳ Chiến tranh lạnh, hầu như mọi cuộc chiến tranh hoặc xung đột quân sự ở các khu vực trên thế giới đều",
+        options: [
+          "Dẫn tới sự chia cắt lâu dài của một số 5 quốc gia.",
+          "Giải quyết những mâu thuẫn về xung đột sắc tộc.",
+          "Liên quan đến sự đối đầu giữa hai cực Liên Xô và Mỹ.",
+          "Diễn ra căng thẳng, quyết liệt và không phân thẳng bại."
+        ],
+        answer: 2 },
+      { id: "history-2-V-11", type: "single", tag: "Vận dụng",
+        question: "Sự tồn tại của Trật tự thế giới hai cực lanta là",
+        options: [
+          "Quy luật tồn tại tất yếu và khách quan trong lịch sử thế giới.",
+          "Không phù hợp với lợi ích chung của cộng đồng quốc tế.",
+          "Nguyên nhân cản trở sự phát triển của khoa học - công nghệ.",
+          "Nhân tố thúc đẩy sự phát triển kinh tế của Tây Âu và Nhật Bản."
+        ],
+        answer: 1 },
+      { id: "history-2-V-12", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào là điểm hạn chế trong quyết định của Hội nghị Ianta?",
+        options: [
+          "Quá khắc nghiệt với các nước phát xít thua trận.",
+          "Chủ trương đàn áp phong trào cách mạng thế giới.",
+          "Phục vụ lợi ích trên hết của các cường quốc thắng trận.",
+          "Chủ trương tiêu diệt tận gốc chủ nghĩa phát xít ở châu Âu."
+        ],
+        answer: 2 },
+      { id: "history-2-V-13", type: "single", tag: "Vận dụng",
+        question: "Trật tự thế giới hai cực Ianta có tác động như thế nào đối với Việt Nam?",
+        options: [
+          "Thúc đẩy việc quốc tế hoá các cuộc chiến tranh ở Việt Nam.",
+          "Làm cho quy mô chiến tranh thu hẹp, thời gian được rút ngắn.",
+          "Quá trình hội nhập quốc tế của Việt Nam diễn ra nhanh chóng.",
+          "Đẩy nhanh quá trình giải phóng dân tộc trên bán đảo Đông Dương."
+        ],
+        answer: 0 },
+      { id: "history-2-V-14", type: "single", tag: "Vận dụng",
+        question: "Trật tự thế giới hai cực lanta có tác động như thế nào đối với Việt Nam?",
+        options: [
+          "Quá trình hội nhập quốc tế của Việt Nam gặp nhiều khó khăn, thử thách.",
+          "Chiến tranh ở Việt Nam là nơi thử sức mạnh của quân đội các nước lớn.",
+          "Trở thành một trong những nơi hội tụ của mâu thuẫn Đông - Tây.",
+          "Quá trình xây dựng chủ nghĩa xã hội ở Việt Nam không đạt được kết quả."
+        ],
+        answer: 2 },
+      { id: "history-2-V-15", type: "single", tag: "Vận dụng",
+        question: "Những quyết định của Hội nghị lanta (2/1945) dẫn đến tác động nào?",
+        options: [
+          "Sự tan rã hệ thống thuộc địa của chủ nghĩa thực dân trên thế giới.",
+          "Sự mâu thuẫn về ý thức hệ giữa những nước thắng trận và bại trận.",
+          "Sự xác lập trật tự hai cực, hai phe, Chiến tranh lạnh bao trùm thế giới.",
+          "Sự tan rã bước đầu của mối quan hệ đồng minh giữa Mỹ và Liên Xô."
+        ],
+        answer: 2 },
+      { id: "history-2-V-16", type: "single", tag: "Vận dụng",
+        question: "Vì sao sự tồn tại của Trật tự thế giới hai cực lanta không phù hợp với lợi ích chung của cộng đồng quốc tế?",
+        options: [
+          "Chủ quyền lãnh thổ của nhiều quốc gia bị xâm phạm nghiêm trọng.",
+          "Các tổ chức quốc tế bị giới hạn hoạt động trong mâu thuẩn Xô - Mỹ.",
+          "Quyền lợi về kinh tế và văn hóa của các đồng minh bị Mỹ khống chế.",
+          "Liên Xô không có điều kiện để ủng hộ phong trào giải phóng dân tộc."
+        ],
+        answer: 1 },
+      { id: "history-2-V-17", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào đúng về vị thế của các cường quốc trong trật tự hai cực lanta (1945-1991)?",
+        options: [
+          "Liên Xô đã có lợi thế khi được phân chia các vùng thuộc địa.",
+          "Anh không còn giữ được vai trò quốc tế như giai đoạn trước.",
+          "Mỹ giữ vai trò quyết định chỉ phối mọi mối quan hệ quốc tế.",
+          "Nhật Bản vươn lên mạnh mẽ, trở thành cường quốc về chính trị."
+        ],
+        answer: 1 },
+      { id: "history-2-V-18", type: "single", tag: "Vận dụng",
+        question: "Vì sao, thắng lợi của phong trào giải phóng dân tộc của khu vực Á - Phi - Mỹ Latinh làm cho Trật tự thế giới hai cực Ianta từng bước bị rạn nứt?",
+        options: [
+          "Các nước giành được độc lập đều đi theo con đường xã hội chủ nghĩa.",
+          "Mỹ không thể can thiệp vào công việc nội bộ của các quốc gia độc lập.",
+          "Những thắng lợi này đã góp phần xoá bỏ sự áp bức và bóc lột trên thế giới.",
+          "Những khu vực này thuộc phạm vi ảnh hưởng truyền thống của Mỹ và Tây Âu."
+        ],
+        answer: 3 },
+      { id: "history-2-V-19", type: "single", tag: "Vận dụng",
+        question: "Sự sụp đổ của trật tự thế giới hai cực Ianta không chịu tác động của nhân tố khách quan nào?",
+        options: [
+          "Sự phát triển của các nước nhằm thoát khỏi ảnh hưởng của hại cực.",
+          "Sự thay đổi trong cán cân kinh tế của các cường quốc trên thế giới.",
+          "Xu thế hoà hoãn, toàn cầu hoá và cuộc cách mạng khoa học-công nghệ.",
+          "Cuộc chạy đua vũ trang tốn kém làm suy giảm sức mạnh của Liên Xô và Mỹ."
+        ],
+        answer: 3 },
+      { id: "history-2-V-20", type: "single", tag: "Vận dụng",
+        question: "Nhân tố chủ quan nào dẫn đến sự sụp đổ của Trật tự thế giới hai cực lanta?",
+        options: [
+          "Mỹ không thành công trong việc thực hiện chiến lược Cam kết và mở rộng.",
+          "Liên Xô ngày càng bị suy yếu, không có khả năng xoay chuyển được tỉnh hình.",
+          "Sự vươn lên của các trung tâm kinh tế lớn trên thế giới cạnh tranh gay gắt với Mỹ.",
+          "Sự ra đời của các quốc gia độc lập đã làm thay đổi khuôn khổ của trật tự hai cực."
+        ],
+        answer: 1 },
+      { id: "history-2-V-21", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào không phải là đặc điểm nổi bật của quan hệ quốc tế từ đầu những năm 70 của thế kỷ XX đến năm 1991",
+        options: [
+          "Phạm vì ảnh hưởng của Mỹ ở châu Âu và châu Á hoàn toàn tan rã.",
+          "Liên Xô và Mỹ đẩy mạnh đối thoại, hợp tác với các cuộc gặp gỡ cấp cao.",
+          "Liên Xô và Mỹ đạt được thoả thuận bước đầu về hạn chế vũ khí chiến lược.",
+          "Xu hướng hoà hoãn bắt đầu xuất hiện cuộc gặp gỡ cấp cao giữa hai siêu cường."
+        ],
+        answer: 0 },
+      { id: "history-2-V-22", type: "single", tag: "Vận dụng",
+        question: "Thực tiễn của việc xác lập những trật tự thế giới trong thế kỷ XX của nhân loại đã chứng tỏ",
+        options: [
+          "Quan hệ quốc tế là một vấn đề lớn và có những diễn biến phức tạp.",
+          "Liên Xô và Mỹ là hai quốc gia chi phối rất lớn đến quan hệ quốc tế.",
+          "Các nước tư bản ở các châu lục đều giữ vai trò chi phối trật tự thế giới.",
+          "Trật tự thế giới tạo điều kiện thuận lợi cho phong trào giải phóng dân tộc."
+        ],
+        answer: 1 },
+      { id: "history-2-V-23", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào không đúng về quyết định của Hội nghị Ianta (2/1945)?",
+        options: [
+          "Thống nhất mục tiêu tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật.",
+          "Thành lập một tổ chức quốc tế để nhằm duy trì hoà bình, an ninh thế giới.",
+          "Vi phạm sâu sắc độc lập chủ quyền, quyền tự quyết của một số quốc gia.",
+          "Mỹ và Liên Xô cùng hưởng quyền lợi ở khu vực châu Á - Thái Bình Dương."
+        ],
+        answer: 1 },
+      { id: "history-2-V-24", type: "single", tag: "Vận dụng",
+        question: "Sự sụp đổ của Trật tự thế giới hai cực lanta có tác động chủ yếu nào sau đây?",
+        options: [
+          "Mở rộng hơn nữa phạm vi ảnh hưởng và kiểm soát của Mỹ trên thế giới.",
+          "Thúc đẩy sự phát triển của kinh tế thế giới gắn liền với xu thế toàn cầu hoá.",
+          "Tạo điều kiện cho các cường quốc mới nổi có vai trò lớn trong quan hệ quốc tế.",
+          "Chấm dứt được những cuộc xung đột căng thẳng và kéo dài ở khu vực Trung Đông."
+        ],
+        answer: 1 },
+      { id: "history-2-V-25", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào đúng về Trật tự thế giới hai cực Ianta?",
+        options: [
+          "Hình thành sau quá trình đàm phán giữa các cường quốc với nhiều văn bản được ký kết.",
+          "Một trật tự không có sự phân chia quyền lực rõ rệt giữa các nước từng là đồng minh.",
+          "Tình trạng đối đầu căng thẳng là đặc trưng nổi bật và xuyên suốt trong quá trình tồn tại.",
+          "Lợi ích giai cấp, lợi ích dân tộc chỉ phối và làm cho quan hệ quốc tế ngày càng suy yếu."
+        ],
+        answer: 0 },
+      { id: "history-2-V-26", type: "single", tag: "Vận dụng",
+        question: "Trong Chiến tranh lạnh (1947-1989), vì sao Mỹ và Liên Xô tránh xung đột trực tiếp về quân sự?",
+        options: [
+          "Cả Mỹ và Liên Xô đều không đủ lực lượng chiến đấu.",
+          "Ngăn ngừa nguy cơ nổ ra cuộc chiến tranh thế giới mới.",
+          "Liên Xô đã khủng hoảng kinh tế, chính trị trầm trọng.",
+          "Sự phản đối chiến tranh của nhân dân Mỹ và Liên Xô."
+        ],
+        answer: 1 },
+      { id: "history-2-V-27", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào không phản ánh đúng bản chất của Chiến tranh lạnh?",
+        options: [
+          "Do Mỹ phát động nhằm chống Liên Xô và các nước xã hội chủ nghĩa.",
+          "Đối đầu căng thẳng giữa hai phe tư bản chủ nghĩa và xã hội chủ nghĩa.",
+          "Là cuộc đối đầu trực tiếp trên lĩnh vực quân sự giữa hai nước Xô - Mỹ.",
+          "Thế giới đã bị chia thành hai phe tư bản chủ nghĩa và xã hội chủ nghĩa."
+        ],
+        answer: 2 },
+      { id: "history-2-V-28", type: "single", tag: "Vận dụng",
+        question: "Nhận xét nào sau đây là tác động của Hội nghị I-an-ta và Hội nghị Pốt-xđam (1945) đối với tình hình quốc tế?",
+        options: [
+          "Tạo nên một trật tự thế giới mới giữa các nước thắng trận và bại trận.",
+          "Giải quyết được mâu thuẫn về vấn đề thị trường cho các cường quốc.",
+          "Tạo nên khuôn khổ của trật tự thế giới – trật tự nhất siêu, nhiều cực.",
+          "Làm thay đổi sâu sắc quan hệ quốc tế, đặc biệt là quan hệ Xô – Mỹ."
+        ],
+        answer: 3 },
+      { id: "history-2-V-29", type: "single", tag: "Vận dụng",
+        question: "Trật tự thế giới hai cực I-an-ta sụp đổ (1991) có tác động nào sau đây đến quốc tế?",
+        options: [
+          "Mở rộng quan hệ quốc tế, thúc đẩy xu thế toàn cầu hoá.",
+          "Mỹ chuyển sang ủng hộ xu thế đa cực, nhiều trung tâm.",
+          "Đưa tới sự ra đời của Hiệp hội các quốc gia Đông Nam Á.",
+          "Trung Quốc đã vươn lên trở thành nền kinh tế số 1 thế giới."
+        ],
+        answer: 0 },
+      { id: "history-2-V-30", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây phản ánh đúng tác động của sự sụp đổ Trật tự thế giới hai cực I-an-ta (1991) đến các quốc gia trên thế giới?",
+        options: [
+          "Mỹ vươn lên thiết lập trật tự thế giới “đơn cực” do Mỹ làm bá chủ.",
+          "Một số cường quốc có vị trí ngày càng cao trong quan hệ quốc tế.",
+          "Các nước tư bản chủ nghĩa và xã hội chủ nghĩa xung đột gay gắt.",
+          "Các quốc gia chạy đua vũ trang để có vị trí trong trật tự thế giới mới."
+        ],
+        answer: 1 },
+      { id: "history-2-T-01", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng dữ kiện sau đây: Nguyên nhân sụp đổ Trật tự thế giới hai cực l-an-ta – - Chạy đua vũ trang khiến cả Liên Xô và Mỹ bị tốn kém, suy giảm thế mạnh kinh tế, buộc hai bên phải tự điều chỉnh, từng bước hạn chế căng thẳng.; Sự vươn lên của các nước trên thế giới nhằm thoát khỏi ảnh hưởng của hai cực.; Thắng lợi của phong trào giải phóng dân tộc và sự ra đời của hàng loạt các quốc gia độc lập.; Sự thay đổi trong cán cân kinh tế thế giới, đặc biệt là sự nổi lên của Nhật Bản và các nước Tây Âu.; Xu thế hoà hoãn, toàn cầu hoá và ảnh hưởng của cuộc Cách mạng công nghiệp lần thứ ba.; Sự khủng hoảng, suy yếu rồi tan rã của Liên Xô quốc gia đứng đầu hệ thống xã hội chủ nghĩa.;",
+        statements: [
+          { text: "Trật tự hai cực I-an-ta sụp đổ là do sự phát triển mạnh mẽ của nền kinh tế Mỹ và Tây Âu từ sau Chiến tranh thế giới thứ hai.", answer: false },
+          { text: "Xu thế toàn cầu hoá khiến cho tình trạng chạy đua vũ trang của Mỹ và Liên Xô không còn phù hợp.", answer: true },
+          { text: "Trật tự thế giới hai cực I-an-ta sụp đổ gắn liền với sự khủng hoảng và suy yếu của Liên Xô.", answer: true },
+          { text: "Sự vươn lên của các nước đang phát triển khiến cho Mỹ suy yếu, không còn đủ sức chạy đua kinh tế.", answer: false }
+        ] },
+      { id: "history-2-T-02", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trước kia, chế độ quân chủ tại Hy Lạp đã nhờ vào sự giúp đỡ của Anh, nhưng sau Chiến tranh thế giới thứ hai, kinh tế của nước Anh hoàn toàn suy kiệt, lo cho mình còn không xong, nên không thể giúp đỡ gì cho chế độ quân chủ ở Hy Lạp nữa. Vào ngày 12-3-1947, Tổng thống Tơ-ru-man đã đọc một bài diễn văn tại lưỡng viện Quốc hội Mỹ, cho rằng Hy Lạp và Thổ Nhĩ Kỳ nếu bị rơi vào khối xã hội chủ nghĩa, thì cả Trung Đông cũng sẽ rơi theo... sẽ làm cho cả Tây Âu bị ảnh hưởng. Do vậy, ông thuyết phục Quốc hội Mỹ chi viện kinh tế và quân sự cho Hy Lạp và Thổ Nhĩ Kỳ với số tiền 400 triệu đô la. Li luận này về sau được gọi là “Học thuyết Tơ-ru-man”“. (Vương Kính Chi, Lược sử nước Mỹ (Phong Đảo dịch), NXB Thành phố Hồ Chí Minh, Thành phố Hồ Chí Minh, 2000, tr.145)",
+        statements: [
+          { text: "Chiến tranh lạnh là cuộc đối đầu gay gắt giữa Mỹ và Liên Xô, chỉ diễn ra ở châu Âu.", answer: false },
+          { text: "Thông điệp của Tổng thống Mỹ Tơ-ru-man đọc trước Quốc hội Mỹ ngày 12-3-1947 Tin đã khởi đầu cuộc Chiến tranh lạnh chống lại Liên Xô và các nước Đông Âu.", answer: true },
+          { text: "Nguồn gốc của sự đối đầu căng thẳng giữa Mỹ và Liên Xô xuất phát từ “vấn đề Hy Lạp và Thổ Nhĩ Kỳ” sau Chiến tranh thế giới thứ hai.", answer: false },
+          { text: "Học thuyết Tơ-ru-man phản ánh chính sách đối ngoại của Mỹ sau Chiến tranh thế giới thứ hai, muốn đưa nước Mỹ trở thành bá chủ thế giới.", answer: true }
+        ] },
+      { id: "history-2-T-03", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng dữ kiện sau đây: Từ đầu những năm 70 của thế kỉ XX, trên thế giới diễn ra nhiều cuộc gặp gỡ thương lượng của nguyên thủ quốc gia các nước và khu vực: Mỹ và Liên Xô, Mỹ với Trung Quốc, hai miền nước Đức, Đông Âu và Tây Âu,...; Tháng 12-1989, trong một cuộc họp không chính thức tại đảo Man-ta (Địa Trung Hải), đại diện hai nhà lãnh đạo cấp cao của Liên Xô (Goóc-ba-chốp) và Mỹ (Bu-sơ) đã chính thức cùng tuyên bố chấm dứt Chiến tranh lạnh.; Sau Chiến tranh lạnh, Liên Xô, Mỹ và các nước đã thỏa thuận giải quyết cuộc xung đột ở nhiều nơi trên thế giới bằng giải pháp hoà bình: ở Áp-ga-ni-xtan, Cam-pu-chia, Tây Nam Phi,...; Nhiều tổ chức liên minh khu vực và châu lục được mở rộng, hoặc thay đổi tên gọi mới, kết nạp thêm thành viên và kết nối liên lục địa (ASEAN, EU, ASEM, APEC,...).;",
+        statements: [
+          { text: "Mặc dù Chiến tranh lạnh vẫn tiếp diễn, nhưng từ đầu những năm 70 của thế kỉ XX, xu thế hoà hoãn Đông – Tây đã diễn ra.", answer: true },
+          { text: "Xu thế hoà hoãn Đông – Tây chỉ được diễn ra, bàn luận và quyết định bởi các cuộc gặp gỡ thương lượng giữa nguyên thủ quốc gia của hai nước Liên Xô và Mỹ.", answer: false },
+          { text: "Trong xu thế hoà hoãn Đông – Tây, Việt Nam luôn ủng hộ và đã thành công trong việc kí Hiệp định Pa-ri (1973) và giải quyết “vấn đề Cam-pu-chia” (1991).", answer: true },
+          { text: "Chiến tranh lạnh chấm dứt, sau đó là Trật tự thế giới hai cực I-an-ta sụp đổ đã tạo ra những ưu thế cho Mĩ trong việc chi phối nhiều vấn đề quốc tế.", answer: true }
+        ] },
+      { id: "history-2-T-04", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Vào thập niên 1980, mối quan hệ nồng ấm giữa Tổng thống Mỹ Ri-gân và nhà lãnh đạo Liên Xô Goóc-ba chớp đã giúp giảm dần tình trạng căng thẳng của CTL. Năm 1987, hai nhà lãnh đạo đã đồng ý huỷ bỏ tên lửa hạt nhân tầm trung. Năm 1989. Goóc-ba chấp cho phép các quốc gia XHCN ở Đông Âu bầu ra chính phủ dân chủ, và đến năm 1991, Liên Xô tan rã thành 15 nước cộng hoà độc lập. Ngày 12-3-1999 Hung-ga-ri, Ba Lan và Cộng hoà Séc gia nhập khối NATO”. (King Fisher, Bách khoa thư lịch sử (Nguyễn Đức Tĩnh và Ngô Minh Châu dịch), NXB Thế giới, Hà Nội, 2016, tr.437)",
+        statements: [
+          { text: "Trật tự thế giới hai cực I-an-ta bắt đầu bị xói mòn và sụp đổ trong thập niên 1980.", answer: false },
+          { text: "Chiến tranh lạnh kết thúc bắt nguồn từ những nguyên nhân khác nhau, nhưng sự suy giảm thế mạnh của Mỹ và Liên Xô là nguyên nhân quyết định.", answer: true },
+          { text: "Cuộc Chiến tranh lạnh đã kết thúc và Trật tự thế giới hai cực I-an-ta đã sụp đổ, nhưng nhiều di chứng của nó vẫn còn và vẫn đang tiếp diễn ở nhiều nơi trên thế giới.", answer: true },
+          { text: "Việc Liên Xô tan rã (1991) đã chính thức chấm dứt cục diện hai cực, hai phe.", answer: true }
+        ] },
+      { id: "history-2-T-05", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Liên Xô và Mỹ, một là nhà nước xã hội chủ nghĩa lớn nhất, một là nước tư bản chủ nghĩa lớn nhất. Chịu sự chi phối của tín ngưỡng ý thức hệ, hai nước dựa vào tiến triển của Chiến tranh thế giới thứ hai và cục diện sau chiến tranh để ra sức mở rộng phạm vi ảnh hưởng tín ngưỡng ý thức hệ của bản thân, ở những khu vực mà khả năng cho phép đều xảy dựng và duy trì chế độ giống như của mình”. (Trương Tiểu Minh, Chiến tranh lạnh và di sản của nó, NXB Chính trị Quốc gia, 2002, tr.36)",
+        statements: [
+          { text: "Liên Xô và Mỹ là hai cường quốc đứng đầu hai hệ thống xã hội đối lập trên thế giới.", answer: true },
+          { text: "Sau chiến tranh thế giới thứ hai, Liên Xô và Mỹ đều mở rộng phạm vi ảnh hưởng của mình trên thế giới.", answer: true },
+          { text: "Sau chiến tranh thế thế giới thứ hai, mâu thuẫn giữa hai nước thực chất là mâu thuẫn về ý thức hệ.", answer: true },
+          { text: "Cuộc tranh giành thuộc địa của Mỹ và Liên Xô sau chiến tranh không có hồi kết.", answer: false }
+        ] },
+      { id: "history-2-T-06", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng dữ kiện sau đây: Thời gian – Nội dung; 1950-1953 – Chiến tranh Triều Tiên.; 1945-1954 – Chiến tranh Đông Dương.; 1954-1975 – Chiến tranh Việt Nam.; Từ năm 1948 đến nay – Xung đột Trung Đông giữa Israel và các nước Ả rập.;",
+        statements: [
+          { text: "Trong thời kỳ Chiến tranh lạnh, không xảy ra cuộc chiến tranh giữa các nước nhưng thế giới luôn ở trong tình trạng căng thẳng.", answer: false },
+          { text: "Chiến tranh Triều Tiên là sản phẩm của Chiến tranh lạnh, là cuộc đụng độ đầu tiên trực tiếp giữa hai phe.", answer: true },
+          { text: "Chiến tranh xâm lược Việt Nam của đế quốc Mỹ là cuộc chiến tranh cục bộ lớn nhất phản ánh mâu thuẫn giữa hai phe.", answer: true },
+          { text: "Xung đột Trung Đông giữa Israel và các nước Ả rập là biểu hiện của Chiến tranh lạnh kiểu mới.", answer: false }
+        ] },
+      { id: "history-2-T-07", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trong Trật tự thế giới hai cực Ianta, Liên Xô đã đạt được 3 mục tiêu: bảo vệ vững chắc sự tồn tại và phát triển của đất nước Xô viết; thu hồi lại những đất đai của đế quốc Nga trước đây (kể - từ chiến tranh Nga - Nhật 1904 - 1905 đến chiến tranh chống ngoại xâm và nội phản 1918-1920); mở rộng phạm vi ảnh hưởng ở châu Âu và châu Á, qua đó thiết lập một vành đai an toàn bao quanh phía tây, đồng và nam Liên Xô. Còn Mỹ, đã khống chế được Tây Âu, , Nhật Bản, chỉ phối cục diện thế giới. Mặt khác, sự thoả thuận giữa ba cường quốc ở Hội nghị lanta đã xâm phạm đến chủ quyền, lãnh thổ và lợi ích của nhân dân nhiều nước”. (Nguyễn Anh Thái (Chủ biên), Lịch sử thế giới hiện đại, NXB Giáo dục, 2006 tr.234)",
+        statements: [
+          { text: "Trong trật tự thế giới hai cực Ianta, Mỹ và Liên Xô đều đạt được những mục tiêu cơ bản của mình.", answer: true },
+          { text: "Những quyết định của hội nghị lanta không tác động đến phong trào giải phóng dân tộc trên thế giới.", answer: false },
+          { text: "Mỹ đã phần nào khống chế và chi phối các nước đồng minh, đứng đầu các nước tư bản chủ nghĩa.", answer: true },
+          { text: "Liên Xô đã thiết lập được hệ thống các nước xã hội chủ nghĩa để bảo vệ an toàn xung quanh toàn bộ lãnh thổ đất nước.", answer: true }
+        ] },
+      { id: "history-2-T-08", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Việc nhà lãnh đạo kỳ cựu Honecker ra đi, thúc đẩy nhanh tiến trình tan rã của bộ máy Đảng và Nhà nước CHDC đức. Liên tiếp trong các trưởng và Bộ Chính trị Đảng Xã các ngày 7 và 8/11/1989, toàn t thể Hội đồng Bộ à hội chủ à nghĩa Thống nhất Đức từ chức tập thể. Cuộc “cách mạng êm dịu” và không dùng vũ lực đã làm tê liệt các cơ quan nhà nước. Uỷ viên Bộ Chính trị, Bí thư Thành uỷ Berlin Schabowski tuyên bố mở tất cả cửa khẩu ở Berlin vào tối ngày 9/11/1989. Bức tường Berlin được mở toang. Biến cố này gây chấn động không chỉ ở châu Âu mà cả toàn thế giới: bức tường Berlin, biểu tượng cho sự chia cắt châu Âu, cho Chiến tranh lạnh và trật tự thế giới ra đời sau Chiến tranh thế giới thứ hai nay không còn nữa”. (Trần Nam Tiến (Chủ biên), Lịch sử quan hệ quốc tế hiện đại (1945-2000), NXB Giáo dục, 2010, tr.262).",
+        statements: [
+          { text: "Bức tường Berlin là biểu tượng cho sự chia cắt nước Đức và châu Âu.", answer: true },
+          { text: "Nước Đức bị chia cắt theo quy định của các cường quốc tại Hội nghị Ianta.", answer: true },
+          { text: "Quá trình thống nhất đất nước Đức được tiến hành bằng con đường vũ lực.", answer: false },
+          { text: "Bức tường Berlin bị phá bỏ đã chấm dựt tình trạng đối đầu giữa Mỹ và Liên Xô.", answer: false }
+        ] },
+      { id: "history-2-T-09", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Tuy đối đầu quyết liệt như vậy, nhưng do nhiều nguyên nhân, nhất là liên quan tới nguy cơ thảm hoạ của một cuộc chiến tranh hạt nhân và sau này là cuộc chạy đua kinh tế, dưới tác động của cách mạng khoa học - kỹ thuật, có thể nói cả hai siêu cường Mỹ - Xô đều thực hiện chiến lược phòng ngự và các nước lớn như Mỹ, Anh, Pháp cũng như Liên Xô, Trung Quốc đều ra sức tránh nguy cơ gây ra đụng đầu trực tiếp giữa các nước lớn. Do đó, thế giới trong Trật tự thế giới hai cực lanta là vừa trong tình trạng đối đầu lại vừa hoà hoãn chung sống hoà bình, vừa đấu tranh, vừa hợp tác”. (Nguyễn Cơ Thạch, Thế giới 50 năm qua (1945 - 1995) và thế giới trong 25 năm tới (1996-2020), Nxb Chính trị Quốc gia, 1998, tr.41)",
+        statements: [
+          { text: "Mỹ và Liên Xô đều chạy đua vũ trang, ráo riết chuẩn bị cho chiến tranh hạt nhân.", answer: false },
+          { text: "Nguy cơ chiến tranh hạt nhân và tác động của cuộc cách mạng khoa học - kỹ thuật đã tác động đến cuộc đối đầu Mỹ - Xô.", answer: true },
+          { text: "Năm 1991, trật tự I-an-ta sụp đổ với sự tan rã của hai phe tư bản chủ nghĩa và xã hội chủ nghĩa.", answer: false },
+          { text: "Trật tự hai cực Ianta ảnh hưởng đến các mối quan hệ quốc tế trong giai đoạn 1945 – 1991.", answer: true }
+        ] },
+      { id: "history-2-T-10", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Bài học của thời kỳ Chiến tranh lạnh đã chứng tỏ phương thức quan hệ quốc tế lấy đối đầu chính trị - quân sự là chủ yếu không còn phù hợp, phải chịu nhiều tổn thất hoặc thất bại như hai nước Mỹ-Xô và “một bị thương, một bị mất”. Trong khi đó, phương thức lấy hợp tác và cạnh tranh về kinh tế - chính trị là chính lại thu được nhiều tiến bộ, kết quả như các nước Đức, Nhật và NIC. Sự hưng thịnh hay suy vong của một quốc gia quyết định bởi sức mạnh tổng hợp của quốc gia đó, mà chủ yếu là thực lực kinh tế và khoa học - kỹ thuật”. (Lý Thực Cốc (1996), Mỹ thay đổi chiến lược toàn cầu, NXB Chính trị Quốc gia, tr.30)",
+        statements: [
+          { text: "Trong kỳ Chiến tranh lạnh, phương thức quan hệ quốc tế lấy đổi đầu chính trị - quân sự là chủ yếu.", answer: true },
+          { text: "Liên Xô và Mỹ đều sụp đổ sau thời kỳ dài đối đầu căng thẳng, chạy đua vũ trang.", answer: false },
+          { text: "Yếu tố kinh tế và khoa học kĩ thuật là một trong những nhân tố quan trọng dẫn đến sự kết thúc của chiến tranh lạnh.", answer: true },
+          { text: "Bài học rút ra từ chiến tranh lạnh là các quốc gia cần có đường lối đối ngoại độc lập, tự chủ.", answer: false }
+        ] }
+        ] },
+        { id: "history-3", title: "Bài 3", subtitle: "Trật tự thế giới sau Chiến tranh lạnh", summary: [
+          { title: "Bối cảnh", points: [
+            "Bức tường Béc-lin sụp đổ (**1989**), biểu tượng kết thúc Chiến tranh lạnh; nước Đức thống nhất (**1990**).",
+            "Chủ nghĩa xã hội ở Đông Âu và Liên Xô sụp đổ (**1989 – 1991**); Liên Xô và Mỹ rút dần sự có mặt ở nhiều nơi.",
+            "Mỹ muốn tận dụng cơ hội thiết lập trật tự **đơn cực**, nhưng xu thế chung là **đa cực**."
+          ] },
+          { title: "Xu thế 1: Hòa bình, đối thoại, hợp tác", points: [
+            "Là xu thế **chủ đạo**: giải quyết mâu thuẫn bằng biện pháp hòa bình.",
+            "Hợp tác không phân biệt chế độ chính trị – xã hội.",
+            "Vẫn còn xung đột (ví dụ Trung Đông) và thách thức như khủng bố (sự kiện 11/9)."
+          ] },
+          { title: "Xu thế 2: Lấy kinh tế làm trung tâm", points: [
+            "Các nước xây dựng **sức mạnh tổng hợp**, thay cho chạy đua vũ trang.",
+            "Kinh tế là trụ cột, cùng khoa học – kĩ thuật; nội dung quan hệ quốc tế chuyển từ quân sự sang kinh tế."
+          ] },
+          { title: "Xu thế 3: Đa cực, nhiều trung tâm", points: [
+            "Đa cực: nhiều trung tâm quyền lực chi phối, không có một trung tâm thống trị.",
+            "Mỹ vẫn là cường quốc số một nhưng **suy giảm sức mạnh tương đối**.",
+            "Các trung tâm vươn lên: **Trung Quốc** (tăng trưởng cao, nhanh nhất thế giới), EU, Nhật Bản, Nga, Ấn Độ; hai cực mạnh nhất thế kỷ XXI: **Mỹ và Trung Quốc**.",
+            "Để thành một cực: phải xây dựng **sức mạnh tổng hợp**; lợi ích dân tộc được đặt lên hàng đầu.",
+            "Khác trật tự I-an-ta: hòa bình, đối thoại, hợp tác là xu thế chủ đạo."
+          ] },
+          { title: "Xu thế 4: Toàn cầu hóa", points: [
+            "Bản chất: sự tăng mạnh các mối liên hệ, tác động, phụ thuộc lẫn nhau giữa các nước; là xu thế **khách quan**, kết quả của lực lượng sản xuất và cách mạng khoa học – công nghệ.",
+            "Biểu hiện: thương mại quốc tế phát triển, công ty xuyên quốc gia, sáp nhập thành tập đoàn lớn (để tăng cạnh tranh); EU, WTO…",
+            "**Thời cơ**: tiếp cận khoa học – kĩ thuật hiện đại, kinh tế phát triển nhanh.",
+            "**Thách thức**: độc lập tự chủ có nguy cơ bị xâm phạm; an ninh phi truyền thống (khủng bố)."
+          ] },
+          { title: "Liên hệ Việt Nam", points: [
+            "Nguyên tắc hội nhập: **giữ vững độc lập chủ quyền**.",
+            "Đối ngoại: sẵn sàng là bạn với tất cả các nước, không phân biệt chế độ chính trị; chủ động nắm bắt thời cơ, vượt qua thách thức.",
+            "Quan hệ với Mỹ: hòa bình, hợp tác, cùng phát triển; Trung Quốc là nước đầu tiên nâng cấp lên đối tác chiến lược toàn diện."
+          ] },
+          { title: "Dễ nhầm", points: [
+            "Mâu thuẫn về **thuộc địa** không còn xuất hiện sau Chiến tranh lạnh.",
+            "Các công ty xuyên quốc gia của Mỹ chi phối kinh tế **không phải** biểu hiện của đa cực.",
+            "Lập các tổ chức quân sự lớn **không phải** biểu hiện của xu thế đối thoại, hợp tác."
+          ] }
+        ],
+          questions: [
+      { id: "history-3-B-01", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây phản ánh đúng một trong những xu thế của thế giới sau Chiến tranh lạnh?",
+        options: [
+          "Lấy phát triển kinh tế là trung tâm.",
+          "Lấy phát triển chính trị là trung tâm.",
+          "Lấy phát triển văn hóa là trung tâm.",
+          "Lấy phát triển tư tưởng là trung tâm."
+        ],
+        answer: 0 },
+      { id: "history-3-B-02", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây là biểu hiện của xu thế đa cực trong quan hệ quốc tế sau Chiến tranh lạnh?",
+        options: [
+          "Các quốc gia chạy đua vũ trang mạnh mẽ.",
+          "Sự suy giảm sức mạnh tương đối của Mĩ.",
+          "Đông Nam Á phát triển nhanh nhất thế giới.",
+          "Xu thế liên kết khu vực trở thành chủ đạo."
+        ],
+        answer: 1 },
+      { id: "history-3-B-03", type: "single", tag: "Biết",
+        question: "Một trong những biểu hiện của xu thế đối thoại, hợp tác trong quan hệ quốc tế sau Chiến tranh lạnh là",
+        options: [
+          "giải quyết mâu thuẫn bằng biện pháp hòa bình.",
+          "sự suy giảm sức mạnh tương đối của nước Mĩ.",
+          "sự hợp nhất các công ty thành các tập đoàn lớn.",
+          "sự phát triển nhanh quan hệ thương mại quốc tế."
+        ],
+        answer: 0 },
+      { id: "history-3-B-04", type: "single", tag: "Biết",
+        question: "Xét về bản chất, toàn cầu hóa là",
+        options: [
+          "sự tăng lên mạnh mẽ những mối liên hệ, tác động, phụ thuộc lẫn nhau giữa các nước.",
+          "sự phát triển nhanh chóng của quan hệ thương mại giữa các quốc gia trên thế giới.",
+          "sự tăng cường sáp nhập và hợp nhất các công ti thành những tập đoàn lớn trên toàn cầu.",
+          "sự ra đời của các tổ chức liên kết kinh tế, thương mại, tài chính quốc tế và khu vực."
+        ],
+        answer: 0 },
+      { id: "history-3-B-05", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây phản ánh không đúng biểu hiện của xu thế toàn cầu hóa xuất hiện từ những năm 80 của thế kỉ XX?",
+        options: [
+          "Sự phát triển nhanh chóng của quan hệ thương mại quốc tế.",
+          "Sự phát triển và tác động không lớn của công ti xuyên quốc gia.",
+          "Sự sáp nhập và hợp nhất các công ti thành những tập đoàn lớn.",
+          "Sự ra đời của các tổ chức liên kết kinh tế quốc tế và khu vực."
+        ],
+        answer: 1 },
+      { id: "history-3-B-06", type: "single", tag: "Biết",
+        question: "Trong xu thế đa cực ở thế kỷ XXI, hai quốc gia nào trở thành hai cực mạnh nhất?",
+        options: [
+          "Mỹ và Liên bang Nga.",
+          "Mỹ và Trung Quốc.",
+          "Trung Quốc và Ấn Độ.",
+          "Liên bang Nga và Nhật Bản."
+        ],
+        answer: 1 },
+      { id: "history-3-B-07", type: "single", tag: "Biết",
+        question: "Từ sau khi Chiến tranh lạnh kết thúc (1991), thế giới phát triển theo một trong những xu thế nào sau đây?",
+        options: [
+          "Đa cực, nhiều trung tâm.",
+          "Lấy chính trị làm nền tảng.",
+          "Thỏa hiệp để ổn định toàn cầu.",
+          "Hạn chế phổ biến vũ khí hạt nhân."
+        ],
+        answer: 0 },
+      { id: "history-3-B-08", type: "single", tag: "Biết",
+        question: "Một trong những biểu hiện của xu thế toàn cầu hoá từ những năm 80 của thế kỷ XX là",
+        options: [
+          "sự phát triển quan hệ thương mại quốc tế.",
+          "sự thành công của cách mạng công nghệ 4.0.",
+          "sự phát triển mạnh mẽ của xu thế khu vực hóa.",
+          "thị trường thế giới được hoàn toàn thống nhất."
+        ],
+        answer: 0 },
+      { id: "history-3-B-09", type: "single", tag: "Biết",
+        question: "Tình hình khu vực Trung Đông sau khi Chiến tranh lạnh kết thúc có đặc điểm gì?",
+        options: [
+          "Vẫn tồn tại chế độ Apácthai.",
+          "Vẫn diễn ra xung đột vũ trang.",
+          "Chấm dứt những xung đột sắc tộc.",
+          "Thiết lập được hoà bình ở khu vực"
+        ],
+        answer: 1 },
+      { id: "history-3-B-10", type: "single", tag: "Biết",
+        question: "Mâu thuẩn nào không xuất hiện trong quan hệ quốc tế sau Chiến tranh lạnh?",
+        options: [
+          "Mâu thuẩn về vấn đề tôn giáo.",
+          "Mâu thuẩn về vấn đề thuộc địa.",
+          "Mâu thuẩn về lợi ích dân tộc.",
+          "Mâu thuẩn trong thiết lập trật tự mới."
+        ],
+        answer: 1 },
+      { id: "history-3-B-11", type: "single", tag: "Biết",
+        question: "Nội dung nào thể hiện mối quan hệ đối ngoại giữa Mỹ và Việt Nam trong thế kỷ XXI",
+        options: [
+          "Hòa bình, trung lập tích cực.",
+          "Chạy đua sức mạnh tổng hợp.",
+          "Đối đầu, xung đột, căng thẳng.",
+          "Hòa bình, hợp tác, cũng phát triển."
+        ],
+        answer: 3 },
+      { id: "history-3-B-12", type: "single", tag: "Biết",
+        question: "Trong xu thế toàn cầu hóa, để tăng khả năng cạnh tranh trên thị trường trong và ngoài nước, các công ty có xu hướng",
+        options: [
+          "đây mạnh việc xuất khẩu tư bản và cho vay lãi.",
+          "sáp nhập và hợp nhất thành những tập đoàn lớn.",
+          "chú trọng sản xuất nội địa, năm độc quyền kinh tế.",
+          "tách thành những công ty con, phân bố toàn cầu."
+        ],
+        answer: 1 },
+      { id: "history-3-B-13", type: "single", tag: "Biết",
+        question: "Nội dung nào là đặc điểm nổi bật của kinh tế Trung Quốc cuối thế kỷ XX đầu thế ky XXI",
+        options: [
+          "Kinh tế Trung Quốc dẫn đầu thế giới trên mọi lĩnh vực.",
+          "Chiếm 1/2 bản quyền phát minh khoa học của thế giới.",
+          "Tốc độ tăng trưởng kinh tế cao và nhanh nhất thế giới.",
+          "Trở thành trung tâm kinh tế - tài chính lớn của giới tư bản."
+        ],
+        answer: 2 },
+      { id: "history-3-B-14", type: "single", tag: "Biết",
+        question: "Khi Chiến tranh lạnh chấm dứt, Liên Xô và Mỹ đã",
+        options: [
+          "thiết lập liên mình kinh tế để hợp tác cùng phát triển.",
+          "mở rộng phạm vi chiếm đóng băng sức mạnh quân sự.",
+          "rút dần sự có mặt ở nhiều nơi quan trọng trên thế giới.",
+          "ký hiệp ước thành lập trật tự thế giới theo xu hướng đa cực"
+        ],
+        answer: 2 },
+      { id: "history-3-B-15", type: "single", tag: "Biết",
+        question: "Sự kiện Bức tường Béclin sụp đổ (1989) là",
+        options: [
+          "sự tan rã của chủ nghĩa phát xít ở Đức sau thời gian dài tồn tại.",
+          "một trong những biểu tượng cho sự kết thúc của Chiến tranh lạnh.",
+          "mốc mở đầu cho sự phát triển mới của chủ nghĩa tư bản ở châu Âu.",
+          "biểu hiện của sự sụp đổ hệ thống xã hội chủ nghĩa trên toàn thế giới."
+        ],
+        answer: 1 },
+      { id: "history-3-B-16", type: "single", tag: "Biết",
+        question: "Xét về bản chất, toàn cầu hóa là",
+        options: [
+          "sự ảnh hưởng của các tư bản phát triển đối với các quốc gia đang và kém phát triển.",
+          "kết quả của quá trình tăng tiến mạnh mẽ của lực lượng sản xuất, là xu thế khách quan.",
+          "sự phát triển của những tổ chức liên kết khu vực và ngày càng được mở rộng phạm vi.",
+          "sự ra đời của các tổ chức liên kết kinh tế, thương mại, tài chính quốc tế và khu vực."
+        ],
+        answer: 1 },
+      { id: "history-3-B-17", type: "single", tag: "Biết",
+        question: "Khái niệm “đa cực” được hiểu là",
+        options: [
+          "trạng thái địa - văn hóa toàn câu với nhiều trung tâm quyền lực chi phối.",
+          "một trật tự mới với vai trò vượt trội của Mỹ, chi phối các nước khác.",
+          "một trật tự thế giới mà các nước vừa và nhỏ có vai trò quyết định.",
+          "trạng thái địa - chính trị toàn cầu với nhiều trung tâm quyền lực chi phối."
+        ],
+        answer: 3 },
+      { id: "history-3-B-18", type: "single", tag: "Biết",
+        question: "Nội dung nào sau đây không phải là biểu hiện của xu thế đa cực trong quan hệ quốc tế sau Chiến tranh lạnh?",
+        options: [
+          "Mỹ vẫn là cường quốc sô 1 thế giới, nhưng đã suy giảm so với trước.",
+          "Bên cạnh Mỹ, nhiều trung tâm quyền lực cũng xuất hiện và phát triển.",
+          "Các công ty xuyên quốc gia của Mỹ vươn ra chị phối nền kinh tế toàn cầu.",
+          "Các trung tâm, tổ chức kinh tế, tài chính quốc tế và khu vực có vai trò lớn."
+        ],
+        answer: 2 },
+      { id: "history-3-B-19", type: "single", tag: "Biết",
+        question: "Sau Chiến tranh lạnh, các quốc gia nào sau đây là một trong những trung tâm quyền lực đang vươn lên khẳng định sức mạnh về kinh tế, quân sự và chính trị đối với quốc tế?",
+        options: [
+          "Nhật Bản và Nam Phi.",
+          "Trung Quốc và Án Độ.",
+          "Mỹ, Anh và Tây Ban Nha.",
+          "Liên bang Nga và Mông Cổ."
+        ],
+        answer: 1 },
+      { id: "history-3-B-20", type: "single", tag: "Biết",
+        question: "Sau Chiến tranh lạnh, tương quan lực lượng giữa các cường quốc trên thế giới có tác động như thế nào đến quan hệ quốc tế?",
+        options: [
+          "Đây nhanh quá trình thiết lập trật tự thế giới mới do Mỹ thống trị.",
+          "Góp phần tạo nên xu thể hoà bình, ổn định và phát triển trên thế giới.",
+          "Ngăn chặn được những “di chứng” của Chiến tranh lạnh trên thế giới.",
+          "Góp phần hình thành trật tự thế giới theo xu thế đa cực, nhiều trung tâm."
+        ],
+        answer: 3 },
+      { id: "history-3-H-01", type: "single", tag: "Hiểu",
+        question: "Sau năm 1991, các nước lớn điều chỉnh quan hệ đối ngoại theo hướng đối thoại, hợp tác nhấm mục đích gì?",
+        options: [
+          "Xoá bỏ những mâu thuẩn đang tồn tại.",
+          "Hoà bình ổn định để phát triển kinh tế.",
+          "Tập hợp lực lượng để cạnh tranh quốc tế.",
+          "Hạn chế tác động của khủng hoảng kinh tế."
+        ],
+        answer: 1 },
+      { id: "history-3-H-02", type: "single", tag: "Hiểu",
+        question: "Vị thế của Trung Quốc trong trật tự thế giới mới đang vận động hình thành sau khi Chiến tranh lạnh chấm dứt là",
+        options: [
+          "chỉ phối và thống trị châu Á.",
+          "“một cực” trong xu thế đa cực.",
+          "“một cực” trong trật tự hai cực.",
+          "“một cực” duy nhất ở châu Á."
+        ],
+        answer: 1 },
+      { id: "history-3-H-03", type: "single", tag: "Hiểu",
+        question: "Tại sao sau Chiến tranh lạnh, các quốc gia đều ra sức điều chỉnh chiến lược phát triển lấy kinh tế làm trung tâm",
+        options: [
+          "Các quốc gia muốn trở thành siêu cương về kinh tế.",
+          "Các quốc gia lo sợ sự ảnh hưởng của các nước lớn.",
+          "Phát triển kinh tế sẽ quyết định phát triển chính trị.",
+          "Kinh tế trở thành nội dung căn bản trong quan hệ quốc tế."
+        ],
+        answer: 3 },
+      { id: "history-3-H-04", type: "single", tag: "Hiểu",
+        question: "Trong xu thế toàn cầu hóa, việc sáp nhập và hợp nhất các công ti thành tập đoàn lớn trên thế giới nhằm mục đích nào sau đây?",
+        options: [
+          "Tăng cường khả năng cạnh tranh.",
+          "Thúc đẩy giao lưu kinh tế.",
+          "Nâng vị thế của các cường quốc.",
+          "Mở rộng qui mô sản xuất."
+        ],
+        answer: 0 },
+      { id: "history-3-H-05", type: "single", tag: "Hiểu",
+        question: "Sự ra đời của Liên minh châu Âu (EU), Tổ chức Thương mại Thế giới (WTO), Diễn đàn hợp tác Á - Âu (ASEM) là biểu hiện của xu thế",
+        options: [
+          "đa dạng hóa.",
+          "nhất thể hóa.",
+          "đa phương hóa.",
+          "toàn cầu hóa."
+        ],
+        answer: 3 },
+      { id: "history-3-H-06", type: "single", tag: "Hiểu",
+        question: "Để hội nhập với xu thế toàn cầu hóa hiện nay, các quốc gia đều ra sức điều chỉnh chiến lược phát triển của mình, tập trung vào phát triển",
+        options: [
+          "chính trị.",
+          "văn hóa.",
+          "quốc phòng.",
+          "kinh tế."
+        ],
+        answer: 3 },
+      { id: "history-3-H-07", type: "single", tag: "Hiểu",
+        question: "Chiến tranh lạnh chấm dứt, thế giới chuyển sang xu thế",
+        options: [
+          "hòa dịu, đối thoại và hợp tác phát triển.",
+          "cạnh tranh gay gắn về kinh tế và chính trị.",
+          "chạy đua vũ trang giữa các cường quốc lớn.",
+          "xung đột sắc tộc, tôn giáo diễn ra phổ biến."
+        ],
+        answer: 0 },
+      { id: "history-3-H-08", type: "single", tag: "Hiểu",
+        question: "Đặc điểm nổi bật trong quan hệ quốc tế sau khi chiến tranh lạnh chấm dứt là",
+        options: [
+          "Hợp tác chính trị - văn hóa là xu thế chủ đạo.",
+          "Hai siêu cường Xô - Mĩ đối thoại, hợp tác.",
+          "Hòa bình, hợp tác trở thành xu thế chủ đạo.",
+          "Hai siêu cường Xô - Mĩ đối đầu gay gắt."
+        ],
+        answer: 2 },
+      { id: "history-3-H-09", type: "single", tag: "Hiểu",
+        question: "Nhân tố nào sau đây đóng vai trò quyết định để các cường quốc tham gia xác lập trật tự thế giới mới sau Chiến tranh lạnh?",
+        options: [
+          "Sức mạnh tổng hợp của quốc gia, trong đó kinh tế vẫn là trụ cột.",
+          "Là 1 trong 5 cường quốc của Hội đông Bảo an Liên hợp quốc.",
+          "Sự ra đời và ngày càng mở rộng của các tổ chức liên kết khu vực.",
+          "Sức mạnh quân sự của quốc gia với lực lượng quân sự hùng hậu."
+        ],
+        answer: 0 },
+      { id: "history-3-H-10", type: "single", tag: "Hiểu",
+        question: "Sự sụp đổ của chế độ xã hội chủ nghĩa ở Đông Âu và Liên Xô (1989 - 1991) đã tạo cho Mỹ lợi thế nào sau đây?",
+        options: [
+          "Chi phối được các nước tư bản đồng minh đi theo Mỹ.",
+          "Tận dụng cơ hội để thiết lập trật tự thế giới đơn cực.",
+          "Đẩy mạnh việc triển khai chiến lược đa phương hóa.",
+          "Thực hiện thành công mục tiêu chiến lược toàn cầu."
+        ],
+        answer: 1 },
+      { id: "history-3-H-11", type: "single", tag: "Hiểu",
+        question: "Thách thức an ninh phi truyền thống mà các dân tộc phải đối mặt trong xu thế toàn cầu hóa là",
+        options: [
+          "chủ nghĩa khủng bố.",
+          "tài nguyên suy thoái.",
+          "khoảng cách giàu nghèo.",
+          "nạn thất nghiệp gia tăng."
+        ],
+        answer: 0 },
+      { id: "history-3-H-12", type: "single", tag: "Hiểu",
+        question: "Nội dung nào phản ánh không đúng thời cơ mà xu thế toàn cầu hóa đặt ra đối với các nước đang phát triển?",
+        options: [
+          "Tiếp thu thành tựu khoa học - công nghệ hiện đại.",
+          "Mở rộng quan hệ hợp tác, chiếm lĩnh thị trường.",
+          "Các mâu thuẫn xã hội được giải quyết triệt để.",
+          "Khai thác vốn đầu tư, học hỏi kinh nghiệm quản lí."
+        ],
+        answer: 2 },
+      { id: "history-3-H-13", type: "single", tag: "Hiểu",
+        question: "Để có thể trở thành một cực trong thế giới đa cực, nhiệm vụ quan trọng của các quốc gia là gì?",
+        options: [
+          "Hạn chế chạy đua vũ trang với các nước.",
+          "Lựa chọn những quốc gia phụ thuộc mới.",
+          "Xây dựng sức mạnh tổng hợp của quốc gia.",
+          "Tham gia vào các liên minh kinh tế tài chính."
+        ],
+        answer: 2 },
+      { id: "history-3-H-14", type: "single", tag: "Hiểu",
+        question: "Sự liên kết và hợp tác kinh tế trên thế giới từ sau năm 1991 có đặc điểm gì khác biệt so với thời kỳ trật tự thế giới hai cực lanta?",
+        options: [
+          "Hợp tác kinh tế chịu sự chi phối của ý thức hệ.",
+          "Hợp tác không phân biệt chế độ chính trị - xã hội.",
+          "Bước đầu hình thành các liên minh kinh tế khu vực.",
+          "Nền kinh tế các nước trên thế giới tương đối độc lập."
+        ],
+        answer: 1 },
+      { id: "history-3-H-15", type: "single", tag: "Hiểu",
+        question: "“Không có một trung tâm quyền lực thống trị, thay vào đó, nhiều quốc gia, khu vực tạo ra thế cân bằng về kinh tế, chính trị, quân sự toàn cầu”. Đoạn thông tin trên phản ánh đặc điểm của trật tự thế giới nào sau đây?",
+        options: [
+          "trật tự đa cực.",
+          "Trật tự đơn cực.",
+          "Trật tự hai cực I-an-ta.",
+          "Trật tự Vécxai – Oasinhtơn."
+        ],
+        answer: 0 },
+      { id: "history-3-H-16", type: "single", tag: "Hiểu",
+        question: "Sau khi chiến tranh lạnh chấm dứt, nước xã hội chủ nghĩa nào sau đây đã vươn lên trở thành một cực trong trật tự thế giới đa cực?",
+        options: [
+          "Liên bang Nga.",
+          "Trung Quốc.",
+          "Ấn Độ.",
+          "Nhật Bản."
+        ],
+        answer: 1 },
+      { id: "history-3-H-17", type: "single", tag: "Hiểu",
+        question: "Sau khi chiến tranh lạnh chấm dứt, tổ chức nào sau đây đã vươn lên trở thành một cực trong trật tự thế giới đa cực?",
+        options: [
+          "Liên minh châu Âu.",
+          "Hiệp hội các quốc gia Đông Nam Á.",
+          "Tổ chức Hiệp ước Bắc Đại Tây Dương.",
+          "Diễn đàn hợp tác Á – Âu."
+        ],
+        answer: 0 },
+      { id: "history-3-H-18", type: "single", tag: "Hiểu",
+        question: "Nội dung nào sau đây không phản ánh đúng xu thế đối thoại, hợp tác trong quan hệ quốc tế sau khi chiến tranh lạnh chấm dứt?",
+        options: [
+          "Các nước giải quyết bất đồng và mâu thuẫn bằng thương lượng hòa bình.",
+          "Các nước xây dựng quan hệ hợp tác lâu dài trên cơ sở hai bên cùng có lợi.",
+          "Các nước liên minh với nhau hình thành các tổ chức quân sự lớn ở các châu lục.",
+          "Các nước điều chỉnh quan hệ theo hướng hòa hoãn, đối thoại đa phương hóa."
+        ],
+        answer: 2 },
+      { id: "history-3-H-19", type: "single", tag: "Hiểu",
+        question: "Sự phát triển nhanh chóng của nền thương mại thế giới với vai trò ngày càng lớn của các công ty xuyên quốc gia là biểu hiện của xu thế nào sau khi chiến tranh lạnh chấm dứt?",
+        options: [
+          "Xu thế đối thoại, hòa hoãn giữa các nước lớn.",
+          "Xu thế lấy phát triển chính trị làm trung tâm.",
+          "Xu thế nhiều trung tâm trong quan hệ quốc tế.",
+          "Xu thế toàn cầu hóa ngày càng gia tăng mạnh mẽ."
+        ],
+        answer: 3 },
+      { id: "history-3-H-20", type: "single", tag: "Hiểu",
+        question: "Sau Chiến tranh lạnh, một trong những mục tiêu của các quốc gia là",
+        options: [
+          "triệt tiêu cạnh tranh trong phát triển kinh tế.",
+          "xây dựng nền kinh tế vững mạnh.",
+          "xóa bỏ hoàn toàn hệ thống thuộc địa.",
+          "khôi phục lại trật tự thế giới hai cực."
+        ],
+        answer: 1 },
+      { id: "history-3-V-01", type: "single", tag: "Vận dụng",
+        question: "Một trong những thách thức với các nước đang phát triển trong xu thế đa cực là",
+        options: [
+          "vấn đề an ninh phi truyền thống ngày càng trở nên nghiêm trọng.",
+          "giảm sự phục tùng của các nước đối với các cường quốc lớn.",
+          "tăng cường xu thế hòa bình, hợp tác và phát triển trên thế giới.",
+          "trào lưu dân túy, xu hướng bảo hộ có chiều hướng giảm nhanh."
+        ],
+        answer: 0 },
+      { id: "history-3-V-02", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây phản ánh đúng đặc điểm của trật tự thế giới đa cực?",
+        options: [
+          "Lợi ích của dân tộc được đặt lên vị trí hàng đầu.",
+          "Sức mạnh của Mỹ được tăng cường tuyệt đối.",
+          "Có sự cân bằng giữa hai hệ thống xã hội đối lập.",
+          "Được thành lập ngay sau khi chiến tranh lạnh kết thúc."
+        ],
+        answer: 0 },
+      { id: "history-3-V-03", type: "single", tag: "Vận dụng",
+        question: "Nguyên tắc quan trọng nhất của Việt Nam khi hội nhập vào nền kinh tế thế giới theo xu thế toàn cầu hóa là",
+        options: [
+          "am hiểu luật pháp quốc tế.",
+          "cạnh tranh không lành mạnh.",
+          "giữ vững độc lập chủ quyền.",
+          "bình đẳng trong cạnh tranh."
+        ],
+        answer: 2 },
+      { id: "history-3-V-04", type: "single", tag: "Vận dụng",
+        question: "Một trong những thời cơ của Việt Nam khi tham gia xu thế toàn cầu hóa là",
+        options: [
+          "khai thác được nguồn lực trong nước.",
+          "tiếp cận khoa học - kĩ thuật hiện đại.",
+          "tạo điều kiện giữ vững bản sắc dân tộc.",
+          "thúc đẩy sự cạnh tranh của nền kinh tế."
+        ],
+        answer: 1 },
+      { id: "history-3-V-05", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây phản ánh điểm khác biệt giữa trật tự đa cực so với trật tự hai cực I-an-ta?",
+        options: [
+          "Bị chi phối bởi quyền lợi của các cường quốc.",
+          "Hòa bình, đối thoại, hợp tác là xu thế chủ đạo.",
+          "Hình thành sau khi chiến tranh thế giới kết thúc.",
+          "Các nước tập trung phát triển quân sự là trọng điểm."
+        ],
+        answer: 1 },
+      { id: "history-3-V-06", type: "single", tag: "Vận dụng",
+        question: "Xu thế toàn cầu hoá từ cuối thế kỷ XX đã có tác động nào sau đây đến các quốc gia trên thế giới?",
+        options: [
+          "Đem lại sự công bằng, bình đẳng giữa các quốc gia và các dân tộc.",
+          "Làm cho mọi mặt hoạt động, đời sống con người trở nên an toàn.",
+          "Làm cho nên độc lập tự chủ các quốc gia có nguy cơ bị xâm phạm.",
+          "Bảo vệ chủ quyền, toàn vẹn lãnh thổ của các quốc gia trên thế giới."
+        ],
+        answer: 2 },
+      { id: "history-3-V-07", type: "single", tag: "Vận dụng",
+        question: "Trong bối cảnh quốc tế đang diễn ra theo nhiều xu thế mới với những diễn biến phức tạp, chủ trương nhất quán của Đảng và Nhà nước Việt Nam là",
+        options: [
+          "tham gia liên minh chính trị với Mỹ và các nước phương Tây.",
+          "chủ động kết nối các cường quốc để nâng tầm đối tác chiến lược.",
+          "hội nhập quốc tế để thu hút vốn đầu tư bên ngoài bằng mọi giá.",
+          "chủ động nắm bắt thời cơ, đi tắt đón đầu để vượt qua thách thức."
+        ],
+        answer: 3 },
+      { id: "history-3-V-08", type: "single", tag: "Vận dụng",
+        question: "Toàn cầu hoá là thời cơ với các nước đang phát triển nói chung và Việt Nam nói riêng bởi nó",
+        options: [
+          "thúc đẩy sự phát triển nhanh chóng của nền kinh tế.",
+          "tạo ra nguy cơ đánh mất bản sắc văn hóa dân tộc.",
+          "tạo nên sự phân hóa giàu nghèo trong nội bộ từng nước.",
+          "thúc đẩy sự hợp tác và phụ thuộc lẫn nhau của các nước."
+        ],
+        answer: 0 },
+      { id: "history-3-V-09", type: "single", tag: "Vận dụng",
+        question: "Trong thế kỷ XXI, nhân tố nào tạo ra những “đột phá” và biến chuyển lớn trên cục điện thế giới",
+        options: [
+          "Sự phát triển của cách mạng khoa học - công nghệ.",
+          "Sự ra đời của các công ty xuyên quốc gia ở châu Á.",
+          "Cuộc đấu tranh không khoan nhượng với thực dân mới.",
+          "Mỹ khống chế đồng minh và chỉ 1 phối tình hình thế giới"
+        ],
+        answer: 0 },
+      { id: "history-3-V-10", type: "single", tag: "Vận dụng",
+        question: "Nội dung nào sau đây là xu thế phát triển của thế giới sau Chiến tranh lạnh được nhân dân các nước hi vọng, mong muốn trở thành hiện thực?",
+        options: [
+          "Đa cực, đa phe trong đối ngoại quốc tế.",
+          "Liên kết và hội nhập giữa các nước lớn.",
+          "Hòa bình, ổn định để cùng phát triển.",
+          "Phát triển kinh tế, quân sự là trung tâm."
+        ],
+        answer: 2 },
+      { id: "history-3-V-11", type: "single", tag: "Vận dụng",
+        question: "Một trong những nhân tố quan trọng tác động đến sự hình thành trật tự thế giới mới sau khi chiến tranh lạnh chấm dứt là",
+        options: [
+          "cuộc đấu tranh chống chế độ phân biệt chủng tộc ở châu Phi",
+          "cuộc chạy đua về sức mạnh tổng hợp giữa các cường quốc.",
+          "sự trỗi dậy của chủ nghĩa khủng bố trên phạm vi toàn cầu.",
+          "cuộc đấu tranh giành độc lập của các dân tộc thuộc địa."
+        ],
+        answer: 1 },
+      { id: "history-3-T-01", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Bài học của thời kì Chiến tranh lạnh đã chứng tỏ phương thức quan hệ quốc tế lấy đối đầu chính trị - quân sự là chủ yếu không còn phù hợp, phải chịu nhiều tổn thất hoặc thất bại như hai nước Xô - Mĩ và một bị thương, một bị mất. Trong khi đó, phương thức lấy hợp tác và cạnh tranh về kinh tế chính trị lại thu được nhiều tiến bộ, kết quả như các nước Đức, Nhật và NICs. Sự hưng thịnh hay suy vong của một quốc gia quyết định bởi sức mạnh tổng hợp của quốc gia đó, mà chủ yếu là thực lực kinh tế và khoa học - kĩ thuật”. (Vũ Dương Ninh (Chủ biên), Một số chuyên đề lịch sử thế giới, NXB Đại học Quốc gia Hà Nội, Hà Nội, 2001, tr.401)",
+        statements: [
+          { text: "Sau Chiến tranh lạnh, các nước tập trung phát triển sức mạnh tổng hợp.", answer: true },
+          { text: "Phát triển kinh tế là một xu thế của thế giới sau Chiến tranh lạnh.", answer: true },
+          { text: "Đối đầu quân sự - chính trị là một xu thế của thế giới sau Chiến tranh lạnh.", answer: false },
+          { text: "Cạnh tranh quyết liệt là xu thế chính của thế giới sau Chiến tranh lạnh.", answer: false }
+        ] },
+      { id: "history-3-T-02", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Sự kiện tác động mạnh mẽ đến quan hệ quốc tế đầu thế kỉ XXI là cuộc tấn công khủng bố của tổ chức Al Queda vào Mĩ (11 - 9 - 2001). Các tuyên bố của Tổng thống Hoa Kỳ G. Bu-sơ (buộc thế giới phải chọn phe. phe chống khủng bố do Mĩ lãnh đạo hoặc là phe khủng bố - kẻ thù của Mĩ), hành động chiến tranh can thiệp vào Áp-ga-ni-xtan, I-rắc (từ năm 2001) đã phản ánh nỗ lực rõ ràng của Mĩ trong thiết lập trật tự đơn cực. Tuy nhiên, nỗ lực này đối mặt với những trở ngại sau. chiến tranh và khủng hoảng tài chính 2008 - 2009 làm suy yếu sức mạnh Mĩ; sự trỗi dậy mạnh mẽ của Trung Quốc và các chiến lược đối ngoại của nước này (chẳng hạn sáng kiến “Vành đai, con đường”) nhằm tạo ra hệ thống kinh tế mới lấy Trung Quốc làm trung tâm; sự ổn định kinh tế - chính trị ở Nga và mong muốn khôi phục vị thế cường quốc hàng đầu thế giới; các trung tâm Liên minh châu Âu, Ấn Độ, Nhật Bản tham gia vào quá trình cạnh tranh quyền lực. Do vậy, Mĩ không thể tiếp tục thiết lập trật tự đơn cực mà thay vào đó, Mĩ và các trung tâm quyền lực vừa nêu trở thành các cực trong quan hệ quốc tế. Điều này dẫn đến trật tự thế giới mới dần hình thành theo hướng đa cực, trong đó, xu thế chung trong quan hệ giữa các nước là đối thoại và hợp tác”. (Theo Nguyễn Tiến Nghĩa, “Trật tự thế giới sau Chiến tranh lạnh; Những quan niệm khác nhau”, Tạp chí Cộng sản, số 20, tháng 10-2006)",
+        statements: [
+          { text: "Trong xu thế đa cực sau Chiến tranh lạnh, Mĩ và Nga thâu tóm quyền lực.", answer: false },
+          { text: "Xu thế chung trong quan hệ giữa các nước là đối tác chiến lược toàn diện.", answer: false },
+          { text: "Sau Chiến tranh lạnh Mĩ có âm mưu thiết lập trật tự thế giới đơn cực.", answer: true },
+          { text: "Sau Chiến tranh lạnh xu thế đa cực được hình thành và có ảnh hưởng lớn.", answer: true }
+        ] },
+      { id: "history-3-T-03", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng niên biểu về một số sự kiện tiêu biểu về quan hệ của Việt Nam với một số nước lớn trên thế giới đầu thế kỷ XXI Thời gian – Sự kiện; Tháng 5/2008 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Trung Quốc.; Tháng 7/2012 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Liên bang Nga.; Tháng 9/2016 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Ấn Độ.; Tháng 12/2022 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Hàn Quốc.; Tháng 9/2023 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Mỹ.; Tháng 11/2023 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Nhật Bản.; Tháng 3/2024 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Australia.; Tháng 10/2024 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Pháp.; Tháng 11/2024 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với Malayxia.; Tháng 2/2025 – Việt Nam xác lập quan hệ đối tác chiến lược toàn diện với New Zealand.;",
+        statements: [
+          { text: "Trung Quốc là quốc gia đầu tiên mà Việt Nam nâng cấp quan hệ lên đối tác chiến lược toàn diện.", answer: true },
+          { text: "Việt Nam đã thiết lập quan hệ đối tác chiến lược toàn diện với tất cả các nước thành viên của nhóm G7.", answer: false },
+          { text: "Thông qua việc duy trì mối quan hệ tốt đẹp với Mỹ và Trung Quốc, Việt Nam đã hoá giải được cuộc cạnh tranh giữa hai nước này.", answer: false },
+          { text: "Việt Nam thực hiện đường lối đối ngoại là sẵn sàng là bạn với tất cả các nước không phân biệt chế độ chính trị.", answer: true }
+        ] },
+      { id: "history-3-T-04", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Sự sụp đổ của bức tường Béclin và thống nhất nước Đức (1990), sự tan rã của các nước xã hội chủ nghĩa ở Đông Âu và Liên Xô (1990-1991), cùng với sự tác động của các nhân tổ, lực lượng khác, Chiến tranh lạnh về cơ bản đã kết thúc. Nước Mỹ bước vào thời kỳ mới có nhiều lợi thế hơn và tham vọng “cố hữu” cũng lớn hơn nhầm biến thế kỷ XXI thành thế kỷ Hoa Kỳ thứ hai với một trật tự thế giới mới chỉ có một siêu cường duy nhất là Mĩ”. (Hoàng Văn Hiến, Tiếp cận Lịch sử thế giới và lịch sử Việt Nam - Một cách nhìn, Nxb Chính trị Quốc gia, 2009, tr.89)",
+        statements: [
+          { text: "Với ưu thế vượt trội về kinh tế và quân sự, thế kỷ XXI được coi là thế kỷ Hoa Kỳ thứ hai.", answer: false },
+          { text: "Mỹ thực sự trở thành siêu cường duy nhất trong trật tự thế giới ở thế kỷ XXI.", answer: false },
+          { text: "Bước vào thế kỷ XXI, Mỹ vẫn theo đuổi tham vọng thiết lập trật tự thế giới có lợi cho mình.", answer: true },
+          { text: "Sự tan rã của các nước xã hội chủ nghĩa ở Đông Âu và Liên Xô đã tác động đến sự thành bại trong chính sách đối ngoại mới của Mỹ.", answer: true }
+        ] },
+      { id: "history-3-T-05", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho bảng dữ kiện sau đây về một số trung tâm quyền lực thế giới Mỹ – Vẫn là cường quốc số một thế giới. Với sức mạnh về kinh tế, quân sự, khoa học, kĩ thuật,... Mỹ có ảnh hưởng lớn nhất đến quan hệ quốc tế.; Trung Quốc – Vươn lên mạnh mẽ, vượt Nhật Bản (năm 2010) để trở thành nền kinh tế lớn thứ hai thế giới (sau Mỹ), sức mạnh quân sự không ngừng được tăng cường.; Liên minh châu Âu (EU) – Tiếp tục là tổ chức liên kết khu vực chặt chẽ trên nhiều lĩnh vực, có ảnh hưởng trên phạm vi toàn cầu về kinh tế, thương mại.; Nhật Bản – Tiếp tục duy trì địa vị cường quốc kinh tế, từng bước tăng cường sức mạnh về chính trị, ngày càng có ảnh hưởng trên trường quốc tế.; Liên bang Nga – Phục hồi mạnh mẽ, là một trong những cường quốc hàng đầu về quân sự, khoa học, kĩ thuật.; Ấn Độ – Trở thành cường quốc kinh tế, quân sự, khoa học, kĩ thuật,...; có ảnh hưởng lớn trong quan hệ quốc tế.;",
+        statements: [
+          { text: "Sau Chiến tranh lạnh, Mỹ vẫn là cường quốc số một thế giới và quyết định toàn bộ quan hệ quốc tế.", answer: false },
+          { text: "Liên minh châu Âu, Nhật Bản đều vươn lên và trở thành các trung tâm kinh tế lớn của thế giới.", answer: true },
+          { text: "Trung Quốc trỗi dậy mạnh mẽ và trở thành một cực quan trọng trong xu thế đa cực của quan hệ quốc tế.", answer: true },
+          { text: "Nhật Bản, Trung Quốc, Liên bang Nga trở thành các cường quốc, dẫn đến tình trạng đối đầu căng thẳng giữa các nước này.", answer: false }
+        ] },
+      { id: "history-3-T-06", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trật tự thế giới mới này được hình thành như thế nào, còn tuy thuộc ở nhiều nhân tố. Sự phát triển về thực lực kinh tế, chính trị, quân sự của các cường quốc Mỹ, Nga, Trung Quốc, Anh, Pháp, Nhật Bản, Đức trong cuộc chạy đua về sức mạnh quốc gia tổng hợp,.... Sự lớn mạnh của lực lượng cách mạng thế giới (sự thành bại của công cuộc cải cách, đổi mới ở các nước xã hội chủ nghĩa,...); Sự phát triển của cách mạng khoa học - kĩ thuật sẽ còn tiếp tục tạo ra những “đột phá” và biến chuyển trên cục diện thế giới”. (Nguyễn Anh Thái (Chủ biên), Lịch sử thế giới hiện đại, NXB Giáo dục Việt Nam, Hà Nội, 2021, tr.424)",
+        statements: [
+          { text: "Đoạn tư liệu trên đề cập đến nội dung chính là Trật tự thế giới hai cực I-an-ta.", answer: false },
+          { text: "Anh, Pháp ngày càng trở thành những cực lớn nhất trong trật tự thế giới đa cực từ sau Chiến tranh thế giới thứ hai.", answer: false },
+          { text: "Sự phát triển của cách mạng khoa học - kĩ thuật là nhân tố tác động đến sự hình thành trật tự thế giới mới.", answer: true },
+          { text: "Sức mạnh tổng hợp của các cường quốc Mỹ, Nga, Trung Quốc, Anh, Pháp, Nhật Bản, Đức sẽ góp phần định hình trật tự thế giới mới.", answer: true }
+        ] },
+      { id: "history-3-T-07", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trật tự thế giới mới này được hình thành như thế nào, còn tuỳ thuộc ở nhiều nhân tố. Sự phát triển về thực lực kinh tế, chính trị quân sự của các cường quốc Mỹ, Nga, Trung Quốc, Anh, Pháp, Nhật Bản, Đức trong cuộc chạy đua về sức mạnh quốc gia tổng hợp... ;Sự lớn mạnh của lực lượng cách mạng thế giới (sự thành bại của công cuộc cải cách, đổi mới ở các nước xã hội chủ nghĩa,..); Sự phát triển của cách mạng khoa học - kĩ thuật sẽ còn tiếp tục tạo ra những “đột phá” và biến chuyển trên cục diện thế giới”. (Nguyễn Anh Thái (Chủ biên), Lịch sử thế giới hiện đại. NXB Giáo dục Việt Nam, Hà Nội, 2021, tr.424)",
+        statements: [
+          { text: "Đoạn tư liệu là minh chứng cho xu thế đa cực, nhiều trung tâm trong quan hệ quốc tế trong thời gian diễn ra cuộc Chiến tranh lạnh.", answer: false },
+          { text: "Trong quan hệ quốc tế, khái niệm đa cực chỉ trạng thái địa - chính trị toàn cầu với ba trung tâm quyền lực chi phối là Mỹ, Liên bang Nga và Trung Quốc.", answer: false },
+          { text: "Khái niệm đa cực được dùng chủ yếu để chỉ trật tự thế giới sau Chiến tranh lạnh.", answer: true },
+          { text: "Để có thể trở thành một cực trong xu thế đa cực, nhiều trung tâm, các nước phải có chiến lược xây dựng sức mạnh tổng hợp, trong đó sức mạnh kinh tế là trụ cột.", answer: true }
+        ] },
+      { id: "history-3-T-08", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trật tự thế giới mới này được hình thành như thế nào còn phụ thuộc ở nhiều nhân tố. Sự phát triển về thực lực kinh tế, chính trị, quân sự của các cường quốc Mĩ, Nga, Trung Quốc, Anh, Pháp, Nhật Bản, Đức trong cuộc chạy đua về sức mạnh quốc gia tổng hợp..; Sự lớn mạnh của lực lượng cách mạng thế giới; Sự phát triển của cách mạng khoa học - kĩ thuật sẽ còn tiếp tục tạo ra những đột phá và chuyển biến trên cục diện thế giới”. (Nguyễn Anh Thái, Lịch sử thế giới hiện đại, NXB Giáo dục Việt Nam, Hà Nội, 2021, tr.424)",
+        statements: [
+          { text: "Đầu thế kỉ XXI, trật tự thế giới từng bước chuyển sang xu thế đa cực với sự vươn lên khẳng định sức mạnh về kinh tế, chính trị, quân sự của các cường quốc.", answer: true },
+          { text: "Xây dựng sức mạnh tổng hợp của các quốc gia thay thế cho chạy đua vũ trang đã trở thành hình thức chủ yếu trong cuộc cạnh tranh giữa các cường quốc.", answer: true },
+          { text: "Sau chiến tranh lạnh, trong sự phát triển của cách mạng khoa học kĩ thuật xu thế toàn cầu hóa diễn ra ngày càng mạnh mẽ.", answer: true },
+          { text: "Sau chiến tranh lạnh, các nước lớn chỉ tập trung phát triển kinh tế nhằm tạo ra môi trường thuận lợi để vươn lên xác lập vị thế hàng đầu trong trật tự đa cực.", answer: false }
+        ] },
+      { id: "history-3-T-09", type: "true_false", tag: "Đúng/Sai",
+        question: "Đọc đoạn tư liệu sau: Mặc dù Mĩ vẫn giữ được số một thế giới về kinh tế và các lĩnh vực như. vốn, khoa học- công nghệ,… nhựng vị thế của nước này đang ngày càng bị giảm dần trước sự nổi lên của các trung tâm khác. Năm 2000, GDP của Mĩ gấp khoảng 12 lần Trung Quốc, nhưng đến năm 2021 chỉ còn gấp khoảng 1,3 lần.",
+        statements: [
+          { text: "Trong xu thế đa cực Mĩ giữ được vị trí số một về kinh tế và các lĩnh vực như. vốn, khoa học- công nghệ,... do đó vị thế của nước này đang ngày càng nâng cao.", answer: false },
+          { text: "Trong Cục diện thế giới hiện nay nhất nổi bật nhất là sự phát triển đáng kinh ngạc của Trung Quốc", answer: true },
+          { text: "Trong xu thế đa cực Mĩ đang khẳng định ưu thế vượt trội áp đảo các quốc gia khác.", answer: false },
+          { text: "Sự suy giảm sức mạnh tương đối của Mĩ trong tương quan so sánh với các cường quốc khác.", answer: true }
+        ] },
+      { id: "history-3-T-10", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Bài học của thời kì Chiến tranh lạnh đã chứng tỏ phương thức quan hệ quốc tế lấy đối đầu chính trị - quân sự là chủ yếu không còn phù hợp, phải chịu nhiều tổn thất hoặc thất bại như hai nước Xô – Mỹ và một bị thương, một bị mất. Trong khi đó, phương thức lấy hợp tác và cạnh tranh về kinh tế - chính trị là chính lại thu được nhiều tiến bộ, kết quả như các nước Đức, Nhật và NICs. Sự hưng thịnh hay suy vong của một quốc gia quyết định bởi sức mạnh tổng hợp của quốc gia đó, mà chủ yếu là thực lực kinh tế và khoa học – kĩ thuật”. (Vũ Dương Ninh (Chủ biên), Một số chuyên đề lịch sử thế giới, NXB Đại học Quốc gia Hà Nội, Hà Nội, 2001, tr.401)",
+        statements: [
+          { text: "Kinh tế và khoa học – kĩ thuật là hai yếu tố chủ yếu tạo nên sức mạnh tổng hợp của một quốc gia sau khi chiến tranh lạnh chấm dứt.", answer: true },
+          { text: "Một trong những bài học rút ra từ thời kì chiến tranh lạnh cho tất cả các quốc gia là không nên tập trung vào phát triển quân sự, quốc phòng đất nước.", answer: false },
+          { text: "Sau thời kì chiến tranh lạnh, Xô - Mỹ lấy đối đầu về chính trị - quân sự là chủ yếu, trong khi đó Đức và Nhật Bản lại lấy hợp tác và cạnh tranh về kinh tế - chính trị là chủ yếu.", answer: false },
+          { text: "Trong và sau thời kì chiến tranh lạnh, nội dung của quan hệ quốc tế có sự điều chỉnh từ chỗ lấy yếu tố quân sự sang lấy yếu tố kinh tế là trọng tâm.", answer: true }
+        ] },
+      { id: "history-3-T-11", type: "true_false", tag: "Đúng/Sai",
+        question: "Cho đoạn tư liệu sau đây: “Trật tự thế giới mới này [đa cực] được hình thành như thế nào, còn tùy thuộc ở nhiều nhân tố. Sự phát triển về thực lực kinh tế, chính trị, quân sự của các cường quốc Mỹ, Nga, Trung Quốc, Anh, Pháp, Nhật Bản, Đức trong cuộc chạy đua về sức mạnh quốc gia tổng hợp,…; Sự lớn mạnh của lực lượng cách mạng thế giới (sự thành bại của công cuộc cải cách, đổi mới ở các nước xã hội chủ nghĩa,…); Sự phát triển của cách mạng khoa học – kĩ thuật sẽ còn tiếp tục tạo ra những “đột phá” và biến chuyển trên cục diện thế giới”. (Nguyễn Anh Thái (Chủ biên), Lịch sử thế giới hiện đại, NXB Giáo dục Việt Nam, Hà Nội, 2021, tr.424).",
+        statements: [
+          { text: "Đoạn tư liệu cung cấp thông tin về những biểu hiện của trật tự thế giới đa cực đang được hình thành hiện nay.", answer: false },
+          { text: "Cuộc chạy đua về sức mạnh tổng hợp của các cường quốc là một trong những nhân tố quan trọng tác động đến sự hình thành trật tự thế giới đa cực.", answer: true },
+          { text: "Mỹ, Nga, Trung Quốc là những cường quốc giữ vai trò chi phối quan hệ quốc tế trong cả trật tự hai cực I-an-ta và trật tự đa cực.", answer: false },
+          { text: "Cuộc cách mạng khoa học – kĩ thuật vừa là nguyên nhân dẫn đến sự xói mòn và sụp đổ của trật tự hai cực I-an-ta, vừa là nhân tố tác động đến sự hình thành của trật tự thế giới đa cực.", answer: true }
+        ] }
+        ] }
+      ]
+    },
+    { id: "math", name: "Toán", icon: "📐", description: "", chapters: [] },
+    { id: "physics", name: "Vật lý", icon: "⚛️", description: "", chapters: [] }
+  ]
+};
+
+/* ============================================================
+   2. QUIZ ENGINE — dùng chung mọi môn, không biết gì về môn cụ thể
+   ============================================================ */
+const shuffle = a => { a = a.slice(); for (let i = a.length; i > 1;) { const j = Math.random() * i-- | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const LETTERS = "ABCDEFGH";
+const getSubject = id => quizData.subjects.find(s => s.id === id);
+const getChapter = (sid, cid) => ((getSubject(sid) || {}).chapters || []).find(c => c.id === cid);
+const chapterTags = ch => { const m = new Map(); ch.questions.forEach(q => m.set(q.tag, (m.get(q.tag) || 0) + 1)); return [...m]; };
+const countFor = (ch, tag) => tag === "all" ? ch.questions.length : ch.questions.filter(q => q.tag === tag).length;
+
+/* Mỗi loại câu hỏi: prepare (xáo trộn) · render · select · ready · check · reveal · feedback · review */
+const TYPES = {
+  single: {
+    rule: null,
+    prepare: q => { const p = shuffle(q.options.map((_, i) => i)); return { options: p.map(k => q.options[k]), answer: p.indexOf(q.answer), picked: null }; },
+    render: r => r.options.map((o, k) => `<button class="opt" data-act="ans" data-k="${k}"><b>${LETTERS[k]}.</b><span>${esc(o)}</span></button>`).join(""),
+    select: (r, d, root) => { r.picked = +d.k; root.querySelectorAll("[data-act=ans]").forEach((el, k) => el.classList.toggle("sel", k === r.picked)); },
+    ready: r => r.picked !== null,
+    check: r => r.picked === r.answer,
+    reveal: (r, root) => root.querySelectorAll("[data-act=ans]").forEach((el, k) => { el.classList.remove("sel"); if (k === r.answer) el.classList.add("ok"); else if (k === r.picked) el.classList.add("bad"); }),
+    feedback: r => `Đáp án đúng: ${LETTERS[r.answer]}.`,
+    review: r => r.options.map((o, k) => `<div class="opt static ${k === r.answer ? "ok" : k === r.picked ? "bad" : ""}"><b>${LETTERS[k]}.</b><span>${esc(o)}</span></div>`).join("")
+  },
+  true_false: {
+    rule: "Câu Đúng/Sai phải đúng tất cả các ý mới được tính là đúng.",
+    prepare: q => ({ statements: shuffle(q.statements).map(s => ({ text: s.text, answer: s.answer, picked: null })) }),
+    render: r => r.statements.map((s, k) => `<div class="row"><div class="st"><b>${"abcdefgh"[k]})</b> ${esc(s.text)}</div><div class="tf"><button class="opt" data-act="ans" data-k="${k}" data-v="1">Đúng</button><button class="opt" data-act="ans" data-k="${k}" data-v="0">Sai</button></div></div>`).join(""),
+    select: (r, d, root) => { const k = +d.k, v = d.v === "1"; r.statements[k].picked = v; root.querySelectorAll(`[data-act=ans][data-k="${k}"]`).forEach(el => el.classList.toggle("sel", (el.dataset.v === "1") === v)); },
+    ready: r => r.statements.every(s => s.picked !== null),
+    check: r => r.statements.every(s => s.picked === s.answer),
+    reveal: (r, root) => r.statements.forEach((s, k) => root.querySelectorAll(`[data-act=ans][data-k="${k}"]`).forEach(el => { const v = el.dataset.v === "1"; el.classList.remove("sel"); if (v === s.answer) el.classList.add("ok"); else if (s.picked === v) el.classList.add("bad"); })),
+    feedback: () => "Đáp án đúng được tô xanh ở từng ý.",
+    review: r => r.statements.map((s, k) => `<div class="row"><div class="st"><b>${"abcdefgh"[k]})</b> ${esc(s.text)}<span class="pill ${s.answer ? "ok" : "no"}">${s.answer ? "Đúng" : "Sai"}</span>${s.picked !== s.answer ? `<span class="pill no">Bạn chọn ${s.picked ? "Đúng" : "Sai"}</span>` : ""}</div></div>`).join("")
+  }
+};
+
+const prepare = q => ({ src: q, type: q.type, ...TYPES[q.type].prepare(q) });
+
+/* ---------- Hiệu ứng: âm thanh (Web Audio, không cần file) + pháo giấy ---------- */
+const sfx = { on: true, ctx: null };
+try { sfx.on = localStorage.getItem("quiz.sound") !== "0"; } catch (e) {}
+function tone(f, t, dur, type, vol, f2) {
+  const c = sfx.ctx, o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t);
+  if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+}
+function playSound(kind) {
+  if (!sfx.on) return;
+  try {
+    sfx.ctx = sfx.ctx || new (window.AudioContext || window.webkitAudioContext)();
+    if (sfx.ctx.state === "suspended") sfx.ctx.resume();
+    const t = sfx.ctx.currentTime;
+    if (kind === "ok") { tone(659.25, t, .16, "sine", .2); tone(880, t + .11, .18, "sine", .2); tone(1318.5, t + .22, .32, "sine", .16); }
+    else if (kind === "wrong") { tone(220, t, .35, "triangle", .25, 90); tone(165, t + .12, .35, "triangle", .2, 70); }
+    else tone(880, t, .12, "sine", .15);
+  } catch (e) {}
+}
+let confettiCanvas = null;
+function confetti() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (confettiCanvas) confettiCanvas.remove();
+  const cv = confettiCanvas = document.createElement("canvas"), dpr = Math.min(window.devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
+  const g = cv.getContext && cv.getContext("2d"); if (!g) return;
+  cv.className = "confetti"; cv.width = W * dpr; cv.height = H * dpr; document.body.appendChild(cv); g.scale(dpr, dpr);
+  const cols = ["#8ab4ff", "#4ade80", "#f2f2f3", "#fbbf24", "#f472b6"], vmax = Math.sqrt(2 * .32 * H * .8), P = [];
+  for (let i = 0; i < 80; i++) {
+    const left = i % 2 === 0, a = (Math.random() * 30 + 8) * Math.PI / 180, v = vmax * (.55 + Math.random() * .5);
+    P.push({ x: left ? W * .05 : W * .95, y: H + 10, vx: (left ? 1 : -1) * Math.sin(a) * v, vy: -Math.cos(a) * v, r: Math.random() * 6, vr: Math.random() * .3 - .15, f: Math.random() * 6, vf: .1 + Math.random() * .2, w: 6 + Math.random() * 6, h: 4 + Math.random() * 5, c: cols[i % cols.length] });
+  }
+  const T = 2600; let last = performance.now(); const t0 = last;
+  (function step(now) {
+    const k = Math.min(2, (now - last) / 16.7); last = now;
+    g.clearRect(0, 0, W, H);
+    g.globalAlpha = Math.max(0, Math.min(1, (T - (now - t0)) / 700));
+    for (const p of P) {
+      p.vy += .32 * k; p.vx *= Math.pow(.99, k); p.vy *= Math.pow(.99, k);
+      p.x += p.vx * k; p.y += p.vy * k; p.r += p.vr * k; p.f += p.vf * k;
+      g.save(); g.translate(p.x, p.y); g.rotate(p.r); g.scale(1, Math.cos(p.f)); g.fillStyle = p.c; g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore();
+    }
+    if (now - t0 < T) requestAnimationFrame(step); else { cv.remove(); if (confettiCanvas === cv) confettiCanvas = null; }
+  })(last);
+}
+
+/* ============================================================
+   3. STATE — một nơi duy nhất
+   ============================================================ */
+const S = { view: "home", subjectId: null, chapterId: null, tag: "all", list: [], idx: 0, correct: 0, wrong: [], locked: false, retry: false };
+const cur = () => S.list[S.idx];
+const chap = () => getChapter(S.subjectId, S.chapterId);
+
+/* startQuiz("history", "history-1") — engine chung cho mọi môn.
+   tag: lọc theo nhóm ("all" = tất cả) · retryList: danh sách câu gốc để làm lại câu sai */
+function startQuiz(subjectId, chapterId, tag = "all", retryList = null) {
+  const ch = getChapter(subjectId, chapterId); if (!ch) return;
+  const src = retryList || ch.questions.filter(q => tag === "all" || q.tag === tag);
+  if (!src.length) return;
+  Object.assign(S, { subjectId, chapterId, tag, retry: !!retryList, list: shuffle(src).map(prepare), idx: 0, correct: 0, wrong: [], locked: false });
+  go("quiz");
+}
+
+/* ============================================================
+   4. UI RENDERING — chỉ đọc state + data, không chứa câu hỏi
+   ============================================================ */
+const $app = document.getElementById("app"), $modal = document.getElementById("modal");
+const topbar = (title, sub) => `<div class="top"><button class="icon-btn" data-act="back" aria-label="Quay lại">←</button><div><div class="ttl">${title}</div>${sub ? `<div class="mut">${sub}</div>` : ""}</div></div>`;
+
+const VIEWS = {
+  home: () => `<div class="hero"><div class="logo">📚</div><h1>ÔN TẬP</h1><p class="mut">Chọn môn học để bắt đầu</p></div><div class="grid two stagger">` +
+    quizData.subjects.map((s, i) => { const n = s.chapters.length; return `<button class="tile ${n ? "" : "off"}" style="--i:${i}" ${n ? `data-act="subject" data-id="${s.id}"` : "disabled"}><span class="ico">${s.icon}</span><span class="tt"><b>${esc(s.name)}</b><span class="mut">${n ? `${n} bài học${s.description ? " · " + esc(s.description) : ""}` : "Chưa có dữ liệu"}</span></span>${n ? '<span class="go">›</span>' : ""}</button>`; }).join("") + `</div>`,
+
+  subject: () => { const s = getSubject(S.subjectId); return topbar(`${s.icon} ${esc(s.name)}`, "Chọn bài học") + `<div class="grid stagger">` +
+    s.chapters.map((c, i) => `<button class="tile chap" style="--i:${i}" data-act="chapter" data-id="${c.id}"><span class="eyebrow">${esc(c.title)}</span><b>${esc(c.subtitle)}</b>${c.description ? `<span class="mut">${esc(c.description)}</span>` : ""}<span class="chips"><span class="chip">${c.questions.length} câu</span>${chapterTags(c).map(([t]) => `<span class="chip">${esc(t)}</span>`).join("")}</span></button>`).join("") + `</div>`; },
+
+  intro: () => { const s = getSubject(S.subjectId), c = chap(), tags = chapterTags(c);
+    const rules = [...new Set(c.questions.map(q => TYPES[q.type].rule).filter(Boolean))];
+    const sum = c.summary && c.summary.length ? `<details class="sum"><summary>📌 Tóm tắt ý cần nhớ<span class="chev">›</span></summary><div class="sumbody">${c.summary.map((g, i) => `<div class="sh"><span class="sn">${i + 1}</span>${esc(g.title)}</div><ul>${g.points.map(p => `<li>${rich(p)}</li>`).join("")}</ul>`).join("")}</div></details>` : "";
+    return topbar(esc(s.name)) + `<div class="card"><div class="eyebrow">${esc(c.title)}</div><div class="big">${esc(c.subtitle)}</div>${c.description ? `<p class="mut">${esc(c.description)}</p>` : ""}<p class="mut">${c.questions.length} câu hỏi</p>` +
+    (tags.length > 1 ? `<div class="pick" id="pick">${[["all", "Tất cả", c.questions.length], ...tags.map(([t, n]) => [t, t, n])].map(([t, l, n]) => `<button class="${S.tag === t ? "on" : ""}" data-act="tag" data-tag="${esc(t)}">${esc(l)} · ${n}</button>`).join("")}</div>` : "") +
+    `<div class="rules mut"><span>Câu hỏi và đáp án được xáo trộn ngẫu nhiên.</span>${rules.map(r => `<span>${esc(r)}</span>`).join("")}</div></div>` + sum +
+    `<div class="dock"><button class="btn" id="start" data-act="start">Bắt đầu kiểm tra (${countFor(c, S.tag)} câu)</button></div>`; },
+
+  quiz: () => { const r = cur(), n = S.list.length;
+    return `<div class="qhead"><button class="icon-btn" data-act="back" aria-label="Thoát">←</button><div class="bar"><i id="bar" style="transform:scaleX(${S.idx / n})"></i></div><span class="count">${S.idx + 1}/${n}</span><button class="icon-btn snd" data-act="sound" aria-label="Bật/tắt âm thanh">${sfx.on ? "🔊" : "🔇"}</button></div>` +
+    `<div class="card"><div class="tag">${S.retry ? "LÀM LẠI · " : ""}${esc(chap().title)} · ${esc(r.src.tag)}</div><p class="q">${esc(r.src.question)}</p><div id="opts">${TYPES[r.type].render(r)}</div><div id="res"></div></div>` +
+    `<div class="dock"><button class="btn" id="go" data-act="next" disabled>Xác nhận</button></div>`; },
+
+  result: () => { const n = S.list.length, w = n - S.correct;
+    return `<div class="result"><div class="emoji">🎉</div><h1>Hoàn thành!</h1><p class="mut">${w ? `Bạn sai ${w} câu.` : "Tuyệt vời, không sai câu nào!"}</p>` +
+    `<div class="ring"><svg viewBox="0 0 120 120"><circle class="rt" cx="60" cy="60" r="52"/><circle class="rf" id="ringf" cx="60" cy="60" r="52" transform="rotate(-90 60 60)" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><div class="rc"><b>${S.correct} / ${n}</b><span id="pct">0%</span></div></div>` +
+    `<div class="stats"><div class="stat ok"><b>${S.correct}</b>Đúng</div><div class="stat no"><b>${w}</b>Sai</div></div>` +
+    (w ? `<button class="btn" data-act="review">Xem lại câu sai</button><button class="btn alt" data-act="retry">Làm lại ${w} câu đã sai</button>` : "") +
+    `<button class="btn alt" data-act="restart">Làm lại</button><button class="btn alt" data-act="chapters">Về danh sách bài</button></div>`; },
+
+  review: () => topbar("Xem lại", `${S.wrong.length} câu sai`) + S.wrong.map(r => `<div class="card"><div class="tag">${esc(r.src.tag)}</div><p class="q">${esc(r.src.question)}</p>${TYPES[r.type].review(r)}</div>`).join("")
+};
+
+/* hiệu ứng sau khi render */
+const AFTER = {
+  result() {
+    const p = S.correct / S.list.length, f = document.getElementById("ringf"), t = document.getElementById("pct"), t0 = performance.now();
+    requestAnimationFrame(() => f.style.strokeDashoffset = 326.7 * (1 - p));
+    (function tick(now) { const k = Math.min(1, (now - t0) / 900); t.textContent = (p * 100 * k).toFixed(1) + "%"; if (k < 1) requestAnimationFrame(tick); })(t0);
+  }
+};
+
+function render(anim = true) {
+  $app.innerHTML = `<div class="screen${anim ? " enter" : ""}">${VIEWS[S.view]()}</div>`;
+  window.scrollTo(0, 0);
+  if (AFTER[S.view]) AFTER[S.view]();
+}
+function go(view) { S.view = view; render(); }
+
+/* ============================================================
+   5. EVENT HANDLERS — điều hướng + tương tác (event delegation)
+   ============================================================ */
+function back() {
+  if ($modal.innerHTML) return closeModal();
+  const to = { subject: "home", intro: "subject", result: "subject", review: "result" }[S.view];
+  if (S.view === "quiz") return S.idx === 0 && !S.locked ? go("intro") : openModal();
+  if (to) go(to);
+}
+function openModal() { $modal.innerHTML = `<div class="scrim"><div class="dialog"><h2>Thoát bài kiểm tra?</h2><p class="mut">Tiến trình làm bài hiện tại sẽ bị mất.</p><button class="btn" data-act="stay">Tiếp tục làm bài</button><button class="btn alt" data-act="leave">Thoát</button></div></div>`; }
+function closeModal() { $modal.innerHTML = ""; }
+
+function finish() { go("result"); }
+function next() {
+  const r = cur(), T = TYPES[r.type], n = S.list.length, btn = document.getElementById("go");
+  if (S.locked) { S.idx++; S.locked = false; return S.idx >= n ? finish() : render(); }
+  if (!T.ready(r)) return;
+  S.locked = true;
+  const good = T.check(r);
+  T.reveal(r, $app);
+  document.getElementById("opts").classList.add("locked");
+  if (good) { S.correct++; confetti(); playSound("ok"); } else { S.wrong.push(r); playSound("wrong"); }
+  document.getElementById("res").innerHTML = good ? `<div class="msg ok">✓ Chính xác!</div>` : `<div class="msg bad">✗ Bạn đã sai. ${T.feedback(r)}</div>`;
+  document.getElementById("bar").style.transform = `scaleX(${(S.idx + 1) / n})`;
+  btn.textContent = S.idx === n - 1 ? "Xem kết quả" : "Câu tiếp theo";
+}
+
+const ACTIONS = {
+  subject: d => { S.subjectId = d.id; go("subject"); },
+  chapter: d => { S.chapterId = d.id; S.tag = "all"; go("intro"); },
+  tag: d => {
+    S.tag = d.tag;
+    document.querySelectorAll("#pick button").forEach(b => b.classList.toggle("on", b.dataset.tag === S.tag));
+    document.getElementById("start").textContent = `Bắt đầu kiểm tra (${countFor(chap(), S.tag)} câu)`;
+  },
+  start: () => startQuiz(S.subjectId, S.chapterId, S.tag),
+  ans: d => { if (S.locked) return; const r = cur(); TYPES[r.type].select(r, d, $app); document.getElementById("go").disabled = !TYPES[r.type].ready(r); },
+  next,
+  back,
+  stay: closeModal,
+  leave: () => { closeModal(); go("intro"); },
+  review: () => go("review"),
+  retry: () => startQuiz(S.subjectId, S.chapterId, S.tag, S.wrong.map(r => r.src)),
+  restart: () => startQuiz(S.subjectId, S.chapterId, S.tag),
+  sound: () => {
+    sfx.on = !sfx.on;
+    try { localStorage.setItem("quiz.sound", sfx.on ? "1" : "0"); } catch (e) {}
+    const b = document.querySelector("[data-act=sound]"); if (b) b.textContent = sfx.on ? "🔊" : "🔇";
+    playSound("tick");
+  },
+  chapters: () => go("subject")
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]");
+  if (el && ACTIONS[el.dataset.act]) ACTIONS[el.dataset.act](el.dataset);
+});
+
+/* nút Back của điện thoại: quay lại màn trước thay vì thoát trang */
+const guard = () => { try { history.pushState({ q: 1 }, ""); } catch (e) {} };
+window.addEventListener("popstate", () => { if (S.view !== "home") { guard(); back(); } });
+guard();
+render();
+</script></body></html>
