@@ -162,10 +162,6 @@ p{margin:0}.mut{color:var(--mut);font-size:14px}
 @keyframes tileIn{0%{opacity:0;transform:translateY(34px) scale(.9) rotateX(-14deg);filter:blur(9px)}55%{opacity:1;filter:blur(0)}78%{transform:translateY(-4px) scale(1.012) rotateX(0)}100%{transform:none}}
 .stagger>*{animation:tileIn .7s cubic-bezier(.22,.9,.3,1) backwards;animation-delay:calc(var(--i,0)*90ms + 60ms);transform-origin:50% 100%}
 .stagger>.tile{position:relative;overflow:hidden}
-.stagger>.tile::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-20deg);animation:tileShine 1s ease calc(var(--i,0)*90ms + 420ms) 1 backwards}
-@keyframes tileShine{from{left:-70%}to{left:140%}}
-.stagger>.tile::before{content:"";position:absolute;left:0;top:14%;bottom:14%;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(var(--ac),var(--ac2));transform-origin:top;animation:barIn .6s ease calc(var(--i,0)*90ms + 300ms) backwards}
-@keyframes barIn{from{transform:scaleY(0);opacity:0}}
 .stagger .ico{animation:icoPop .6s cubic-bezier(.3,1.6,.5,1) calc(var(--i,0)*90ms + 250ms) backwards}
 @keyframes icoPop{from{transform:scale(0) rotate(-40deg);opacity:0}}
 .stagger .go{animation:goIn .5s ease calc(var(--i,0)*90ms + 350ms) backwards}
