@@ -4,11 +4,44 @@
 <meta name="theme-color" content="#000000"><meta name="color-scheme" content="dark">
 <title>Ôn tập</title>
 <style>
-:root{--bg:#000;--s1:#050505;--card:#0a0a0a;--card2:#111;--bd:#1f1f22;--tx:#f2f2f3;--mut:#8b8b94;--ac:#8ab4ff;--acd:rgba(138,180,255,.12);--ok:#4ade80;--okb:#06210f;--no:#ff6b6b;--nob:#260c0c;--r:16px}
+:root{--bg:#000;--bgr:0,0,0;--s1:rgba(5,5,5,.55);--card:rgba(12,12,14,.62);--card2:rgba(28,28,32,.7);--pop:#111;--bd:rgba(255,255,255,.09);--bd2:rgba(255,255,255,.2);--tx:#f2f2f3;--tx2:#d6d6db;--mut:#8b8b94;--ac:#8ab4ff;--ac2:#a78bfa;--ac3:#4ade80;--acd:rgba(138,180,255,.14);--onac:#000;--ok:#4ade80;--okb:rgba(6,33,15,.85);--no:#ff6b6b;--nob:rgba(38,12,12,.85);--g1:rgba(138,180,255,.30);--g2:rgba(167,139,250,.22);--g3:rgba(74,222,128,.12);--r:16px}
+/* Theme 1: Rừng xuân (Aquadulce · Aroma Green · Winter Mist · Tarragon · Antique Moss · Chalet Green) */
+html[data-theme=green]{--bg:#07120b;--bgr:7,18,11;--s1:rgba(9,22,14,.55);--card:rgba(14,32,21,.6);--card2:rgba(30,58,38,.6);--pop:#10261a;--bd:rgba(205,232,212,.14);--bd2:rgba(205,232,212,.3);--tx:#eef7ef;--tx2:#cfe3d3;--mut:#8fb09a;--ac:#bad17a;--ac2:#97c49e;--ac3:#cde8d4;--acd:rgba(186,209,122,.14);--g1:rgba(128,163,47,.34);--g2:rgba(108,155,118,.30);--g3:rgba(205,232,212,.12)}
+/* Theme 2: Đêm xanh (Icy Blue · Cornflower · Persian · Dusk · Deep Navy) */
+html[data-theme=blue]{--bg:#070e2e;--bgr:7,14,46;--s1:rgba(9,21,64,.55);--card:rgba(14,26,80,.55);--card2:rgba(40,60,150,.4);--pop:#0e1a52;--bd:rgba(171,210,250,.15);--bd2:rgba(171,210,250,.32);--tx:#eaf2ff;--tx2:#c6d6f5;--mut:#8ea3d6;--ac:#abd2fa;--ac2:#7692ff;--ac3:#cfe4ff;--acd:rgba(171,210,250,.14);--g1:rgba(27,44,193,.55);--g2:rgba(118,146,255,.32);--g3:rgba(61,81,140,.5)}
+/* nền ánh sáng chuyển động chậm */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--bg)}
+.bg i{position:absolute;width:80vmax;height:80vmax;border-radius:50%;will-change:transform}
+.bg i:nth-child(1){left:-25vmax;top:-30vmax;background:radial-gradient(closest-side,var(--g1),transparent);animation:d1 26s ease-in-out infinite alternate}
+.bg i:nth-child(2){right:-30vmax;top:25%;background:radial-gradient(closest-side,var(--g2),transparent);animation:d2 34s ease-in-out infinite alternate}
+.bg i:nth-child(3){left:5%;bottom:-40vmax;background:radial-gradient(closest-side,var(--g3),transparent);animation:d3 42s ease-in-out infinite alternate}
+.bg::after{content:"";position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 38%,var(--g2) 50%,transparent 62%);opacity:.55;transform:translateX(-30%);animation:sweep 18s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate3d(22vmax,16vmax,0) scale(1.15)}}
+@keyframes d2{to{transform:translate3d(-24vmax,-14vmax,0) scale(.9)}}
+@keyframes d3{to{transform:translate3d(18vmax,-20vmax,0) scale(1.2)}}
+@keyframes sweep{to{transform:translateX(30%)}}
+.card,.tile,.kpi,.stat,.sum,.icon-btn,.tchip{-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15)}
+/* menu ☰ */
+.top+.hero{padding-top:6px}
+.dwrap{position:fixed;inset:0;z-index:9}
+.dscrim{position:absolute;inset:0;background:rgba(0,0,0,.6);animation:fade .2s ease}
+.drawer{position:absolute;left:0;top:0;bottom:0;width:min(320px,86vw);background:var(--pop);border-right:1px solid var(--bd);padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;overflow-y:auto;animation:slidein .25s ease backwards}
+@keyframes slidein{from{transform:translateX(-100%)}}
+.drawer .dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.drawer .sec{margin-top:18px}
+.trow{display:flex;align-items:center;gap:12px;width:100%;padding:12px;min-height:52px;margin-bottom:8px;border-radius:12px;border:1.5px solid var(--bd);background:var(--card2)}
+.trow i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.trow .ck{margin-left:auto;opacity:0}
+.trow.on{border-color:var(--ac);background:var(--acd);color:var(--ac);font-weight:600}.trow.on .ck{opacity:1}
+/* (cũ) */
+.themes{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tchip{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 7px;min-height:38px;border-radius:99px;border:1.5px solid var(--bd);background:var(--card);font-size:13px}
+.tchip i{width:22px;height:22px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.tchip.on{border-color:var(--ac);background:var(--acd);color:var(--ac);font-weight:600}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
-main{max-width:640px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;text-align:left;transition:transform .12s ease,background .2s ease,border-color .2s ease,opacity .2s ease}
 button:active:not(:disabled){transform:scale(.97)}
 h1{font-size:24px;line-height:1.25;margin:0 0 6px}h2{margin:0 0 6px;font-size:19px}
@@ -24,13 +57,16 @@ p{margin:0}.mut{color:var(--mut);font-size:14px}
 .tile .tt{flex:1;min-width:0}.tile b{display:block;font-size:17px;overflow-wrap:anywhere}
 .tile .go{color:var(--mut);font-size:20px}
 .tile.off{opacity:.45;cursor:default}.tile.off:active{transform:none}
-@media(hover:hover){.tile:not(.off):hover{border-color:#34343a;background:var(--card2)}}
+@media(hover:hover){.tile:not(.off):hover{border-color:var(--bd2);background:var(--card2)}}
 .tile.chap{align-items:flex-start;flex-direction:column;gap:4px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .chip{font-size:12px;color:var(--mut);border:1px solid var(--bd);border-radius:99px;padding:2px 10px}
 /* top bars */
 .top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+/* ẩn nút menu ☰ (code menu/giao diện vẫn còn, muốn hiện lại chỉ cần xóa 2 dòng này) */
+.top:has(>[data-act=menu]:only-child){display:none}
+.top:has(>[data-act=menu]:only-child)+.hero{padding-top:28px}
 .icon-btn{flex:none;width:44px;height:44px;border-radius:12px;background:var(--card);border:1px solid var(--bd);display:grid;place-items:center;font-size:20px;text-align:center}
 .top .ttl{font-weight:700;font-size:18px;overflow-wrap:anywhere}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:12px}
@@ -48,11 +84,11 @@ p{margin:0}.mut{color:var(--mut);font-size:14px}
 .sumbody{padding:0 18px 16px;animation:in .25s ease backwards}
 .sh{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--ac);margin-top:16px}
 .sn{flex:none;width:24px;height:24px;border-radius:8px;background:var(--acd);display:grid;place-items:center;font-size:13px}
-.sumbody ul{margin:6px 0 0;padding-left:20px}.sumbody li{margin:5px 0;color:#d6d6db;overflow-wrap:anywhere;font-size:15px}.sumbody li b{color:var(--tx)}
+.sumbody ul{margin:6px 0 0;padding-left:20px}.sumbody li{margin:5px 0;color:var(--tx2);overflow-wrap:anywhere;font-size:15px}.sumbody li b{color:var(--tx)}
 /* buttons */
-.btn{display:block;width:100%;background:var(--ac);color:#000;font-weight:700;text-align:center;border-radius:14px;padding:15px 18px;min-height:52px;margin-top:10px}
+.btn{display:block;width:100%;background:var(--ac);color:var(--onac);font-weight:700;text-align:center;border-radius:14px;padding:15px 18px;min-height:52px;margin-top:10px}
 .btn:disabled{opacity:.35}.btn.alt{background:var(--card);color:var(--tx);border:1.5px solid var(--bd);font-weight:600}
-.dock{position:sticky;bottom:0;margin:0 -16px;padding:18px 16px calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 40%)}
+.dock{position:sticky;bottom:0;margin:0 -16px;padding:18px 16px calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(rgba(var(--bgr),0),rgba(var(--bgr),.9) 45%)}
 .dock .btn{margin-top:0}
 /* quiz */
 .qhead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
@@ -91,10 +127,25 @@ p{margin:0}.mut{color:var(--mut);font-size:14px}
 .opt.static{pointer-events:none}
 .pill{font-size:12px;font-weight:700;border-radius:99px;padding:1px 9px;margin-left:6px}.pill.ok{background:var(--okb);color:var(--ok)}.pill.no{background:var(--nob);color:var(--no)}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:20px;z-index:9;animation:fade .2s ease}
-.dialog{width:100%;max-width:360px;background:var(--card2);border:1px solid var(--bd);border-radius:20px;padding:20px;animation:in .25s ease backwards}
+.dialog{width:100%;max-width:360px;background:var(--pop);border:1px solid var(--bd);border-radius:20px;padding:20px;animation:in .25s ease backwards}
 @keyframes fade{from{opacity:0}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
-</style></head><body><main id="app"></main><div id="modal"></div>
+@media(prefers-reduced-motion:reduce){.bg i,.bg::after{animation:none!important}*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+
+.sec{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:26px 2px 10px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(min-width:560px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px}.kpi b{display:block;font-size:26px;line-height:1.15}.kpi span{color:var(--mut);font-size:13px}.kpi.a b{color:var(--ac)}
+.chart{display:flex;align-items:flex-end;gap:8px;height:104px;margin-top:10px}.chart div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}.chart i{display:block;width:100%;max-width:30px;border-radius:6px 6px 3px 3px;background:var(--ac)}.chart .z i{background:var(--bd)}.chart em{font-style:normal;font-size:11px;color:var(--mut)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--bd);font-size:14px}.row:first-child{border-top:0;padding-top:0}.row:last-child{padding-bottom:0}.row b{font-size:16px}
+.lnk{display:block;margin:18px auto 0;color:var(--mut);font-size:13px;text-align:center;padding:8px}
+</style>
+<script>try{var _t=localStorage.getItem("quiz.theme");if(_t)document.documentElement.dataset.theme=_t}catch(e){}</script>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAH9klEQVR4nO3daVBV5x3H8XvhsoN4ZREEFAxyXWIREbVxSWOVllZr7JhoHTVKtNjSZjrWpGONAdRGO7GOjaOtM3GNMam7jYQEHNcKVDFRAcWAIARZFWQTuCy3L0w709QG7nOfc88h+X5e+Ab/5/mhPw7MWR50OgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArKNXO8A3mZun0S/Y5BdkMvoP6e8b0s8nyMPb193T6OrR38nZzdHg7OBo6Oo0d5rbOsytLQ21TQ+rG+sqar4oqPni5r07nz2sLVP7M+gZBZLJzdMYPGzc4IjxwcNiQiJi+g0YZMvRHtaWFeeez8s6XnA1rdPcJiukXBotkF7v4DsoPDAsctDQMYFhkYPCIr19g609yM7Vz93JPSc/3H9z8zRGRM0wRceFjpzkExiu18v/JzW3NX969r1/nNxaU14g/eA20kqBXNy8AkJHD/p3YwJDRzu5uNt4TOUKpNfrg54aaxoXNzw6LsQ0wcHBUYlVvsJiseRlHk3d/VpddYkdluslg1oLG/2HPD61PD7NDAgYqsTXrkJCTBN+tTnLzovq9frRk+aOGD/rzN/+cObQm93dXXYO8ETqFChgyNMrt+eqsnRfZ3ByiV24bljUjPf+OK+xrlLtODoHtQNARNioKYlvZfoFRagdhAL1WcaBoSs2nTcODFU3BgXqw7yMAS+npLl6eKuYgQL1bf7Bw59P2KZiAArU542dtmhEzI/VWp0CfRPEvbRRrYsgql0H+paoryktyb9Ydvuf9+99fr+yqLW5vr21ydnF3d3Lx9s3OHTk5PDIaeGR0/R6m76SA0JHj5wwOz/7hKTUVqBAiigryM7NOpaXefxBZdH/frTtUWPbo8a66pKS/ItnD2/0CzY9N/d30d9fYstZJCY2ngL1eS2N93NO772Svsuqm1a15bcPbY3PvXR03sp97l4+YksPj45z9fBua2kQGxem0QJZLJa6quLKkusVJdcf/7nk9ROBYZFq5/q/HlTeuXBiS07Gng5zq9gRbl1J3fHq5MTNmW6eRoFxB0fD0FFTb17+UGx1YVopkLmtpepu7n/qUllyw9zWrHaoXqmvvpvx/rpPz+y3/eZUTXnB3vWzE9484+Ao8v8SNmrKt6VAFoulvqa08u6NyuIvzzEPKossFosqYYQ9aqrLOJicnbazq9Ms65gl+Rcvp++aGJcgMOsXbJIVo/fUKVB1Wf7G+FBVlpaiu6szK3XHJwfWPmqqk37wjIPJ46YvMTi5WDvoExguPUyPtPItrG8pL8wpL8xR6OBN9VUl+ReHjZlu7aBHP8EfwG3BhUQtKsj5SGDK2dVDepIeUSAtelDxhKtHPdLb5cHIr6BAWtTcUCMw1dpcLz1JjyiQFnW0i1xMokD4krvXAIGpuioVHranQFrkFzxcYKq86Kr0JD2iQFo0ZMR3BabKC69IT9IjCqQ5jgankeNnWTtlbmsuunFWiTxfjwJpzphnFwjcT83PPtnR/kiJPF+PAmmLo8Fp2gurBQZzTu+VnaVXKJC2TJ2zSuCeaGlBVuG100rk6REF0pCgp8bOWJAkMJh+4A3pYXqJAmmFRz/fRasPC9yEz88+qdbpR0eBNMLJxX1p0qkBAUOtHWxpqD2+4xdKROolCqQ+Jxf3pW/8fbBpgrWDFkv3B1sWq7vFAs8DqczFzWtp0odDn35WYPbj/WtuX/1YeiSrUCA1eXj7vZySFhweLTCbc3rv2cObpEeyFgVSjdF/yLL16WJbtBTkpB3Ztlx6JAEUSB0DB49atv4Tb58ggdnivAvvbpzb3dUpPZUACqSCwcMnxielij2zUVaQvSdlpip3LZ6IAtmbKfqHi39/VGwL0dJbmbuS4tpbm6SnEkaB7Crqewte/M1eR4OTwGxx3vndyTO19r4lBbKfSbN+/ZOf/1lsB4VbV1Lf3ThXg9uNUyA7iV24bvr8tWKzn507eGjrkq7ODrmRpKBAitPrHeb8cvvEuBVi4xdObEndtUqz731TIGU5Gpx/turAdya/IDaeuue180ffkhtJLgqkIGdXz5dePy7wkrJOp+vu6jyybblaj4n1HgVSikc/3/iUj0KGxQjMdphbD2x68dblU9JTSUeBFNHfN2TZhnR/obdzWpvr96ybdffmJemplECB5PMPGbF8fbrA76fS6XSNdRXvrP1BVWme9FQKoUCSDTZNiE9OFdvqsPbe5++sja2vKZWeSjkUSKaIqNjFa46JbbNSXpizK/lHLQ210lMpigJJM2bq/Hkr94vdpii8dnrfhjlau03RGxRIjmdmJs5OeFtsv/DrFw998KdFEjdatCcKJMGMBUkzFiSLzWae2n5y5ysWS7fURPZDgWyi1zvMTnj7mZmJYuMZB5MzDqbIjWRnFEico8F5/m/3R06ZJzBrsXQf35GYnfZX6ansjAIJcnb1WLzmWERUrMBsZ0f7+5sX5l46Ij2V/VEgEe5ePvHJqQJvcul0uvbWpn0bni+6fkZ6KlWo9pu2V2w6J/YylHK2vhJVUXytN39zYtyKnyb+ReE4IlJ3v3r+2GZ7rsibqbAJBYJNKBBsQoFgEwoEm1Ag2IQCwSYUCDahQLAJBYJNKBBsQoEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBd/QuntWV/pSXhmQAAAABJRU5ErkJggg==">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAH9klEQVR4nO3daVBV5x3H8XvhsoN4ZREEFAxyXWIREbVxSWOVllZr7JhoHTVKtNjSZjrWpGONAdRGO7GOjaOtM3GNMam7jYQEHNcKVDFRAcWAIARZFWQTuCy3L0w709QG7nOfc88h+X5e+Ab/5/mhPw7MWR50OgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArKNXO8A3mZun0S/Y5BdkMvoP6e8b0s8nyMPb193T6OrR38nZzdHg7OBo6Oo0d5rbOsytLQ21TQ+rG+sqar4oqPni5r07nz2sLVP7M+gZBZLJzdMYPGzc4IjxwcNiQiJi+g0YZMvRHtaWFeeez8s6XnA1rdPcJiukXBotkF7v4DsoPDAsctDQMYFhkYPCIr19g609yM7Vz93JPSc/3H9z8zRGRM0wRceFjpzkExiu18v/JzW3NX969r1/nNxaU14g/eA20kqBXNy8AkJHD/p3YwJDRzu5uNt4TOUKpNfrg54aaxoXNzw6LsQ0wcHBUYlVvsJiseRlHk3d/VpddYkdluslg1oLG/2HPD61PD7NDAgYqsTXrkJCTBN+tTnLzovq9frRk+aOGD/rzN/+cObQm93dXXYO8ETqFChgyNMrt+eqsnRfZ3ByiV24bljUjPf+OK+xrlLtODoHtQNARNioKYlvZfoFRagdhAL1WcaBoSs2nTcODFU3BgXqw7yMAS+npLl6eKuYgQL1bf7Bw59P2KZiAArU542dtmhEzI/VWp0CfRPEvbRRrYsgql0H+paoryktyb9Ydvuf9+99fr+yqLW5vr21ydnF3d3Lx9s3OHTk5PDIaeGR0/R6m76SA0JHj5wwOz/7hKTUVqBAiigryM7NOpaXefxBZdH/frTtUWPbo8a66pKS/ItnD2/0CzY9N/d30d9fYstZJCY2ngL1eS2N93NO772Svsuqm1a15bcPbY3PvXR03sp97l4+YksPj45z9fBua2kQGxem0QJZLJa6quLKkusVJdcf/7nk9ROBYZFq5/q/HlTeuXBiS07Gng5zq9gRbl1J3fHq5MTNmW6eRoFxB0fD0FFTb17+UGx1YVopkLmtpepu7n/qUllyw9zWrHaoXqmvvpvx/rpPz+y3/eZUTXnB3vWzE9484+Ao8v8SNmrKt6VAFoulvqa08u6NyuIvzzEPKossFosqYYQ9aqrLOJicnbazq9Ms65gl+Rcvp++aGJcgMOsXbJIVo/fUKVB1Wf7G+FBVlpaiu6szK3XHJwfWPmqqk37wjIPJ46YvMTi5WDvoExguPUyPtPItrG8pL8wpL8xR6OBN9VUl+ReHjZlu7aBHP8EfwG3BhUQtKsj5SGDK2dVDepIeUSAtelDxhKtHPdLb5cHIr6BAWtTcUCMw1dpcLz1JjyiQFnW0i1xMokD4krvXAIGpuioVHranQFrkFzxcYKq86Kr0JD2iQFo0ZMR3BabKC69IT9IjCqQ5jgankeNnWTtlbmsuunFWiTxfjwJpzphnFwjcT83PPtnR/kiJPF+PAmmLo8Fp2gurBQZzTu+VnaVXKJC2TJ2zSuCeaGlBVuG100rk6REF0pCgp8bOWJAkMJh+4A3pYXqJAmmFRz/fRasPC9yEz88+qdbpR0eBNMLJxX1p0qkBAUOtHWxpqD2+4xdKROolCqQ+Jxf3pW/8fbBpgrWDFkv3B1sWq7vFAs8DqczFzWtp0odDn35WYPbj/WtuX/1YeiSrUCA1eXj7vZySFhweLTCbc3rv2cObpEeyFgVSjdF/yLL16WJbtBTkpB3Ztlx6JAEUSB0DB49atv4Tb58ggdnivAvvbpzb3dUpPZUACqSCwcMnxielij2zUVaQvSdlpip3LZ6IAtmbKfqHi39/VGwL0dJbmbuS4tpbm6SnEkaB7Crqewte/M1eR4OTwGxx3vndyTO19r4lBbKfSbN+/ZOf/1lsB4VbV1Lf3ThXg9uNUyA7iV24bvr8tWKzn507eGjrkq7ODrmRpKBAitPrHeb8cvvEuBVi4xdObEndtUqz731TIGU5Gpx/turAdya/IDaeuue180ffkhtJLgqkIGdXz5dePy7wkrJOp+vu6jyybblaj4n1HgVSikc/3/iUj0KGxQjMdphbD2x68dblU9JTSUeBFNHfN2TZhnR/obdzWpvr96ybdffmJemplECB5PMPGbF8fbrA76fS6XSNdRXvrP1BVWme9FQKoUCSDTZNiE9OFdvqsPbe5++sja2vKZWeSjkUSKaIqNjFa46JbbNSXpizK/lHLQ210lMpigJJM2bq/Hkr94vdpii8dnrfhjlau03RGxRIjmdmJs5OeFtsv/DrFw998KdFEjdatCcKJMGMBUkzFiSLzWae2n5y5ysWS7fURPZDgWyi1zvMTnj7mZmJYuMZB5MzDqbIjWRnFEico8F5/m/3R06ZJzBrsXQf35GYnfZX6ansjAIJcnb1WLzmWERUrMBsZ0f7+5sX5l46Ij2V/VEgEe5ePvHJqQJvcul0uvbWpn0bni+6fkZ6KlWo9pu2V2w6J/YylHK2vhJVUXytN39zYtyKnyb+ReE4IlJ3v3r+2GZ7rsibqbAJBYJNKBBsQoFgEwoEm1Ag2IQCwSYUCDahQLAJBYJNKBBsQoEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBd/QuntWV/pSXhmQAAAABJRU5ErkJggg==">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ôn tập 12">
+</head><body><div class="bg" aria-hidden="true"><i></i><i></i><i></i></div><main id="app"></main><div id="modal"></div>
 <script>
 /* ============================================================
    1. DATA — thêm môn/bài mới chỉ cần thêm object vào đây.
@@ -2395,6 +2446,2543 @@ const quizData = {
         ] }
       ]
     },
+    {
+      id: "geography", name: "Địa lí", icon: "🌏", description: "Địa lí 12",
+      chapters: [
+        { id: "geography-1", title: "Bài 1", subtitle: "Vị trí địa lí và phạm vi lãnh thổ", summary: [
+          {
+            "title": "Vị trí địa lí",
+            "points": [
+              "Nằm ở **đông nam bán đảo Đông Dương**, gần trung tâm khu vực Đông Nam Á, ven **Biển Đông** (phía tây Thái Bình Dương).",
+              "Tọa độ đất liền: **23°23’B – 8°34’B** và **102°09’Đ – 109°28’Đ**; kéo dài khoảng **15 vĩ độ**. Vùng biển kéo dài tới khoảng 6°50’B và 101°Đ – 117°20’Đ.",
+              "Nằm hoàn toàn trong vùng **nội chí tuyến bán cầu Bắc**, thuộc khu vực **gió mùa châu Á**, trên **ngã tư đường hàng hải, hàng không quốc tế**.",
+              "Liền kề **vành đai sinh khoáng** Thái Bình Dương và Địa Trung Hải; trên đường di cư, di lưu của nhiều loài sinh vật."
+            ]
+          },
+          {
+            "title": "Phạm vi lãnh thổ",
+            "points": [
+              "Gồm **vùng đất, vùng biển, vùng trời**.",
+              "**Vùng đất**: đất liền và hải đảo; biên giới đất liền giáp **Trung Quốc, Lào, Cam-pu-chia** (3 nước); đường bờ biển dài **3260 km**.",
+              "**Vùng biển** (khoảng 1 triệu km², gấp khoảng **3 lần** đất liền): nội thủy, lãnh hải (**12 hải lí**), tiếp giáp lãnh hải, đặc quyền kinh tế, thềm lục địa. Vùng đặc quyền kinh tế hợp với lãnh hải rộng **200 hải lí** tính từ đường cơ sở.",
+              "**Biên giới quốc gia trên biển** là ranh giới ngoài của **lãnh hải**. 1 hải lí = **1852 m**.",
+              "**Vùng trời**: khoảng không gian bao trùm lên vùng đất và vùng biển; trên đất liền xác định bởi **đường biên giới quốc gia**.",
+              "Quần đảo xa bờ: **Hoàng Sa** và **Trường Sa** (Trường Sa thuộc tỉnh Khánh Hòa)."
+            ]
+          },
+          {
+            "title": "Ảnh hưởng của vị trí địa lí",
+            "points": [
+              "**Tự nhiên**: tính chất nhiệt đới ẩm gió mùa; sinh vật và khoáng sản phong phú; nhưng có nhiều **thiên tai**.",
+              "**Kinh tế**: thuận lợi giao lưu với khu vực và thế giới, phát triển kinh tế biển, kinh tế mở.",
+              "**Văn hóa – xã hội**: giao lưu, hợp tác; nơi gặp gỡ nhiều nền văn minh lớn nên bản sắc dân tộc đa dạng.",
+              "**Quốc phòng, an ninh**: khó khăn lớn nhất là **bảo vệ chủ quyền** do biên giới trên đất liền và trên biển dài."
+            ]
+          },
+          {
+            "title": "Dễ nhầm",
+            "points": [
+              "Nước ta nằm ở **phía tây** Biển Đông, không phải phía đông.",
+              "Vùng biển rộng gấp khoảng **3 lần** đất liền; lãnh thổ **kéo dài theo chiều bắc – nam** (khoảng 15 vĩ độ), hẹp theo chiều đông – tây.",
+              "**Không** có biên giới đất liền với Mi-an-ma và Thái Lan (chỉ có vùng biển tiếp giáp với Thái Lan).",
+              "Nước ta **không** có khí hậu nhiệt đới khô như một số nước cùng vĩ độ là do **tiếp giáp Biển Đông** và chịu ảnh hưởng của **gió mùa**."
+            ]
+          }
+        ],
+          questions: [
+            {
+              "id": "geography-1-B-01",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Theo quy định hiện hành, quần đảo Trường Sa thuộc quyền quản lí hành chính của tỉnh nào sau đây?",
+              "options": [
+                "Quảng Ngãi.",
+                "Lâm Đồng.",
+                "Khánh Hòa.",
+                "Nghệ An."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-02",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vùng thềm lục địa của nước ta bao gồm phần đáy biển và bộ phận nào sau đây?",
+              "options": [
+                "Lòng đất dưới đáy biển.",
+                "Các đảo ven bờ biển.",
+                "Toàn bộ vùng lãnh hải.",
+                "Vùng tiếp giáp lãnh hải."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-03",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Trên đất liền, vùng trời của nước ta được xác định bởi ranh giới nào sau đây?",
+              "options": [
+                "Đường bờ biển nước ta.",
+                "Đường biên giới quốc gia.",
+                "Đường cơ sở trên biển.",
+                "Đường vĩ tuyến biên giới."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-04",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vị trí nằm trên ngã tư đường hàng hải và hàng không quốc tế giúp nước ta thuận lợi để",
+              "options": [
+                "giao lưu với các nước.",
+                "phát triển nghề làm muối.",
+                "trồng cây công nghiệp.",
+                "bảo vệ rừng ngập mặn."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-05",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Việt Nam gắn liền với lục địa và đại dương nào sau đây?",
+              "options": [
+                "Á-Âu và Bắc Băng Dương.",
+                "Á- Âu và Đại Tây Dương.",
+                "Á-Âu và Ấn Độ Dương.",
+                "Á-Âu và Thái Bình Dương."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-B-06",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vùng biển của nước ta không tiếp giáp với vùng biển của quốc gia nào sau đây?",
+              "options": [
+                "Trung Quốc.",
+                "Cam-pu-chia.",
+                "Thái Lan.",
+                "Mi-an-ma."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-B-07",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Quần đảo nằm cách xa đất liền nhất của nước ta là",
+              "options": [
+                "Hoàng Sa.",
+                "Phú Quốc.",
+                "Phú Quý.",
+                "Trường Sa."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-B-08",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Lãnh thổ nước ta",
+              "options": [
+                "có đường bờ biển dài từ Bắc vào Nam.",
+                "có vùng đất gấp nhiều lần vùng biển.",
+                "nằm hoàn toàn ở trong vùng xích đạo.",
+                "chỉ tiếp giáp với các quốc gia trên biển."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-09",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Lãnh thổ nước ta",
+              "options": [
+                "có biên giới chung với nhiều nước.",
+                "nằm hoàn toàn trong vùng xích đạo.",
+                "có vùng đất rộng lớn hơn vùng biển.",
+                "có bờ biển dài theo chiều Đông - Tây."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-10",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vùng đất Việt Nam gồm toàn bộ phần đất liền và các",
+              "options": [
+                "hải đảo.",
+                "đảo ven bờ.",
+                "đảo xa bờ.",
+                "quần đảo."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-11",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vị trí địa lí nước ta",
+              "options": [
+                "thuộc khu vực Đông Nam Á hải đảo.",
+                "là một bộ phận của bán đảo Tiểu Á.",
+                "trong vùng hoạt động gió mậu dịch.",
+                "nằm ở phía đông Thái Bình Dương."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-12",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Phía tây nước ta tiếp giáp với những quốc gia nào sau đây?",
+              "options": [
+                "Lào và Thái Lan.",
+                "Campuchia và Trung Quốc.",
+                "Lào và Campuchia.",
+                "Lào và Trung Quốc."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-13",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Hệ tọa độ địa lí phần đất liền nước ta là",
+              "options": [
+                "23°20’B - 8°30’B và 102°09’Đ - 109°24’Đ.",
+                "23°23’B - 8°30’B và 102°09’Đ - 109°28’Đ.",
+                "23°23’B - 8°34’B và 102°09’Đ - 109°28’Đ.",
+                "23°23’B - 8°34’B và 102°09’Đ - 109°20’Đ."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-14",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Phát biểu nào sau đây đúng về vị trí địa lí của nước ta?",
+              "options": [
+                "Thuộc bán đảo Đông Dương.",
+                "Trong vùng ôn đới.",
+                "Phía đông của Biển Đông.",
+                "Trong vùng ít thiên tai."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-B-15",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vị trí địa lí nước ta nằm ở",
+              "options": [
+                "bờ Tây của Địa Trung Hải.",
+                "khu vực có nhiều sa mạc.",
+                "trong vùng khí hậu ôn đới.",
+                "khu vực gió mùa châu Á."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-B-16",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vùng biển của nước ta",
+              "options": [
+                "có diện tích nhỏ hơn vùng đất.",
+                "ở phía tây Thái Bình Dương.",
+                "giáp với vùng biển Mi-an-ma.",
+                "có kiểu khí hậu ôn đới gió mùa."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-17",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vùng biển của nước ta",
+              "options": [
+                "giáp với vùng biển Mi-an-ma.",
+                "có diện tích lớn hơn vùng đất.",
+                "có khí hậu ôn đới hải dương.",
+                "ở phía tây của Ấn Độ Dương."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-18",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vị trí địa lí nước ta",
+              "options": [
+                "ở trung tâm Đông Nam Á.",
+                "tiếp giáp với Ấn Độ Dương.",
+                "giáp với nhiều quốc gia.",
+                "nằm trên vành đai sinh khoáng."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-19",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Việt Nam không có chung đường biên giới với quốc gia nào sau đây?",
+              "options": [
+                "Lào.",
+                "Trung Quốc.",
+                "Mi-an-ma.",
+                "Cam-pu-chia."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-20",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Phần đất liền của nước ta",
+              "options": [
+                "thu hẹp theo chiều bắc - nam.",
+                "giáp với Biển Đông rộng lớn.",
+                "rộng gấp nhiều lần vùng biển.",
+                "bao gồm cả các đảo ở ven bờ."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-21",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Lãnh thổ nước ta",
+              "options": [
+                "rất rộng, kéo dài.",
+                "vùng đất rộng hơn vùng biển.",
+                "có nhiều đảo lớn nhỏ.",
+                "vị trí nằm ở vùng xích đạo."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-B-22",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vị trí địa lí nước ta",
+              "options": [
+                "ở trung tâm của bán đảo Đông Dương.",
+                "liền kề với các vành đai sinh khoáng.",
+                "tiếp giáp Ấn Độ Dương và Biển Đông.",
+                "nằm ở khu vực phía đông của châu Á."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-23",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Nước ta nằm ở",
+              "options": [
+                "khu vực phía tây Ấn Độ Dương.",
+                "phía đông của Thái Bình Dương.",
+                "rìa phía nam của vùng xích đạo.",
+                "vùng nội chí tuyến bán cầu Bắc."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-B-24",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Việt Nam nằm ở vị trí nào sau đây của khu vực Đông Nam Á?",
+              "options": [
+                "Rìa phía đông.",
+                "Gần trung tâm.",
+                "Rìa phía tây.",
+                "Rìa phía nam."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-B-25",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Điểm cực Bắc trên đất liền của nước ta tại vĩ độ 23°23’B thuộc tỉnh nào sau đây?",
+              "options": [
+                "Thái Nguyên.",
+                "Lạng Sơn.",
+                "Tuyên Quang.",
+                "Cao Bằng."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-01",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Đường biên giới trên biển và trên đất liền của nước ta dài gặp khó khăn lớn nhất về",
+              "options": [
+                "thu hút đầu tư nước ngoài.",
+                "bảo vệ chủ quyền lãnh thổ.",
+                "thiếu nguồn lao động.",
+                "phát triển nền văn hóa."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-H-02",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Sự đa dạng về bản sắc dân tộc của nước ta là do vị trí",
+              "options": [
+                "diễn ra những hoạt động kinh tế sôi động.",
+                "liền kề của hai vành đai sinh khoáng lớn.",
+                "nằm trên ngã tư đường hàng hải và hàng không quốc tế lớn.",
+                "có sự gặp gỡ nhiều nền văn minh lớn với văn minh bản địa."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-H-03",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Nước ta thuận lợi giao lưu với các nước trên thế giới là do nguyên nhân chủ yếu nào sau đây?",
+              "options": [
+                "Có nhiều nét tương đồng về lịch sử và văn hóa.",
+                "Ở khu vực giao thoa giữa các nền văn minh lớn.",
+                "Ở Ngã tư đường hàng hải và hàng không quốc tế.",
+                "Nằm hoàn toàn ở bán cầu Bắc và bán cầu Đông."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-04",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Ý nghĩa kinh tế của vị trí địa lí nước ta là",
+              "options": [
+                "tự nhiên phân hóa đa dạng giữa bắc - nam và đông - tây.",
+                "nguồn tài nguyên sinh vật và khoáng sản vô cùng giàu có.",
+                "thuận lợi giao lưu với các nước trong khu vực và thế giới.",
+                "thuận lợi để xây dựng nền văn hóa tương đồng với khu vực."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-05",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Do tiếp giáp Biển Đông nên nước ta có",
+              "options": [
+                "hai lần Mặt Trời lên thiên đỉnh trong năm.",
+                "gió mùa Đông Bắc hoạt động ở mùa đông.",
+                "tổng lượng mưa lớn, độ ẩm không khí cao.",
+                "một mùa có mưa nhiều, một mùa mưa ít."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-06",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Hai vịnh biển có diện tích lớn nhất nước ta là",
+              "options": [
+                "vịnh Bắc Bộ và vịnh Thái Lan.",
+                "vịnh Bắc Bộ và vịnh Nha Trang.",
+                "vịnh Thái Lan và vịnh Vân Phong.",
+                "vịnh Bắc Bộ và vịnh Vân Phong."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-H-07",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Ý nghĩa về văn hóa - xã hội của vị trí địa lí nước ta là",
+              "options": [
+                "giao lưu, hợp tác về văn hóa xã hội với các quốc gia.",
+                "phát triển nhiều loại hình giao thông vận tải khác nhau.",
+                "thu hút được nhiều nguồn vốn đầu tư của nước ngoài.",
+                "cầu nối phát triển kinh tế giữa các nước trong khu vực."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-H-08",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Nước ta nằm ở",
+              "options": [
+                "Tây Nam châu Á, trong vùng khí hậu ôn hòa.",
+                "trong khu vực kinh tế phát triển năng động.",
+                "vùng xích đạo bán cầu Nam, giáp nhiều nước.",
+                "khu vực á nhiệt đới gió mùa, có ít thiên tai."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-H-09",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Phát biểu nào sau đây thể hiện ý nghĩa về mặt kinh tế của vị trí địa lí nước ta ?",
+              "options": [
+                "Tự nhiên phân hóa đa dạng giữa Bắc - Nam, Đông - Tây.",
+                "Nguồn tài nguyên sinh vật và khoáng sản vô cùng giàu có.",
+                "Thuận lợi giao lưu với các nước trong khu vực và thế giới.",
+                "Thuận lợi để xây dựng nền văn hóa tương đồng với khu vực."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-10",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Tính chất nhiệt đới của khí hậu nước ta được quy định bởi",
+              "options": [
+                "vị trí trong vùng nội chí tuyến.",
+                "địa hình nước ta thấp dần ra biển.",
+                "hoạt động của gió phơn Tây Nam.",
+                "địa hình nước ta nhiều đồi núi."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-H-11",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Phát biểu nào sau đây đúng về lãnh thổ của nước ta?",
+              "options": [
+                "Nhiều đảo ven bờ, vùng biển rộng hơn so với vùng đất.",
+                "Hẹp ngang ở Nam bộ và mở rộng vùng Bắc Trung Bộ.",
+                "Đường bờ biển kéo dài từ Quảng Ninh cho đến Cà Mau.",
+                "Đường biên giới trên đất liền dài nhất với Trung Quốc."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-1-H-12",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Vị trí địa lí đã làm cho tự nhiên nước ta",
+              "options": [
+                "mang tính chất cận xích đạo gió mùa.",
+                "phân hóa đa dạng, có nhiều thiên tai.",
+                "phân hóa chủ yếu theo độ cao địa hình.",
+                "có khí hậu, thời tiết biến đổi khắc nghiệt."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-H-13",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Vị trí nước ta nằm trong vùng nội chí tuyến nên có",
+              "options": [
+                "lượng mưa trung bình năm lớn.",
+                "gió mùa Đông Bắc hoạt động.",
+                "số giờ nắng trong năm nhiều.",
+                "khí hậu phân mùa sâu sắc."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-H-14",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Trong các vùng biển sau đây, vùng nào có diện tích lớn nhất?",
+              "options": [
+                "Nội thủy.",
+                "Lãnh hải.",
+                "Tiếp giáp lãnh hải.",
+                "Đặc quyền kinh tế."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-H-15",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Nhân tố nào sau đây quyết định tính phong phú về thành phần loài sinh vật nước ta?",
+              "options": [
+                "Sự phong phú, đa dạng của các nhóm đất và sông ngòi.",
+                "Khí hậu nhiệt đới ẩm gió mùa, có sự phân hóa đa dạng.",
+                "Địa hình đồi núi chiếm ưu thế, có sự phân hóa phức tạp.",
+                "Vị trí trên đường di cư và di lưu của nhiều loài sinh vật."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-V-01",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Việt Nam không có khí hậu nhiệt đới khô như một số nước cùng vĩ độ là do",
+              "options": [
+                "nằm trên vành đai sinh khoáng Địa Trung Hải.",
+                "nằm hoàn toàn trong vùng nội chí tuyến.",
+                "tiếp giáp với Biển Đông và ảnh hưởng gió mùa.",
+                "nằm ở trung tâm của vùng Đông Nam Á."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-V-02",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Đặc điểm nào sau đây không đúng với thiên nhiên vùng biển và thềm lục địa nước ta?",
+              "options": [
+                "Vùng biển có diện tích lớn gấp khoảng ba lần vùng đất liền.",
+                "Thềm lục địa nông, được mở rộng ở phía Bắc và phía Nam.",
+                "Độ nông - sâu của thềm lục địa đồng nhất từ Bắc vào Nam.",
+                "Thềm lục địa miền Trung hẹp, tiếp giáp với vùng biển sâu."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-1-V-03",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Đường cơ sở của nước ta được xác định là đường",
+              "options": [
+                "được xem là ranh giới trên biển của nước ta.",
+                "khoảng cách 12 hải lí tính từ vùng lãnh hải.",
+                "tính từ mức nước thủy triều lúc lên cao nhất.",
+                "nối các mũi đất xa nhất với các đảo ven bờ."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-1-V-04",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Ảnh hưởng của vị trí địa lí và hình dáng lãnh thổ đến sông ngòi nước ta là",
+              "options": [
+                "mạng lưới sông ngòi dày đặc, có độ dốc lớn.",
+                "phần lớn là sông nhỏ, chế độ nước theo mùa.",
+                "có rất nhiều chi lưu và tổng lượng nước lớn.",
+                "hàm lượng phù sa lớn và chảy ra biển Đông."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-V-05",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Sự hình thành các miền tự nhiên khác nhau ở nước ta chủ yếu do",
+              "options": [
+                "khí hậu và sông ngòi.",
+                "vị trí địa lí và hình thể.",
+                "khoáng sản và biển.",
+                "gió mùa và dòng biển."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-1-T-01",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Việt Nam nằm trên bán đảo Đông Dương, gần trung tâm khu vực Đông Nam Á. Trên đất liền, nước ta tiếp giáp với các nước láng giềng Trung Quốc, Lào, Cam-pu-chia và nằm ven Biển Đông, giáp với vùng biển của nhiều quốc gia. Lãnh thổ Việt Nam là một khối thống nhất và toàn vẹn, bao gồm vùng đất, vùng biển và vùng trời.",
+              "statements": [
+                {
+                  "text": "Việt Nam nằm ở vị trí trung tâm của bán đảo Đông Dương.",
+                  "answer": false
+                },
+                {
+                  "text": "Trên đất liền, nước ta có đường biên giới giáp với 3 quốc gia.",
+                  "answer": true
+                },
+                {
+                  "text": "Vị trí ven biển giúp nước ta có điều kiện giao lưu thuận lợi với các nước trong khu vực và trên thế giới.",
+                  "answer": true
+                },
+                {
+                  "text": "Do nằm hoàn toàn trong vùng nội chí tuyến nên nước ta có mùa đông lạnh, ít mưa.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-02",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Vùng biển Việt Nam thuộc Biển Đông có diện tích khoảng 1 triệu km², tiếp giáp với vùng biển của các quốc gia: Trung Quốc, Phi-líp-pin, Ma-lai-xi-a, Bru-nây, In-đô-nê-xi-a, Cam-pu-chia và Thái Lan. Vùng biển nước ta bao gồm: nội thuỷ, lãnh hải, vùng tiếp giáp lãnh hải, vùng đặc quyền kinh tế và thềm lục địa.",
+              "statements": [
+                {
+                  "text": "Vùng biển của nước ta rộng gấp khoảng 3 lần diện tích phần đất liền.",
+                  "answer": true
+                },
+                {
+                  "text": "Lãnh hải là vùng biển thuộc chủ quyền quốc gia trên biển, có chiều rộng 12 hải lí.",
+                  "answer": true
+                },
+                {
+                  "text": "Đường biên giới quốc gia trên biển được xác định là ranh giới ngoài của vùng tiếp giáp lãnh hải.",
+                  "answer": false
+                },
+                {
+                  "text": "Việc xác định rõ các vùng biển giúp nước ta bảo vệ quyền và lợi ích hợp pháp trên Biển Đông.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-03",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Việt Nam nằm ở vị trí tiếp giáp nối liền lục địa với đại dương, có quan hệ với vành đai sinh khoáng và núi lửa Thái Bình Dương, ở nước ta cũng đã từng xảy ra các hoạt động của núi lửa, động đất.",
+              "statements": [
+                {
+                  "text": "Nước ta có hệ thực vật đa dạng do vị trí địa lí nằm trên các vành đai sinh khoáng.",
+                  "answer": false
+                },
+                {
+                  "text": "Nằm gần các vành đai sinh khoáng nên nước ta có tài nguyên khoáng sản phong phú.",
+                  "answer": true
+                },
+                {
+                  "text": "Động đất vẫn thường xảy ra ở khu vực Tây Bắc của nước ta.",
+                  "answer": true
+                },
+                {
+                  "text": "Các hoạt động của núi lửa, động đất trong quá khứ là điều kiện để hình thành các đồng bằng châu thổ ở nước ta hiện nay.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-04",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Phía đông, nam, tây nam của nước ta tiếp giáp Biển Đông, đường bờ biển dài 3260km kéo dài từ Quảng Ninh đến An Giang với nhiều tỉnh, thành phố giáp biển. Vị trí ở ngã tư các tuyến giao thông quốc tế quan trọng cùng với các trục đường sắt, đường bộ xuyên Á. Ngoài ra, nước ta còn có hệ thống hàng ngàn hòn đảo, quần đảo lớn nhỏ.",
+              "statements": [
+                {
+                  "text": "Nước ta có đường bờ biển kéo dài, khúc khuỷu, nhiều vịnh thuận lợi để xây dựng các cảng biển.",
+                  "answer": true
+                },
+                {
+                  "text": "Nhiều tỉnh, thành phố của nước ta có khả năng phát triển kinh tế biển.",
+                  "answer": true
+                },
+                {
+                  "text": "Các đảo và quần đảo của nước ta có tiềm năng lớn phát triển du lịch và dịch vụ vận tải.",
+                  "answer": true
+                },
+                {
+                  "text": "Vị trí địa lí cho phép nước ta phát triển nền kinh tế mở, hạn chế tác động của thiên tai.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-05",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Trên đất liền, lãnh thổ nước ta kéo dài từ 8°34’B đến 23°23’B, mở rộng từ 102°09’Đ đến 109°28’Đ; phía đông, nam và tây nam tiếp giáp với Biển Đông. Nước ta là nơi hội tụ của các luồng di lưu và di cư sinh vật; nằm ở vị trí tiếp giáp giữa lục địa và đại dương, liền kề với các vành đai sinh khoáng Thái Bình Dương và Địa Trung Hải.",
+              "statements": [
+                {
+                  "text": "Ở nước ta, khoảng cách từ đông sang tây lớn hơn từ bắc vào nam.",
+                  "answer": false
+                },
+                {
+                  "text": "Trên đất liền, nước ta gần xích đạo hơn chí tuyến.",
+                  "answer": false
+                },
+                {
+                  "text": "Vị trí địa lí làm cho nước ta có tài nguyên sinh vật đa dạng, tài nguyên khoáng sản khá phong phú.",
+                  "answer": true
+                },
+                {
+                  "text": "Lãnh thổ nước ta mỗi năm có hai lần mặt trời chuyển động qua thiên đỉnh.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-06",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Việt Nam nằm ở phía đông nam của châu Á, trên bán đảo Đông Dương. Phần đất liền nước ta giới hạn từ vĩ độ 8°34′B đến vĩ độ 23°23′B và từ kinh độ 102°09'Đ đến kinh độ 109°28′Đ. Trên Biển Đông, vùng biển nước ta kéo dài từ khoảng vĩ độ 6°50′B và kinh độ 101°Đ đến khoảng kinh độ 117°20'Đ.",
+              "statements": [
+                {
+                  "text": "Nước ta nằm hoàn toàn ở nửa cầu Bắc.",
+                  "answer": true
+                },
+                {
+                  "text": "Lãnh thổ phần đất liền nước ta kéo dài trên 17 vĩ độ.",
+                  "answer": false
+                },
+                {
+                  "text": "Vị trí địa lí tạo thuận lợi cho nước ta phát triển tổng hợp kinh tế biển.",
+                  "answer": true
+                },
+                {
+                  "text": "Vị trí địa lí và hình dạng lãnh thổ đã làm cho sông ngòi nước ta phần lớn là sông nhỏ, nhiều nước, thủy chế theo mùa.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-07",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Việt Nam nằm gần trung tâm khu vực Đông Nam Á. Trên đất liền điểm cực Bắc nước ta ở 23°23’B, cực Nam ở 8°34’B, cực Tây ở 102°09’Đ và cực Đông ở 109°28’Đ. Vùng biển nước ta kéo dài tới khoảng vĩ độ 6°50’B và từ kinh độ 101°Đ đến kinh độ 117°20’Đ.",
+              "statements": [
+                {
+                  "text": "Lãnh thổ phần đất liền nước ta kéo dài khoảng 15 vĩ độ.",
+                  "answer": true
+                },
+                {
+                  "text": "Nước ta nằm hoàn toàn trong vùng nội chí tuyến bán cầu Bắc.",
+                  "answer": true
+                },
+                {
+                  "text": "Nhờ vị trí địa lí nên nước ta ít chịu ảnh hưởng của thiên tai và biến đổi khí hậu.",
+                  "answer": false
+                },
+                {
+                  "text": "Nước ta chịu ảnh hưởng của gió mùa châu Á và Tín phong.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-1-T-08",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Phần đất liền, phạm vi lãnh thổ Việt Nam được xác định bởi các điểm cực: cực Bắc ở khoảng vĩ độ 23°23’B; điểm cực Nam ở khoảng vĩ độ 8°34’B; điểm cực Tây ở khoảng kinh độ 102°09’Đ; điểm cực Đông ở khoảng kinh độ 109°28’Đ. Nước ta tiếp giáp với các nước láng giềng là Trung Quốc, Lào, Cam- pu-chia và có chung Biển Đông với nhiều quốc gia.",
+              "statements": [
+                {
+                  "text": "Biên giới trên đất liền nước ta tiếp giáp với bốn quốc gia.",
+                  "answer": false
+                },
+                {
+                  "text": "Việt Nam nằm hoàn toàn trong vùng nội chí tuyến Bắc bán cầu.",
+                  "answer": true
+                },
+                {
+                  "text": "Nước ta nằm hoàn toàn ở bán cầu Đông.",
+                  "answer": true
+                },
+                {
+                  "text": "Thiên nhiên nước ta chịu ảnh hưởng sâu sắc của biển.",
+                  "answer": true
+                }
+              ]
+            }
+          ] },
+        { id: "geography-2", title: "Bài 2", subtitle: "Thiên nhiên nhiệt đới ẩm gió mùa", summary: [
+          {
+            "title": "Tính chất nhiệt đới",
+            "points": [
+              "Do vị trí **nội chí tuyến**: nhận bức xạ Mặt Trời lớn, cán cân bức xạ quanh năm dương, nhiệt độ trung bình năm **trên 20°C**.",
+              "Hằng năm có **hai lần Mặt Trời qua thiên đỉnh** (thời điểm khác nhau tùy vĩ độ).",
+              "Sinh vật **nhiệt đới** chiếm ưu thế (họ Đậu, Vang, Dâu tằm, Dầu…)."
+            ]
+          },
+          {
+            "title": "Gió mùa",
+            "points": [
+              "**Gió mùa mùa đông** (gió mùa Đông Bắc, tháng **11 → 4**): xuất phát từ **áp cao Xi-bia**. Nửa đầu mùa đông **lạnh, khô**; nửa sau **lạnh, ẩm**, có mưa phùn ở ven biển và đồng bằng Bắc Bộ, Bắc Trung Bộ.",
+              "Gió mùa Đông Bắc **suy yếu dần vào Nam**, bị chặn lại ở dãy **Bạch Mã**; từ Bạch Mã vào Nam **Tín phong bán cầu Bắc** (hướng đông bắc) chiếm ưu thế, gây **mùa khô** cho Nam Bộ và Tây Nguyên.",
+              "**Gió mùa mùa hạ** (tháng **5 → 10**): **nóng, ẩm**, gây mưa lớn; đầu mùa hạ gió Tây Nam gây **hiệu ứng phơn** khô nóng cho ven biển Trung Bộ và Tây Bắc; giữa và cuối mùa hạ ở Bắc Bộ gió có hướng **đông nam**.",
+              "**Tín phong** hoạt động quanh năm, mạnh nhất vào thời kì chuyển tiếp (**xuân, thu**) khi hai luồng gió mùa yếu."
+            ]
+          },
+          {
+            "title": "Tính chất ẩm",
+            "points": [
+              "Biển Đông cung cấp nguồn ẩm dồi dào: độ ẩm không khí trên **80%**, lượng mưa trung bình năm khoảng **1500 – 2000 mm**.",
+              "Mưa nhiều ở sườn núi đón gió; mưa ít ở vùng khuất gió."
+            ]
+          },
+          {
+            "title": "Biểu hiện trong tự nhiên",
+            "points": [
+              "**Địa hình**: xâm thực mạnh ở đồi núi, **bồi tụ** ở đồng bằng; địa hình **các-xtơ** hình thành trên đá vôi do nước hòa tan (hang động…).",
+              "**Sông ngòi**: dày đặc (khoảng **2360** sông dài trên 10 km), nhiều nước, **giàu phù sa** (khoảng 200 triệu tấn/năm), chế độ nước **theo mùa**, theo sát chế độ mưa.",
+              "**Đất**: quá trình **feralit** là chủ yếu; đất feralit chiếm diện tích lớn nhất, **chua**, màu **đỏ vàng** do tích tụ ô-xít sắt, ô-xít nhôm và rửa trôi các chất ba-zơ dễ tan.",
+              "**Sinh vật**: hệ sinh thái rừng nhiệt đới ẩm gió mùa; rừng nguyên sinh đặc trưng là rừng nhiệt đới ẩm lá rộng thường xanh."
+            ]
+          },
+          {
+            "title": "Dễ nhầm",
+            "points": [
+              "Gió mùa Đông Bắc gây **mưa phùn** ở nửa **sau** mùa đông, không phải nửa đầu.",
+              "**Mùa khô** ở Nam Bộ, Tây Nguyên chủ yếu do **Tín phong bán cầu Bắc**, không phải gió mùa Đông Bắc.",
+              "Đất feralit đỏ vàng là do **tích tụ ô-xít sắt, nhôm**; chua là do **mưa nhiều rửa trôi** ba-zơ.",
+              "Sông ngòi nước ta **nhiều nước, giàu phù sa, nhiều phụ lưu**; nhận định “ít nước”, “ít phụ lưu” là sai."
+            ]
+          }
+        ],
+          questions: [
+            {
+              "id": "geography-2-B-01",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Ở một số vùng núi đá vôi nước ta, quá trình hòa tan đá tạo nên dạng địa hình đặc biệt nào sau đây?",
+              "options": [
+                "Địa hình bán bình nguyên.",
+                "Địa hình mài mòn biển.",
+                "Địa hình núi cao dốc.",
+                "Địa hình các-xtơ."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-B-02",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Tổng lượng phù sa hằng năm của các hệ thống sông ngòi trên lãnh thổ nước ta là khoảng",
+              "options": [
+                "100 triệu tấn/năm.",
+                "200 triệu tấn/năm.",
+                "300 triệu tấn/năm.",
+                "400 triệu tấn/năm."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-03",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Đất feralit ở nước ta thường có tính chất chua và có màu đỏ vàng chủ yếu do sự tích tụ của",
+              "options": [
+                "các chất ba-zơ dễ tan.",
+                "ô-xít sắt và ô-xít nhôm.",
+                "các hợp chất hữu cơ mùn.",
+                "các hợp chất muối mặn."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-04",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa đông bắc tạo nên một mùa đông lạnh",
+              "options": [
+                "Từ dãy Bạch Mã vào miền Nam.",
+                "Từ dãy Bạch Mã ra miền Bắc.",
+                "Từ dãy Hoành Sơn ra miền Bắc.",
+                "Từ dãy Hoành Sơn vào miền Nam."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-05",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa đông bắc gần như bị chặn lại ở dãy núi nào sau đây?",
+              "options": [
+                "Tam Điệp.",
+                "Hoành Sơn.",
+                "Bạch Mã.",
+                "Hoàng Liên Sơn."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-06",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa mùa hạ hoạt động ở nước ta vào thời gian nào sau đây?",
+              "options": [
+                "Tháng 6 đến 10.",
+                "Tháng 8 đến 10.",
+                "Tháng 1 đến 12.",
+                "Tháng 5 đến 10."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-B-07",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Nơi có sự bào mòn, rửa trôi đất đai mạnh nhất là",
+              "options": [
+                "đồng bằng.",
+                "miền núi.",
+                "ô trũng.",
+                "ven biển."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-08",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Loại đất chiếm diện tích lớn nhất ở nước ta là",
+              "options": [
+                "đất xám bạc màu.",
+                "đất mùn thô.",
+                "đất phù sa.",
+                "đất feralit."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-B-09",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Nước ta có khoảng bao nhiêu con sông dài trên 10km?",
+              "options": [
+                "2360.",
+                "2620.",
+                "3260.",
+                "3630."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-B-10",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Phát biểu nào sau đây không đúng với khí hậu Việt Nam?",
+              "options": [
+                "Khí hậu có sự phân hoá đa dạng.",
+                "Khí hậu mang tính chất nhiệt đới.",
+                "Mùa đông lạnh kéo dài 2 - 3 tháng.",
+                "Chịu tác động sâu sắc của gió mùa."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-11",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Tính chất nhiệt đới của khí hậu nước ta được quy định bởi",
+              "options": [
+                "ảnh hưởng của biển Đông rộng lớn.",
+                "ảnh hưởng sâu sắc hoàn lưu gió mùa.",
+                "vị trí nằm trong vùng nội chí tuyến.",
+                "chuyển động biểu kiến của Mặt Trời."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-12",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Đất feralit ở nước ta có màu đỏ vàng chủ yếu do",
+              "options": [
+                "quá trình tích tụ mùn mạnh.",
+                "rửa trôi các chất badơ dễ tan.",
+                "tỉ lệ ôxit sắt và ôxit nhôm cao.",
+                "quá trình phong hóa mạnh mẽ."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-13",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Loại gió thổi quanh năm ở nước ta là",
+              "options": [
+                "Tây ôn đới.",
+                "Tín phong.",
+                "gió phơn.",
+                "gió mùa."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-14",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Do tác động của gió mùa Đông Bắc nên nửa đầu mùa đông ở miền Bắc nước ta thường có kiểu thời tiết",
+              "options": [
+                "lạnh, ẩm.",
+                "ấm, ẩm.",
+                "lạnh, khô.",
+                "ấm, khô."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-15",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Chế độ dòng chảy của sông ngòi nước ta theo sát",
+              "options": [
+                "hướng các dòng sông.",
+                "hướng các dãy núi.",
+                "chế độ nhiệt.",
+                "chế độ mưa."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-B-16",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Hệ quả của quá trình xâm thực mạnh ở khu vực đồi núi nước ta là quá trình gì ở vùng đồng bằng?",
+              "options": [
+                "Phong hóa.",
+                "Bồi tụ.",
+                "Bóc mòn.",
+                "Rửa trôi."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-17",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa mùa hạ hoạt động ở đồng bằng Bắc Bộ vào giữa và cuối mùa hạ có hướng chủ yếu là",
+              "options": [
+                "tây nam.",
+                "đông nam.",
+                "đông bắc.",
+                "tây bắc."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-18",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa đông bắc xuất phát từ",
+              "options": [
+                "biển Đông.",
+                "Ấn Độ Dương.",
+                "áp cao Xi-bia.",
+                "vùng núi cao."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-19",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa đông bắc thổi vào nước ta theo hướng",
+              "options": [
+                "tây bắc.",
+                "đông bắc.",
+                "đông nam.",
+                "tây nam."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-20",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Tính chất của gió mùa mùa hạ là",
+              "options": [
+                "nóng, khô.",
+                "nóng, ẩm.",
+                "lạnh, ẩm.",
+                "lạnh, khô."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-21",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Phát biểu nào sau đây là biểu hiện của thiên nhiên nhiệt đới ẩm gió mùa ở nước ta?",
+              "options": [
+                "Cán cân bức xạ quanh năm âm.",
+                "Sinh vật cận nhiệt đới chiếm ưu thế.",
+                "Xâm thực mạnh ở miền đồi núi.",
+                "Chế độ nước sông không phân mùa."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-22",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Hệ sinh thái rừng nguyên sinh đặc trưng cho khí hậu nóng ẩm của nước ta là",
+              "options": [
+                "rừng thưa nhiệt đới khô.",
+                "rừng nhiệt đới gió mùa nửa rụng lá.",
+                "rừng nhiệt đới gió mùa.",
+                "rừng nhiệt đới gió mùa thường xanh."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-23",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Đất feralit ở nước ta thường bị chua vì nguyên nhân chủ yếu nào sau đây?",
+              "options": [
+                "Quá trình phong hóa diễn ra mạnh.",
+                "Tích tụ ôxít sắt Fe₂O₃.",
+                "Mưa nhiều, rửa trôi các chất badơ.",
+                "Tích tụ ôxít nhôm Al₂O₃."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-24",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Vào mùa đông, gió mùa Đông Bắc ở miền Bắc nước ta thổi xen kẽ với",
+              "options": [
+                "gió Tây ôn đới.",
+                "Tín phong bán cầu Bắc.",
+                "phơn Tây Nam.",
+                "Tín phong bán cầu Nam."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-B-25",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Sông ngòi nước ta có chế độ nước theo mùa là do",
+              "options": [
+                "chế độ mưa mùa.",
+                "hoạt động của dải hội tụ nhiệt đới.",
+                "hoạt động của bão.",
+                "sự đa dạng của hệ thống sông ngòi."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-B-26",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió nào sau đây gây mưa phùn ở vùng ven biển và các đồng bằng Bắc Bộ, Bắc Trung Bộ?",
+              "options": [
+                "Gió mùa Đông Bắc.",
+                "Tín phong bán cầu Bắc.",
+                "Gió phơn Tây Nam.",
+                "Tín phong bán cầu Nam."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-B-27",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Gió mùa đông bắc hoạt động vào thời gian nào sau đây?",
+              "options": [
+                "Thu - đông.",
+                "Tháng 5 đến tháng 10.",
+                "Tháng 11 đến tháng 4.",
+                "Mùa đông."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-B-28",
+              "type": "single",
+              "tag": "Biết",
+              "question": "Tính chất nhiệt đới ẩm gió mùa của sông ngòi nước ta biểu hiện ở đặc điểm nào sau đây?",
+              "options": [
+                "Sông ngòi dày đặc, nhiều nước, ít phù sa, chế độ nước thất thường.",
+                "Sông ngòi dày đặc, nhiều nước, giàu phù sa, chế độ nước theo mùa.",
+                "Sông ngòi dày đặc, có nhiều nước, giàu phù sa, chế độ nước ổn định.",
+                "Sông ngòi dày đặc, chủ yếu hướng tây bắc - đông nam và vòng cung."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-01",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Khối khí nhiệt đới ẩm từ Bắc Ấn Độ Dương gây mưa lớn cho Nam Bộ nhưng lại gây khô nóng cho ven biển Trung Bộ chủ yếu do",
+              "options": [
+                "tác động của dải hội tụ nhiệt đới trên biển.",
+                "ảnh hưởng chắn gió của dãy núi Trường Sơn.",
+                "sự lấn lướt của khối khí từ áp cao Xi-bia.",
+                "địa hình miền Trung hẹp ngang và giáp biển."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-02",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Trong sản xuất nông nghiệp, tính chất thất thường của thiên nhiên nhiệt đới ẩm gió mùa nước ta gây khó khăn lớn nhất trong việc",
+              "options": [
+                "khai thác và chế biến các loại nông sản.",
+                "xây dựng hệ thống kênh mương thủy lợi.",
+                "bố trí lịch thời vụ và quy hoạch cây trồng.",
+                "bảo dưỡng máy móc và thiết bị công nghệ."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-H-03",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Sự chiếm ưu thế của các loài thực vật nhiệt đới như họ Đậu, Vang, Dâu tằm trong các hệ sinh thái rừng nước ta là minh chứng cho",
+              "options": [
+                "tính chất nhiệt đới ẩm của thiên nhiên.",
+                "sự phân hóa đa dạng theo độ cao địa hình.",
+                "tác động của các luồng gió mùa mùa hạ.",
+                "sự phong phú của các loại đất trong rừng."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-H-04",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Càng vào phía Nam gió mùa Đông Bắc càng",
+              "options": [
+                "suy yếu.",
+                "mạnh.",
+                "khô nóng.",
+                "mưa nhiều."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-H-05",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Mưa phùn vùng ven biển và các đồng bằng Bắc Bộ, Bắc Trung Bộ thường diễn ra vào",
+              "options": [
+                "nửa đầu mùa đông.",
+                "nửa sau mùa đông.",
+                "nửa sau mùa xuân.",
+                "nửa đầu mùa hạ."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-06",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Phát biểu nào sau đây không đúng với đặc điểm sông ngòi nước ta?",
+              "options": [
+                "Nhiều sông.",
+                "Phần lớn là sông nhỏ.",
+                "Giàu phù sa.",
+                "Ít phụ lưu."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-H-07",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Quá trình feralit hóa là quá trình hình thành đất đặc trưng cho vùng khí hậu",
+              "options": [
+                "cận nhiệt lục địa.",
+                "nhiệt đới ẩm.",
+                "ôn đới hải dương.",
+                "cận cực lục địa."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-08",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Phát biểu nào sau đây không đúng với đặc điểm sông ngòi nước ta?",
+              "options": [
+                "Dày đặc.",
+                "Ít nước.",
+                "Giàu phù sa.",
+                "Thủy chế theo mùa."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-09",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Địa hình Cac-xtơ được hình thành chủ yếu trên loại đá nào sau đây?",
+              "options": [
+                "Granit.",
+                "Vôi.",
+                "Badan.",
+                "Sét."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-10",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Gió tín phong nửa cầu Bắc chiếm ưu thế từ khu vực dãy Bạch Mã trở vào Nam có hướng",
+              "options": [
+                "Tây Bắc.",
+                "Tây Nam.",
+                "Đông Nam.",
+                "Đông Bắc."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-H-11",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Thiên nhiên nhiệt đới ẩm gió mùa ở nước ta ảnh hưởng trực tiếp và rõ rệt nhất đến hoạt động sản xuất nào sau đây?",
+              "options": [
+                "Công nghiêp.",
+                "Nông nghiệp.",
+                "Du lịch.",
+                "Giao thông vận tải."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-12",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Thành phần loài nào sau đây không thuộc cây nhiệt đới?",
+              "options": [
+                "Dầu.",
+                "Đỗ Quyên.",
+                "Dâu tằm.",
+                "Đậu."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-H-13",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Thời kì chuyển tiếp hoạt động giữa gió mùa Đông Bắc và Tây Nam là thời kì hoạt động mạnh của",
+              "options": [
+                "gió mùa mùa đông.",
+                "gió mùa mùa hạ.",
+                "gió Mậu dịch.",
+                "gió địa phương."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-H-14",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Gió Tín Phong hoạt động mạnh nhất vào thời kì nào sau đây?",
+              "options": [
+                "Mùa hạ và mùa thu.",
+                "Mùa đông và mùa xuân.",
+                "Mùa xuân và mùa thu.",
+                "Mùa hạ và mùa xuân."
+              ],
+              "answer": 2
+            },
+            {
+              "id": "geography-2-H-15",
+              "type": "single",
+              "tag": "Hiểu",
+              "question": "Loại gió nào sau đây gây mưa trên phạm vi cả nước vào mùa hạ?",
+              "options": [
+                "Gió Đông Nam đã biến tính.",
+                "Gió Tín phong bán cầu Bắc.",
+                "Gió Tây Nam từ vịnh Bengan.",
+                "Gió Tín phong bán cầu Nam."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-V-01",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Sự phân hóa khí hậu giữa hai sườn Đông và Tây của dãy Trường Sơn chủ yếu là kết quả của",
+              "options": [
+                "các khối khí qua biển kết hợp với hướng của các dãy núi.",
+                "các đợt gió mùa mùa đông và địa hình núi cao chiếm ưu thế.",
+                "Tín phong bán cầu Bắc kết hợp với các dãy núi hướng vòng cung.",
+                "gió mùa mùa hạ cùng với sự hoạt động của các dải hội tụ nhiệt đới."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-V-02",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Quá trình feralit diễn ra mạnh mẽ ở vùng đồi núi thấp nước ta đã tạo ra thuận lợi chủ yếu để",
+              "options": [
+                "hình thành các vùng chuyên canh cây công nghiệp có quy mô lớn.",
+                "thâm canh các loại cây lương thực và thực phẩm có năng suất cao.",
+                "đẩy mạnh việc khai thác lâm sản và phát triển các loài cây dược liệu.",
+                "quy hoạch các khu công nghiệp chế biến sâu tại những vùng miền núi."
+              ],
+              "answer": 0
+            },
+            {
+              "id": "geography-2-V-03",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Quá trình phong hóa hóa học tham gia vào việc làm biến đổi bề mặt địa hình hiện tại của nước ta được biểu hiện ở",
+              "options": [
+                "hiện tượng bào mòn, rửa trôi.",
+                "thành tạo địa hình cac-xtơ.",
+                "đất trượt, đá lở ở sườn dốc.",
+                "hiện tượng xâm thực mạnh."
+              ],
+              "answer": 1
+            },
+            {
+              "id": "geography-2-V-04",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Nguyên nhân chủ yếu nào sau đây làm cho sông ngòi nước ta có hàm lượng phù sa lớn?",
+              "options": [
+                "Mạng lưới sông ngòi dày đặc.",
+                "Chế độ nước thay đổi theo mùa.",
+                "Tổng lượng dòng chảy lớn.",
+                "Xâm thực mạnh ở miền núi."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-V-05",
+              "type": "single",
+              "tag": "Vận dụng",
+              "question": "Loại gió nào sau đây vừa gây mưa cho vùng ven biển Trung bộ, vừa là nguyên nhân chính tạo nên mùa khô ở Nam Bộ và vùng cao nguyên phía tây Nam Trung Bộ?",
+              "options": [
+                "Gió mùa Đông Bắc.",
+                "Tín phong bán cầu Nam.",
+                "Gió mùa Tây Nam.",
+                "Tín phong bán cầu Bắc."
+              ],
+              "answer": 3
+            },
+            {
+              "id": "geography-2-T-01",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Cùng với gió mùa Đông Bắc, trong mùa đông ở nước ta còn có sự hoạt động của Tín phong bán cầu Bắc. Ở miền Bắc, Tín phong hoạt động đan xen giữa các đợt gió mùa Đông Bắc. Ở miền Nam, Tín phong thổi theo hướng đông bắc chiếm ưu thế, đây là nguyên nhân chính làm cho phía tây dãy Trường Sơn Nam và Nam Bộ có mùa khô kéo dài.",
+              "statements": [
+                {
+                  "text": "Hoạt động của gió mùa Đông Bắc và Tín phong là nguyên nhân chính tạo nên sự khác biệt về thời tiết giữa 2 miền Bắc - Nam.",
+                  "answer": true
+                },
+                {
+                  "text": "Từ tháng XI đến tháng IV năm sau, thời tiết ở miền Bắc nước ta lạnh, ít mưa là do sự hoạt động đồng thời của cả gió mùa Đông Bắc và Tín phong bán cầu Bắc.",
+                  "answer": false
+                },
+                {
+                  "text": "Miền Nam nước ta không có mùa Đông chủ yếu do Tín phong bán cầu Bắc hoạt động mạnh.",
+                  "answer": false
+                },
+                {
+                  "text": "Sự thay đổi nhiệt độ theo chiều Bắc - Nam và sự tồn tại của Tín phong bán cầu Bắc ở nước ta là biểu hiện của quy luật địa đới.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-02",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Quá trình feralit là quá trình hình thành đất chủ yếu ở nước ta, vì vậy các loại đất feralit là các loại đất đặc trưng cho vùng đồi núi. Loại đất này thường chua và có màu đỏ vàng do bị rửa trôi các chất ba-dơ dễ tan và tích tụ ô-xít sắt, ô-xít nhôm.",
+              "statements": [
+                {
+                  "text": "Feralit là quá trình hình thành đất đặc trưng của vùng nhiệt đới ẩm gió mùa.",
+                  "answer": true
+                },
+                {
+                  "text": "Đất feralit hình thành trên đá vôi phân bố chủ yếu ở các tỉnh thuộc Nam Trung Bộ và Đông Nam Bộ.",
+                  "answer": false
+                },
+                {
+                  "text": "Nhóm đất feralit có diện tích lớn nhất ở nước ta, phân bố ở cả miền núi và rìa các đồng bằng.",
+                  "answer": true
+                },
+                {
+                  "text": "Đất feralit có màu đỏ vàng do mưa lớn làm rửa trôi các chất ba-dơ dễ tan.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-03",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Trời nồm hay nồm ẩm, nồm là kiểu thời tiết đặc trưng của các tỉnh miền Bắc nước ta. Hiện tượng này xảy ra khi độ ẩm trong không khí đạt mức trên 90%, với các dấu hiệu như đọng sương trên bề mặt tường, nền nhà, cửa kính, đồ nội thất của gia đình, quần áo,...",
+              "statements": [
+                {
+                  "text": "Hiện tượng nồm ẩm xảy ra chủ yếu vào thời kì đầu mùa đông ở miền Bắc nước ta.",
+                  "answer": false
+                },
+                {
+                  "text": "Hiện tượng nồm ẩm hình thành do hoạt động của khối khí nhiệt đới bắc Ấn Độ Dương.",
+                  "answer": false
+                },
+                {
+                  "text": "Trời nồm tạo điều kiện cho nấm mốc, dịch bệnh phát triển.",
+                  "answer": true
+                },
+                {
+                  "text": "Nhà mặt đất và các tầng thấp sẽ xảy ra nồm ẩm ít hơn các tầng ở trên cao như chung cư, do càng lên cao độ ẩm trong không khí càng cao.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-04",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho bảng số liệu: Nhiệt độ không khí trung bình và lượng mưa các tháng trong năm 2024 tại Vũng Tàu. Nhiệt độ (°C) từ tháng 1 đến tháng 12: 26,9; 27,6; 28,3; 30,1; 30,8; 29,4; 28,1; 29,2; 28,1; 28,4; 28,4; 27,0. Lượng mưa (mm) từ tháng 1 đến tháng 12: 0,2; 0,2; 0; 0; 109,4; 334,0; 205,6; 239,6; 245,3; 301,7; 111,9; 89,4. (Nguồn: Cục Thống kê Việt Nam, năm 2025)",
+              "statements": [
+                {
+                  "text": "Vũng Tàu không có mùa đông.",
+                  "answer": true
+                },
+                {
+                  "text": "Tổng lượng mưa năm 2024 là trên 2000 mm.",
+                  "answer": false
+                },
+                {
+                  "text": "Mùa mưa và mùa khô phân hóa sâu sắc.",
+                  "answer": true
+                },
+                {
+                  "text": "Mùa khô ở Vũng Tàu chủ yếu do ảnh hưởng của gió mùa Tây Nam.",
+                  "answer": false
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-05",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho bảng số liệu: Lượng mưa trung bình các tháng trong năm 2024 tại Cà Mau (đơn vị: mm). Tháng 4: 0,8; tháng 5: 249,4; tháng 6: 261,9; tháng 7: 255,1; tháng 8: 460,4; tháng 9: 479,2; tháng 10: 351,4; tháng 11: 165,5; tháng 12: 175,2 (đề chưa có số liệu tháng 1, 2, 3). (Nguồn: Cục Thống kê Việt Nam, năm 2025)",
+              "statements": [
+                {
+                  "text": "Tổng lượng mưa ở Cà Mau đạt trên 2000 mm.",
+                  "answer": true
+                },
+                {
+                  "text": "Mùa mưa ở Cà Mau kéo dài từ tháng 1 đến tháng 5.",
+                  "answer": false
+                },
+                {
+                  "text": "Cà Mau có mưa vào mùa hạ chủ yếu do các luồng gió Tây Nam và dải hội tụ nhiệt đới.",
+                  "answer": true
+                },
+                {
+                  "text": "Biểu đồ cột là dạng biểu đồ thích hợp nhất để thể hiện lượng mưa trung bình các tháng trong năm 2024 tại Cà Mau.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-06",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Từ tháng 11 đến tháng 4 năm sau, miền Bắc nước ta chịu tác động của gió mùa Đông Bắc. Nửa đầu mùa đông, miền Bắc có thời tiết lạnh khô, nửa sau mùa đông có thời tiết lạnh ẩm, có mưa phùn ở vùng ven biển và các đồng bằng ở Bắc Bộ và Bắc Trung Bộ. Từ 16°B trở vào Nam, khối khí lạnh đã bị suy yếu nên Tín phong bán cầu Bắc chiếm ưu thế.",
+              "statements": [
+                {
+                  "text": "Nửa đầu mùa đông, miền Bắc có thời tiết lạnh ẩm.",
+                  "answer": false
+                },
+                {
+                  "text": "Gió mùa Đông Bắc tác động yếu đến Bắc Trung Bộ do ảnh hưởng của dãy Bạch Mã.",
+                  "answer": false
+                },
+                {
+                  "text": "Gió mùa Đông Bắc là nguyên nhân chính tạo nên mùa khô ở Nam Bộ.",
+                  "answer": false
+                },
+                {
+                  "text": "Gió mùa Đông Bắc di chuyển quãng đường dài trên lục địa, gây nên thời tiết lạnh khô vào đầu mùa Đông ở miền Bắc.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-07",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Hang Sơn Đoòng là hang động tự nhiên lớn nhất thế giới đã biết, nằm tại xã Tân Trạch, huyện Bố Trạch, tỉnh Quảng Bình, Việt Nam (nay thuộc xã Thượng Trạch, tỉnh Quảng Trị). Hang Sơn Đoòng nằm trong quần thể hang động Phong Nha - Kẻ Bàng và là một hệ thống ngầm nối với hơn 150 động khác ở Việt Nam gần biên giới với Lào.",
+              "statements": [
+                {
+                  "text": "Hang Sơn Đoòng là sản phẩm của quá trình ngoại lực.",
+                  "answer": true
+                },
+                {
+                  "text": "Phong hóa vật lí là quá trình chủ đạo tạo ra hang động.",
+                  "answer": false
+                },
+                {
+                  "text": "Hang động thường xuất hiện ở những nơi đá khó hòa tan.",
+                  "answer": false
+                },
+                {
+                  "text": "Hang động là một trong những biểu hiện của địa hình nhiệt đới ẩm gió mùa.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-08",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Nước ta quanh năm nhận được một lượng ẩm rất lớn. Độ ẩm tương đối thường dao động từ 80 - 100%, chỉ có một số địa phương mới có độ ẩm kém hơn, nhưng chỉ giới hạn trong vòng một vài tháng trừ vùng khô hạn ở Khánh Hòa, Lâm Đồng. Biểu hiện rõ rệt nhất của việc nước ta giàu ẩm là lượng mưa hàng năm. Nếu lượng mưa rơi xuống mà nước không chảy và bốc hơi đi thì có thể tưởng tượng là toàn bộ đất nước sẽ bị ngập dưới một lớp nước dày từ 1,5 - 2m.",
+              "statements": [
+                {
+                  "text": "Lượng mưa trung bình năm trên toàn bộ lãnh thổ nước ta đạt 3 500 - 4 000 mm.",
+                  "answer": false
+                },
+                {
+                  "text": "Ở những vùng núi cao và sườn núi đón gió thường có lượng mưa nhỏ.",
+                  "answer": false
+                },
+                {
+                  "text": "Nước ta có nguồn ẩm dồi dào do thiên nhiên chịu ảnh hưởng sâu sắc của biển.",
+                  "answer": true
+                },
+                {
+                  "text": "Do có lượng mưa và độ ẩm lớn nên hệ sinh thái rừng thường xanh chiếm ưu thế.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-09",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Hai đường chí tuyến bắc và nam đã phân chia khí hậu thế giới ra làm hai khu vực cơ bản. Khu vực giữa hai đường chí tuyến gọi là nội chí tuyến, bao gồm khí hậu á chí tuyến, khí hậu á xích đạo và khí hậu xích đạo, với nền nhiệt độ cao, lượng bức xạ của Mặt Trời luôn đứng cao trên đường chân trời và qua thiên đỉnh hai lần trong sự di chuyển biểu kiến bắc - nam.",
+              "statements": [
+                {
+                  "text": "Tọa độ địa lí qui định vị trí nước ta nằm trong vùng nội chí tuyến bán cầu Bắc.",
+                  "answer": true
+                },
+                {
+                  "text": "Khí hậu nước ta mang tính chất nhiệt đới với nền nhiệt trung bình năm cao trên 20°C.",
+                  "answer": true
+                },
+                {
+                  "text": "Tất cả các địa điểm trên lãnh thổ nước ta đều có hai lần Mặt trời lên thiên đỉnh cùng nhau.",
+                  "answer": false
+                },
+                {
+                  "text": "Sinh vật nhiệt đới chiếm ưu thế ở nước ta chủ yếu do tính chất nhiệt đới của khí hậu.",
+                  "answer": true
+                }
+              ]
+            },
+            {
+              "id": "geography-2-T-10",
+              "type": "true_false",
+              "tag": "Đúng/Sai",
+              "question": "Cho thông tin sau: Quanh năm gió Tín phong thổi trên lãnh thổ nước ta và biển Đông, nhưng tùy mùa mà tính chất của nó có thay đổi. Gió Tín phong có dạng độc lập nhất vào mùa xuân, khi hai luồng gió mùa đều yếu, khi đó nó xuất phát từ rìa tây nam của cao áp Thái Bình Dương và có hướng đông nam rõ rệt. Trong mùa hè, gió Tín phong thường thổi xen kẽ với các đợt gió mùa tây nam. Sang thu - đông, gió Tín phong thường phụ thuộc vào cao áp Xi-bia và thổi theo hướng đông bắc.",
+              "statements": [
+                {
+                  "text": "Gió Tín phong bán cầu Bắc hoạt động quanh năm trên lãnh thổ nước ta.",
+                  "answer": true
+                },
+                {
+                  "text": "Do tác động của Tín phong bán cầu Bắc, vào mùa đông ở miền Bắc thường xuất hiện những ngày nắng ấm xen kẽ những ngày thời tiết âm u.",
+                  "answer": true
+                },
+                {
+                  "text": "Tín phong bán cầu Bắc là nguyên nhân chủ yếu gây ra mùa khô cho khu vực cao nguyên phía tây Nam Trung Bộ và Nam Bộ.",
+                  "answer": true
+                },
+                {
+                  "text": "Gió Tín phong kết hợp với hoạt động của dải hội tụ gây nên sự phân hóa mưa - khô ở hai sườn dãy Trường Sơn của nước ta.",
+                  "answer": false
+                }
+              ]
+            }
+          ] }
+      ]
+    },
+    {
+      id: "biology", name: "Sinh học", icon: "🧬", description: "Sinh học 12",
+      chapters: [
+        { id: "biology-1", title: "Bài 1", subtitle: "DNA và cơ chế tái bản DNA", summary: [
+          { title: "Chức năng và cấu trúc của DNA", points: [
+              "Chức năng: **mang, bảo quản và truyền đạt** thông tin di truyền. DNA **không** có chức năng xúc tác.",
+              "Cấu trúc đa phân, đơn phân là **nucleotide** (A, T, G, C); gồm **2 mạch** xoắn kép, song song và ngược chiều (3’→5’ và 5’→3’).",
+              "Trên 1 mạch: liên kết **phosphodiester**. Giữa 2 mạch: liên kết **hydrogen** theo NTBS (A–T: **2** liên kết; G–C: **3** liên kết).",
+              "Nhân sơ: DNA dạng **vòng**; nhân thực: DNA dạng **thẳng**."
+            ] },
+          { title: "Tái bản DNA: vị trí, thời điểm", points: [
+              "Nhân thực: nơi có DNA (nhân, ti thể, lục lạp), xảy ra ở **pha S** của kì trung gian.",
+              "Nhân sơ: DNA vùng nhân và plasmid, trước khi tế bào phân chia."
+            ] },
+          { title: "Diễn biến (sinh vật nhân sơ)", points: [
+              "**Khởi đầu**: tại điểm **Ori**, tách 2 mạch tạo **2 chạc chữ Y**; RNA polymerase tổng hợp **đoạn mồi** cung cấp đầu 3’–OH.",
+              "**Kéo dài**: DNA polymerase gắn nucleotide vào 3’–OH theo NTBS, tổng hợp mạch mới theo chiều **5’→3’**.",
+              "**Sợi dẫn đầu**: tổng hợp liên tục; **sợi ra chậm**: tổng hợp gián đoạn thành các **đoạn Okazaki**, sau đó **ligase** nối lại.",
+              "Nguyên tắc **bán bảo toàn**: mỗi DNA con có 1 mạch cũ, 1 mạch mới."
+            ] },
+          { title: "Nhân thực khác nhân sơ và ý nghĩa", points: [
+              "Nhân thực có **nhiều điểm Ori** trên 1 phân tử DNA và nhiều loại enzyme hơn.",
+              "Ý nghĩa: cơ chế phân tử của sự truyền thông tin di truyền qua các thế hệ tế bào và cơ thể."
+            ] },
+          { title: "Dễ nhầm", points: [
+              "Chỉ có **tái bản DNA** giúp truyền thông tin di truyền từ tế bào mẹ sang tế bào con (phiên mã, dịch mã, phiên mã ngược thì không).",
+              "Tái bản giống DNA mẹ là nhờ **NTBS** (kết cặp đặc hiệu A–T, G–C)."
+            ] }
+        ],
+          questions: [
+      { id: "biology-1-B-01", type: "single", tag: "Biết",
+        question: "Chức năng nào dưới đây không phải của phân tử DNA?",
+        options: [
+          "Mang, bảo quản thông tin di truyền quy định các tính trạng của cơ thể.",
+          "Xúc tác cho các phản ứng trong tế bào và cơ thể.",
+          "Truyền đạt và biểu hiện thông tin di truyền.",
+          "Đóng vai trò quan trọng trong tiến hóa thông qua việc tạo các biến dị."
+        ],
+        answer: 1 },
+      { id: "biology-1-H-02", type: "single", tag: "Hiểu",
+        question: "Quá trình tái bản DNA tạo ra 2 DNA con giống nhau và giống với DNA mẹ vì",
+        options: [
+          "DNA có 2 mạch.",
+          "Sự kết cặp đặc hiệu A – T và G – C.",
+          "DNA được cấu tạo theo nguyên tắc đa phân.",
+          "DNA được cấu tạo từ các loại nucleotide."
+        ],
+        answer: 1 },
+      { id: "biology-1-H-03", type: "single", tag: "Hiểu",
+        question: "Phát biểu nào sau đây đúng khi nói về cấu trúc hóa học của DNA?",
+        options: [
+          "Nhóm nitrogenous base liên kết với phân tử đường ở vị trí carbon số 5’.",
+          "Nhóm phosphate liên kết với phân tử đường ở vị trí carbon số 1’.",
+          "Các nitrogenous base bắt cặp với nhau theo nguyên tắc 1 pyrimidine và 1 purine.",
+          "Trong 1 mạch đơn, nhóm phosphate của nucleotide phía sau liên kết với phân tử đường của nucleotide phía trước ở vị trí carbon số 5’."
+        ],
+        answer: 2 },
+      { id: "biology-1-H-04", type: "single", tag: "Hiểu",
+        question: "Có bao nhiêu quá trình sau đây giúp thông tin di truyền từ tế bào mẹ sang tế bào con hay từ thế hệ này sang thế hệ sau? I. Phiên mã ngược. II. Dịch mã. III. Phiên mã. IV. Tái bản DNA.",
+        options: [
+          "2.",
+          "4.",
+          "3.",
+          "1."
+        ],
+        answer: 3 },
+      { id: "biology-1-T-01", type: "true_false", tag: "Đúng/Sai",
+        question: "Nếu mạch 1 của gene G chỉ có ba loại nucleotide A, T, C thì mỗi nhận định sau đây là Đúng hay Sai về gene G này?",
+        statements: [
+          { text: "Trên mạch 2 của gene G không có nucleotide loại C.", answer: true },
+          { text: "2 mạch của gene G có thành phần nucleotide khác nhau.", answer: true },
+          { text: "Trên cả 2 mạch của gene G không có loại nucleotide G.", answer: false },
+          { text: "Trên mạch 2 của gene G có tất cả 3 loại nucleotide.", answer: true }
+        ] },
+      { id: "biology-1-T-02", type: "true_false", tag: "Đúng/Sai",
+        question: "Về cấu trúc hóa học của DNA, mỗi nhận định sau đây là Đúng hay Sai?",
+        statements: [
+          { text: "Trên một mạch polynucleotide, các nitrogenous base A, T, G, C không liên kết trực tiếp với nhau.", answer: true },
+          { text: "Các nitrogenous base A, T, G, C liên kết bổ sung lần lượt với T, A, C, G ở mạch còn lại.", answer: true },
+          { text: "Số lượng liên kết hydrogen giữa A và T khác số lượng liên kết hydrogen giữa G và C.", answer: true },
+          { text: "Trên gene, số lượng nitrogenous base bằng tổng số nucleotide.", answer: true }
+        ] },
+      { id: "biology-1-T-03", type: "true_false", tag: "Đúng/Sai",
+        question: "Mỗi nhận định sau đây là Đúng hay Sai về chức năng của DNA?",
+        statements: [
+          { text: "Vận chuyển amino acid.", answer: false },
+          { text: "Lưu trữ thông tin di truyền.", answer: true },
+          { text: "Truyền đạt thông tin di truyền.", answer: true },
+          { text: "Xúc tác cho các phản ứng di truyền.", answer: false }
+        ] }
+          ] },
+        { id: "biology-2", title: "Bài 2", subtitle: "Gene, hệ gene, phiên mã, mã di truyền và dịch mã", summary: [
+          { title: "Gene", points: [
+              "Gene là đoạn DNA mang thông tin mã hóa một chuỗi **polypeptide** hoặc một phân tử **RNA**.",
+              "Gene cấu trúc gồm 3 vùng (theo chiều 3’→5’ của mạch mã gốc): **vùng điều hòa** (có trình tự để RNA polymerase nhận biết, khởi động phiên mã) → **vùng mã hóa** → **vùng kết thúc** (kết thúc phiên mã).",
+              "Phân loại theo **chức năng sản phẩm**: gene cấu trúc / gene điều hòa. Theo **cấu trúc vùng mã hóa**: gene **phân mảnh** (có exon xen intron, phần lớn ở nhân thực) / gene **không phân mảnh** (vùng mã hóa liên tục, ví dụ ở vi khuẩn).",
+              "**Exon** mang thông tin mã hóa amino acid; **intron** thì không."
+            ] },
+          { title: "Hệ gene", points: [
+              "Hệ gene là toàn bộ trình tự nucleotide trên **DNA** có trong **tế bào** của cơ thể sinh vật.",
+              "Ứng dụng giải trình tự hệ gene người: xác định gene liên quan bệnh di truyền, **liệu pháp gene** (thay gene đột biến gây bệnh bằng gene lành), xác định huyết thống/danh tính nạn nhân, nghiên cứu tiến hóa. **Nhân bản vô tính** không phải ứng dụng này."
+            ] },
+          { title: "Các loại RNA", points: [
+              "RNA **mạch đơn**, gồm 4 loại nucleotide **A, U, G, C**; tổng hợp từ mạch gốc của gene.",
+              "**mRNA**: khuôn cho dịch mã. **tRNA**: mang amino acid, có bộ ba **đối mã (anticodon)**, có liên kết hydrogen. **rRNA**: thành phần cấu tạo **ribosome**.",
+              "Mỗi loại RNA có cấu trúc không gian khác nhau."
+            ] },
+          { title: "Phiên mã", points: [
+              "Chỉ **1 mạch** (mạch mã gốc 3’→5’) của gene làm khuôn.",
+              "RNA polymerase tháo xoắn DNA, di chuyển trên mạch gốc theo chiều **3’→5’** và tổng hợp RNA theo chiều **5’→3’**.",
+              "NTBS: **A–U, T–A, G–C, C–G**; nguyên liệu là các **ribonucleotide** (không phải amino acid).",
+              "Nhân thực: sau phiên mã, mRNA sơ khai được **cắt intron, nối exon**."
+            ] },
+          { title: "Phiên mã ngược", points: [
+              "Tổng hợp **cDNA từ RNA**, nhờ enzyme **reverse transcriptase** (ví dụ ở retrovirus).",
+              "Muốn khuếch đại mẫu RNA phải phiên mã ngược (rồi tái bản)."
+            ] },
+          { title: "Mã di truyền", points: [
+              "Là **bộ ba nucleotide** mang thông tin quy định 1 amino acid; đọc theo chiều **5’→3’** trên mRNA, liên tục, không gối lên nhau.",
+              "**Phổ biến** (dùng chung, trừ ngoại lệ); **đặc hiệu** (1 bộ ba chỉ mã hóa 1 amino acid); **thoái hóa** (nhiều bộ ba cùng mã hóa 1 amino acid). Mã di truyền **không** đặc trưng cho loài.",
+              "**64** bộ ba: **61** mã hóa amino acid, **3** bộ ba kết thúc (UAA, UAG, UGA). **5’AUG3’** mã hóa methionine, là codon mở đầu.",
+              "**Triplet** là bộ ba trên DNA; **codon** trên mRNA; **anticodon** trên tRNA."
+            ] },
+          { title: "Dịch mã", points: [
+              "Diễn ra ở **tế bào chất**; gồm hoạt hóa amino acid, mở đầu, kéo dài, kết thúc.",
+              "Tham gia trực tiếp: **mRNA, tRNA, ribosome (rRNA)**, amino acid; DNA **không** tham gia trực tiếp.",
+              "tRNA mang amino acid mở đầu có anticodon **3’UAC5’**; tiểu phần lớn và bé chỉ kết hợp thành ribosome hoàn chỉnh khi bắt đầu tổng hợp protein.",
+              "Kết thúc khi ribosome gặp một trong các codon **UAA, UAG, UGA**."
+            ] },
+          { title: "Dễ nhầm", points: [
+              "Vùng điều hòa **không** được phiên mã; nằm ở đầu **3’** của mạch mã gốc.",
+              "**Bán bảo toàn** là đặc điểm của tái bản, không phải phiên mã.",
+              "Codon đặc hiệu tiêu biểu là **AUG**; UAA, UAG, UGA là codon kết thúc."
+            ] }
+        ],
+          questions: [
+      { id: "biology-2-B-01", type: "single", tag: "Biết",
+        question: "Một đoạn DNA mang thông tin mã hóa một chuỗi polypeptide hay một phân tử RNA được gọi là",
+        options: [
+          "protein.",
+          "RNA.",
+          "polypeptide.",
+          "gene."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-02", type: "single", tag: "Biết",
+        question: "Theo trình tự từ đầu 3’ đến 5’ của mạch mã gốc, một gene cấu trúc gồm các vùng trình tự nucleotide là",
+        options: [
+          "vùng mã hóa, vùng điều hòa, vùng kết thúc.",
+          "vùng điều hòa, vùng mã hóa, vùng kết thúc.",
+          "vùng điều hòa, vùng kết thúc, vùng mã hóa.",
+          "vùng kết thúc, vùng mã hóa, vùng điều hòa."
+        ],
+        answer: 1 },
+      { id: "biology-2-B-03", type: "single", tag: "Biết",
+        question: "Trong gene cấu trúc của sinh vật nhân thực, các đoạn exon mang",
+        options: [
+          "tín hiệu khởi đầu dịch mã.",
+          "thông tin mã hóa các amino acid.",
+          "tín hiệu khởi đầu phiên mã.",
+          "tín hiệu kết thúc phiên mã."
+        ],
+        answer: 1 },
+      { id: "biology-2-H-01", type: "single", tag: "Hiểu",
+        question: "Phát biểu nào sau đây là đúng về vùng điều hòa của gene cấu trúc ở sinh vật nhân sơ?",
+        options: [
+          "Trong vùng điều hòa có chứa trình tự nucleotide kết thúc quá trình phiên mã.",
+          "Vùng điều hòa cũng được phiên mã ra mRNA.",
+          "Trong vùng điều hòa có trình tự nucleotide đặc biệt giúp RNA polymerase có thể nhận biết và liên kết để khởi động quá trình phiên mã.",
+          "Vùng điều hòa nằm ở đầu 5’ trên mạch mã gốc của gene."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-02", type: "single", tag: "Hiểu",
+        question: "Phát biểu nào sau đây đúng khi nói về các vùng chức năng trên gene?",
+        options: [
+          "Vùng điều hòa nằm ở đầu 3’ của mạch bổ sung.",
+          "Vùng điều hòa chỉ có chức năng khởi động quá trình tổng hợp RNA.",
+          "Vùng kết thúc trên gene có vai trò kết thúc quá trình tái bản DNA.",
+          "Vùng mã hóa có vai trò quy định trình tự RNA hoặc chuỗi polypeptide do gene mã hóa."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-04", type: "single", tag: "Biết",
+        question: "Để phân loại gene cấu trúc và gene điều hòa người ta dựa vào",
+        options: [
+          "chức năng sản phẩm của gene.",
+          "sự biểu hiện kiểu hình của gene.",
+          "kiểu tác động của gene.",
+          "cấu trúc của gene."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-05", type: "single", tag: "Biết",
+        question: "Dựa vào đâu để phân loại gene phân mảnh và gene không phân mảnh?",
+        options: [
+          "Cấu trúc vùng mã hóa.",
+          "Cấu trúc vùng điều hòa.",
+          "Sản phẩm phiên mã.",
+          "Cấu trúc vùng kết thúc."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-03", type: "single", tag: "Hiểu",
+        question: "Phát biểu nào sau đây không đúng khi nói về gene cấu trúc?",
+        options: [
+          "Phần lớn các gene của sinh vật nhân thực có vùng mã hóa không liên tục, xen kẽ các đoạn mã hóa amino acid (exon) là các đoạn không mã hóa amino acid (intron).",
+          "Mỗi gene mã hóa protein điển hình gồm ba vùng trình tự nucleotide: vùng điều hòa, vùng mã hóa, vùng kết thúc.",
+          "Vùng điều hòa nằm ở đầu 5’ của mạch mã gốc của gene, mang tín hiệu khởi động và kiểm soát quá trình phiên mã.",
+          "Gene không phân mảnh là các gene có vùng mã hóa liên tục, không chứa các đoạn không mã hóa amino acid (intron)."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-04", type: "single", tag: "Hiểu",
+        question: "Gene phân mảnh (vùng mã hóa gồm các đoạn exon xen kẽ intron) không có ở loài nào sau đây?",
+        options: [
+          "Vi khuẩn E. coli.",
+          "Nấm men.",
+          "Đậu Hà Lan.",
+          "Ruồi giấm."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-06", type: "single", tag: "Biết",
+        question: "Hệ gene (genome) là toàn bộ trình tự các nucleotide trên ...(1)... có trong ...(2)... của cơ thể sinh vật. (1) và (2) lần lượt là",
+        options: [
+          "DNA, tế bào sinh sản.",
+          "DNA, tế bào.",
+          "DNA, tế bào sinh dưỡng.",
+          "RNA, tế bào."
+        ],
+        answer: 1 },
+      { id: "biology-2-B-07", type: "single", tag: "Biết",
+        question: "Giải mã hệ gene người mở ra hướng điều trị bệnh mới là liệu pháp gene. Liệu pháp gene là kĩ thuật chữa trị bệnh bằng cách",
+        options: [
+          "thay thế các gene đột biến gây bệnh trong cơ thể người bằng các gene lành.",
+          "phục hồi các chức năng của các gene bị đột biến.",
+          "loại bỏ các gene bị đột biến gây bệnh ra khỏi tế bào.",
+          "đưa vào cơ thể người bệnh loại thuốc đặc biệt nhằm làm bất hoạt các gene gây bệnh."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-05", type: "single", tag: "Hiểu",
+        question: "Trường hợp nào sau đây không phải là ứng dụng của giải mã hệ gene người?",
+        options: [
+          "Xác định quan hệ huyết thống giữa các liệt sĩ với thân nhân.",
+          "Phân tích sự biểu hiện của nhiều gene ở người trong các giai đoạn khác nhau của quá trình phát triển.",
+          "Chế tạo và sử dụng các loại thuốc đặc trị để làm chậm sự phát triển của tế bào ung thư.",
+          "Nhân bản vô tính."
+        ],
+        answer: 3 },
+      { id: "biology-2-H-06", type: "single", tag: "Hiểu",
+        question: "Khi nói về RNA, phát biểu nào sau đây sai?",
+        options: [
+          "RNA được tổng hợp dựa trên mạch gốc của gene.",
+          "RNA tham gia vào quá trình dịch mã.",
+          "Ở tế bào nhân thực, RNA chỉ tồn tại trong nhân tế bào.",
+          "RNA được cấu tạo bởi 4 loại nucleotide là A, U, G, C."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-08", type: "single", tag: "Biết",
+        question: "Trong quá trình dịch mã, phân tử nào sau đây đóng vai trò như “người phiên dịch”?",
+        options: [
+          "DNA.",
+          "tRNA.",
+          "rRNA.",
+          "mRNA."
+        ],
+        answer: 1 },
+      { id: "biology-2-B-09", type: "single", tag: "Biết",
+        question: "Trong tế bào, phân tử nào sau đây mang bộ ba đối mã (anticodon)?",
+        options: [
+          "mRNA.",
+          "rRNA.",
+          "tRNA.",
+          "DNA."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-10", type: "single", tag: "Biết",
+        question: "Loại nucleic acid nào sau đây tham gia vận chuyển amino acid trong quá trình dịch mã?",
+        options: [
+          "DNA.",
+          "tRNA.",
+          "rRNA.",
+          "mRNA."
+        ],
+        answer: 1 },
+      { id: "biology-2-B-11", type: "single", tag: "Biết",
+        question: "Phân tử nào sau đây được dùng làm khuôn cho quá trình dịch mã?",
+        options: [
+          "DNA.",
+          "tRNA.",
+          "mRNA.",
+          "rRNA."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-12", type: "single", tag: "Biết",
+        question: "Loại nucleic acid nào sau đây là thành phần cấu tạo của ribosome?",
+        options: [
+          "tRNA.",
+          "rRNA.",
+          "DNA.",
+          "mRNA."
+        ],
+        answer: 1 },
+      { id: "biology-2-H-07", type: "single", tag: "Hiểu",
+        question: "Cho 3 loại RNA: (a) mRNA, (b) tRNA, (c) rRNA. Phát biểu nào sau đây không đúng?",
+        options: [
+          "(a) là phân tử làm khuôn cho quá trình dịch mã.",
+          "(b) sẽ liên kết với (a) trong quá trình dịch mã.",
+          "(c) cấu tạo nên ribosome.",
+          "(a), (b), (c) đều là sản phẩm của quá trình phiên mã từ cùng một gene."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-13", type: "single", tag: "Biết",
+        question: "Khi nói về phiên mã ngược, phát biểu nào sau đây đúng?",
+        options: [
+          "Quá trình phiên mã cần có sự tham gia của RNA polymerase.",
+          "Quá trình phiên mã ngược sử dụng nguyên liệu là các amino acid tự do.",
+          "Trong quá trình phiên mã ngược, cả hai mạch mới đều được tổng hợp nhờ liên kết peptide.",
+          "Phiên mã ngược là quá trình tổng hợp cDNA từ RNA."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-14", type: "single", tag: "Biết",
+        question: "Enzyme nào sau đây xúc tác cho quá trình phiên mã ngược?",
+        options: [
+          "Reverse transcriptase.",
+          "RNA polymerase.",
+          "Ligase.",
+          "Aminoacyl tRNA synthetase."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-08", type: "single", tag: "Hiểu",
+        question: "Một hiện tượng di truyền ở virus diễn ra theo các bước: (1) từ RNA, enzyme reverse transcriptase tổng hợp mạch DNA bổ sung tạo phân tử lai RNA–DNA; (2) RNA bị phân hủy nhờ hoạt tính RNase H, còn lại DNA mạch đơn; (3) tổng hợp mạch DNA thứ hai tạo cDNA. Phát biểu nào sau đây đúng?",
+        options: [
+          "Hiện tượng này là quá trình phiên mã ngược.",
+          "Reverse transcriptase là enzyme phân hủy RNA.",
+          "Quá trình này chỉ cần cho sự nhân lên của virus RNA.",
+          "Chỉ ở virus mới có thể xảy ra quá trình này."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-09", type: "single", tag: "Hiểu",
+        question: "Khi thu được mẫu là RNA, muốn khuếch đại mẫu này, phải",
+        options: [
+          "phiên mã và tái bản.",
+          "tái bản.",
+          "phiên mã ngược.",
+          "phiên mã ngược và tái bản."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-15", type: "single", tag: "Biết",
+        question: "Đặc điểm cấu tạo của RNA là",
+        options: [
+          "Mạch kép; gồm các nucleotide A, T, G, C.",
+          "Mạch kép; gồm các nucleotide A, U, G, C.",
+          "Mạch đơn; gồm các nucleotide A, T, G, C.",
+          "Mạch đơn; gồm các nucleotide A, U, G, C."
+        ],
+        answer: 3 },
+      { id: "biology-2-H-10", type: "single", tag: "Hiểu",
+        question: "Trong các nhận định sau về phân tử RNA, nhận định nào sai?",
+        options: [
+          "Có 3 loại phân tử RNA tham gia tổng hợp protein là: mRNA, tRNA, rRNA.",
+          "Phân tử tRNA giúp vận chuyển amino acid cho quá trình dịch mã.",
+          "Tất cả các loại RNA đều có cấu trúc không gian giống nhau.",
+          "Phân tử rRNA có các trình tự nucleotide bắt cặp bổ sung."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-11", type: "single", tag: "Hiểu",
+        question: "Phân tử nào sau đây có liên kết hydrogen?",
+        options: [
+          "DNA, tRNA và rRNA.",
+          "tRNA và mRNA.",
+          "mRNA.",
+          "rRNA và mRNA."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-12", type: "single", tag: "Hiểu",
+        question: "Khi nói về sự khác biệt trong cấu trúc giữa phân tử DNA và phân tử tRNA, có bao nhiêu phát biểu sau đây đúng? I. DNA có cấu tạo 2 mạch đơn, còn tRNA chỉ được cấu tạo từ một mạch đơn. II. DNA có các loại đơn phân khác với tRNA. III. DNA có khối lượng và kích thước lớn hơn tRNA. IV. DNA có liên kết hydrogen, còn RNA không có liên kết hydrogen.",
+        options: [
+          "2.",
+          "4.",
+          "1.",
+          "3."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-16", type: "single", tag: "Biết",
+        question: "Enzyme RNA polymerase có vai trò nào sau đây trong quá trình phiên mã?",
+        options: [
+          "Tháo xoắn phân tử DNA và tổng hợp mạch RNA mới theo chiều 3’ – 5’.",
+          "Tổng hợp mạch RNA mới theo chiều 3’ – 5’.",
+          "Tháo xoắn phân tử DNA và tổng hợp mạch RNA mới theo chiều 5’ – 3’.",
+          "Tổng hợp mạch RNA mới theo chiều 5’ – 3’, cắt intron và nối exon."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-13", type: "single", tag: "Hiểu",
+        question: "Phát biểu nào sau đây đúng khi nói về quá trình phiên mã ở sinh vật nhân thực?",
+        options: [
+          "Quá trình phiên mã xảy ra từ vùng điều hòa đến vùng kết thúc của gene.",
+          "Các gene nằm trên cùng một phân tử DNA đều có số lần phiên mã bằng nhau.",
+          "Quá trình phiên mã chỉ xảy ra trong nhân tế bào.",
+          "Quá trình phiên mã xảy ra đồng thời với quá trình nhân đôi DNA."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-14", type: "single", tag: "Hiểu",
+        question: "Nguyên tắc bổ sung xảy ra trong quá trình phiên mã là",
+        options: [
+          "A – U, T – A, G – C, C – G.",
+          "A – T, T – A, G – C, C – G.",
+          "A – U, U – A, G – C, C – G.",
+          "T – U, U – A, G – C, C – G."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-17", type: "single", tag: "Biết",
+        question: "Trên mạch gốc của gene, enzyme RNA polymerase di chuyển theo chiều",
+        options: [
+          "từ 5’ đến 3’.",
+          "ngẫu nhiên.",
+          "từ 3’ đến 5’.",
+          "từ giữa gene tiến ra 2 phía."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-15", type: "single", tag: "Hiểu",
+        question: "Đặc điểm nào sau đây chỉ có ở phiên mã của sinh vật nhân thực mà không có ở phiên mã của sinh vật nhân sơ?",
+        options: [
+          "Diễn ra theo nguyên tắc bổ sung.",
+          "Chỉ có mạch mã gốc của gene mới làm khuôn tổng hợp mRNA.",
+          "Sau phiên mã, phân tử mRNA được cắt bỏ các đoạn intron.",
+          "Có chịu sự điều khiển của quá trình điều hòa hoạt động gene."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-16", type: "single", tag: "Hiểu",
+        question: "Có bao nhiêu mạch đơn của gene tham gia làm khuôn để phiên mã?",
+        options: [
+          "1.",
+          "2.",
+          "3.",
+          "4."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-17", type: "single", tag: "Hiểu",
+        question: "Một gene phiên mã 4 lần sẽ tạo được bao nhiêu phân tử RNA?",
+        options: [
+          "1.",
+          "2.",
+          "4.",
+          "8."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-18", type: "single", tag: "Hiểu",
+        question: "Trong các protein sau: amylase, helicase, RNA polymerase, restrictase, DNA polymerase, DNA ligase. Có bao nhiêu enzyme tham gia quá trình phiên mã?",
+        options: [
+          "1.",
+          "2.",
+          "3.",
+          "4."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-18", type: "single", tag: "Biết",
+        question: "Mã di truyền là",
+        options: [
+          "trình tự nucleotide trong phân tử protein mang thông tin quy định các amino acid.",
+          "bộ ba amino acid mang thông tin quy định một tính trạng.",
+          "bộ ba nucleotide mang thông tin quy định một amino acid.",
+          "bộ ba nucleotide mang tín hiệu kết thúc quá trình phiên mã."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-19", type: "single", tag: "Biết",
+        question: "Mã di truyền không có đặc điểm nào sau đây?",
+        options: [
+          "Đặc trưng cho loài.",
+          "Có tính thoái hóa.",
+          "Có tính phổ biến.",
+          "Là mã bộ ba."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-20", type: "single", tag: "Biết",
+        question: "Tất cả các loài sinh vật hiện nay đều có chung một bộ mã di truyền, trừ một vài ngoại lệ, điều này chứng tỏ mã di truyền có tính",
+        options: [
+          "phổ biến.",
+          "thoái hóa.",
+          "liên tục.",
+          "đặc hiệu."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-21", type: "single", tag: "Biết",
+        question: "Một bộ ba chỉ mã hóa cho một loại amino acid, điều này chứng tỏ mã di truyền có tính",
+        options: [
+          "thoái hóa.",
+          "phổ biến.",
+          "đặc hiệu.",
+          "liên tục."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-22", type: "single", tag: "Biết",
+        question: "Nhiều bộ ba khác nhau cùng xác định một loại amino acid, điều này chứng tỏ mã di truyền có tính",
+        options: [
+          "thoái hóa.",
+          "liên tục.",
+          "đặc hiệu.",
+          "phổ biến."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-19", type: "single", tag: "Hiểu",
+        question: "Bộ ba 5’AUG3’ chỉ mã hóa cho methionine ở sinh vật nhân thực, điều này chứng tỏ mã di truyền có tính",
+        options: [
+          "thoái hóa.",
+          "phổ biến.",
+          "đặc hiệu.",
+          "liên tục."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-20", type: "single", tag: "Hiểu",
+        question: "Trên phân tử mRNA, codon nào sau đây có tính đặc hiệu?",
+        options: [
+          "5’UGA3’.",
+          "5’UAG3’.",
+          "5’AUG3’.",
+          "5’UAA3’."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-21", type: "single", tag: "Hiểu",
+        question: "Khi nói về cơ chế di truyền ở cấp độ phân tử, phát biểu nào sau đây đúng?",
+        options: [
+          "Dịch mã là quá trình dịch trình tự các codon trên mRNA thành trình tự các amino acid trong chuỗi polypeptide.",
+          "Quá trình dịch mã có sự tham gia của các nucleotide tự do.",
+          "Quá trình dịch mã không xảy ra tại tế bào chất.",
+          "Trong dịch mã, sự kết cặp các nucleotide theo nguyên tắc bổ sung xảy ra ở tất cả các nucleotide trên phân tử mRNA."
+        ],
+        answer: 0 },
+      { id: "biology-2-V-01", type: "single", tag: "Vận dụng",
+        question: "Cho biết các codon mã hóa các amino acid tương ứng như sau: GGG – Gly; CCC – Pro; GCU – Ala; CGA – Arg; UCG – Ser; AGC – Ser. Một đoạn mạch gốc của một gene ở vi khuẩn có trình tự các nucleotide là 5’…AGCCGACCCGGG…3’. Nếu đoạn mạch gốc này mang thông tin mã hóa cho đoạn polypeptide có 4 amino acid thì trình tự của 4 amino acid đó là",
+        options: [
+          "Pro–Gly–Ser–Ala.",
+          "Ser–Ala–Gly–Pro.",
+          "Gly–Pro–Ser–Arg.",
+          "Ser–Arg–Pro–Gly."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-23", type: "single", tag: "Biết",
+        question: "Triplet là bộ ba nucleotide có ở",
+        options: [
+          "mRNA.",
+          "tRNA.",
+          "rRNA.",
+          "DNA."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-24", type: "single", tag: "Biết",
+        question: "Những tính chất nào dưới đây không phải là tính chất của mã di truyền?",
+        options: [
+          "Tính phổ biến.",
+          "Tính đặc hiệu.",
+          "Tính thoái hóa.",
+          "Tính bảo tồn."
+        ],
+        answer: 3 },
+      { id: "biology-2-B-25", type: "single", tag: "Biết",
+        question: "Ở sinh vật nhân thực, amino acid methionine được mã hóa bởi codon",
+        options: [
+          "5’AUA3’.",
+          "5’AUG3’.",
+          "5’AUU3’.",
+          "5’AUC3’."
+        ],
+        answer: 1 },
+      { id: "biology-2-H-22", type: "single", tag: "Hiểu",
+        question: "Các bộ ba trên mRNA có vai trò quy định tín hiệu kết thúc quá trình dịch mã là",
+        options: [
+          "3’GAU5’; 3’AAU5’; 3’AGU5’.",
+          "3’UAG5’; 3’UAA5’; 3’AGU5’.",
+          "3’UAG5’; 3’UAA5’; 3’UGA5’.",
+          "3’GAU5’; 3’AAU5’; 3’AUG5’."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-26", type: "single", tag: "Biết",
+        question: "Trên mRNA, số loại codon có mã hóa cho các amino acid là",
+        options: [
+          "20.",
+          "40.",
+          "61.",
+          "64."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-27", type: "single", tag: "Biết",
+        question: "Mã di truyền có tính đặc hiệu có nghĩa là",
+        options: [
+          "một mã bộ ba mã hóa cho nhiều amino acid.",
+          "một amino acid chỉ có thể được mã hóa bởi một mã bộ ba.",
+          "một mã bộ ba chỉ có thể mã hóa cho tối đa một loại amino acid.",
+          "nhiều mã bộ ba cùng mã hóa cho một amino acid."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-28", type: "single", tag: "Biết",
+        question: "Mã di truyền trên mRNA được đọc theo",
+        options: [
+          "một chiều từ 5’ đến 3’.",
+          "hai chiều tùy theo vị trí xúc tác của các enzyme.",
+          "một chiều từ 3’ đến 5’.",
+          "chiều ứng với vị trí tiếp xúc của ribosome với mRNA."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-23", type: "single", tag: "Hiểu",
+        question: "Đặc điểm nào sau đây không đúng với mã di truyền?",
+        options: [
+          "Mã di truyền trên gene luôn đọc theo chiều từ 5’ – 3’.",
+          "Mã di truyền là mã bộ ba, cứ 3 nucleotide kế tiếp nhau quy định 1 amino acid.",
+          "Mã di truyền mang tính thoái hóa nghĩa là 1 loại amino acid có thể được mã hóa bởi 2 hay nhiều bộ ba.",
+          "Mã di truyền được đọc tại một điểm xác định và liên tục, không gối lên nhau."
+        ],
+        answer: 0 },
+      { id: "biology-2-H-24", type: "single", tag: "Hiểu",
+        question: "Có bao nhiêu bộ ba trên mRNA không mã hóa cho loại amino acid nào?",
+        options: [
+          "1.",
+          "2.",
+          "3.",
+          "4."
+        ],
+        answer: 2 },
+      { id: "biology-2-H-25", type: "single", tag: "Hiểu",
+        question: "Một phân tử tRNA có 75 nucleotide thì sẽ chứa tối đa bao nhiêu anticodon?",
+        options: [
+          "1.",
+          "2.",
+          "3.",
+          "75."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-29", type: "single", tag: "Biết",
+        question: "Giai đoạn hoạt hóa amino acid của quá trình dịch mã diễn ra ở",
+        options: [
+          "tế bào chất.",
+          "nhân.",
+          "màng nhân.",
+          "nhân con."
+        ],
+        answer: 0 },
+      { id: "biology-2-B-30", type: "single", tag: "Biết",
+        question: "Trong quá trình dịch mã tổng hợp protein, yếu tố không tham gia trực tiếp là",
+        options: [
+          "tRNA.",
+          "rRNA.",
+          "DNA.",
+          "mRNA."
+        ],
+        answer: 2 },
+      { id: "biology-2-V-02", type: "single", tag: "Vận dụng",
+        question: "Mạch gốc của gene có trình tự các nucleotide là: 3’ TAC GTA CAC AAT 5’. Biết AUG: met; GUG: val; UUA: leu; CAU: his. Phân tử protein do gene trên tổng hợp có trình tự amino acid nào sau đây?",
+        options: [
+          "met – leu – his – val.",
+          "met – his – val – leu.",
+          "met – val – his – leu.",
+          "met – his – leu – val."
+        ],
+        answer: 1 },
+      { id: "biology-2-B-31", type: "single", tag: "Biết",
+        question: "Hai tiểu phần lớn và bé kết hợp lại với nhau để hình thành ribosome hoàn chỉnh khi",
+        options: [
+          "các tiểu phần ra khỏi nhân vào tế bào chất.",
+          "các rRNA được tổng hợp xong tại hạch nhân.",
+          "hoàn tất việc tổng hợp protein.",
+          "bắt đầu tổng hợp protein."
+        ],
+        answer: 3 },
+      { id: "biology-2-H-26", type: "single", tag: "Hiểu",
+        question: "RNA vận chuyển mang amino acid mở đầu có bộ ba đối mã là",
+        options: [
+          "3’AUA5’.",
+          "3’CUA5’.",
+          "3’UAC5’.",
+          "3’AUC5’."
+        ],
+        answer: 2 },
+      { id: "biology-2-B-32", type: "single", tag: "Biết",
+        question: "Quá trình tổng hợp chuỗi polypeptide kết thúc khi",
+        options: [
+          "ribosome rời khỏi mRNA và trở lại dạng tự do với 2 tiểu phần lớn và bé.",
+          "ribosome di chuyển đến codon AUG.",
+          "ribosome gắn amino acid methionine vào vị trí cuối cùng của chuỗi polypeptide.",
+          "ribosome tiếp xúc với 1 trong các codon UAA, UAG, UGA."
+        ],
+        answer: 3 },
+      { id: "biology-2-H-27", type: "single", tag: "Hiểu",
+        question: "Trong quá trình dịch mã, khi ribosome tiến tới codon tiếp theo thì hiện tượng nào sau đây xảy ra?",
+        options: [
+          "Liên kết peptide giữa 2 amino acid cũ và mới sẽ được hình thành.",
+          "tRNA mang amino acid đến ribosome đối mã với codon qua anticodon.",
+          "Chuỗi polypeptide hoàn thiện cấu trúc không gian.",
+          "Chuỗi polypeptide mới được tổng hợp sẽ tách khỏi ribosome."
+        ],
+        answer: 1 },
+      { id: "biology-2-T-01", type: "true_false", tag: "Đúng/Sai",
+        question: "Ở vi khuẩn, mạch mã gốc của một đoạn gene có trình tự nucleotide 3’…TTAAGCGCA…5’ được phiên mã. Biết không xảy ra đột biến, mỗi nhận định sau đây là Đúng hay Sai về quá trình phiên mã này?",
+        statements: [
+          { text: "Đoạn phân tử mRNA được phiên mã từ đoạn gene này có trình tự nucleotide là 5’…AAUUCGCGU…3’.", answer: true },
+          { text: "Enzyme xúc tác cho quá trình phiên mã đoạn gene này là DNA polymerase.", answer: false },
+          { text: "Đoạn phân tử mRNA được tổng hợp theo chiều 3’ → 5’.", answer: false },
+          { text: "Quá trình phiên mã đoạn gene này có sự tham gia của ribosome.", answer: false }
+        ] },
+      { id: "biology-2-T-02", type: "true_false", tag: "Đúng/Sai",
+        question: "Khi nói về quá trình phiên mã ở tế bào nhân sơ, mỗi phát biểu sau đây là Đúng hay Sai?",
+        statements: [
+          { text: "Nguyên liệu của quá trình phiên mã là các amino acid A, U, G, C.", answer: false },
+          { text: "Chỉ có 1 mạch của gene được dùng làm khuôn để tổng hợp mRNA.", answer: true },
+          { text: "Trong quá trình phiên mã, phân tử RNA được tổng hợp theo chiều 5’ → 3’.", answer: true },
+          { text: "Quá trình phiên mã diễn ra theo nguyên tắc bổ sung và nguyên tắc bán bảo toàn.", answer: false }
+        ] }
+          ] },
+        { id: "biology-3", title: "Bài 3", subtitle: "Điều hòa biểu hiện gene", summary: [
+          { title: "Khái quát", points: [
+              "Biểu hiện gene = gene được **phiên mã và dịch mã** tạo ra sản phẩm. Ở sinh vật nhân sơ, điều hòa diễn ra chủ yếu ở giai đoạn **phiên mã**.",
+              "Thí nghiệm Jacob và Monod trên E. coli: có **lactose** thì lượng enzyme phân giải lactose tăng mạnh; không có lactose thì rất ít."
+            ] },
+          { title: "Cấu trúc operon Lac", points: [
+              "Gene điều hòa **lacI** (nằm trước operon, mã hóa **protein ức chế**).",
+              "Vùng điều hòa: **P** (promoter, RNA polymerase bám vào) và **O** (operator, protein ức chế bám vào).",
+              "Nhóm gene cấu trúc: **lacZ** (β-galactosidase phân giải lactose), **lacY** (permease vận chuyển lactose vào tế bào), **lacA** (transacetylase).",
+              "Thứ tự: **P – O – lacZ – lacY – lacA**."
+            ] },
+          { title: "Cơ chế điều hòa", points: [
+              "**Không có lactose**: protein ức chế gắn vào **O** → RNA polymerase không phiên mã được → enzyme rất ít.",
+              "**Có lactose**: lactose là **chất cảm ứng**, làm **bất hoạt** protein ức chế → không gắn vào O → RNA polymerase phiên mã các gene Z, Y, A (tạo **1** mRNA chung) → enzyme tăng."
+            ] },
+          { title: "Ý nghĩa và ứng dụng", points: [
+              "Vi khuẩn tiết kiệm năng lượng, chỉ tạo sản phẩm khi cần, thích ứng với môi trường.",
+              "Sinh vật đa bào: giúp tế bào **biệt hóa** và phát triển bình thường.",
+              "Ứng dụng: sản xuất thuốc ức chế gene gây bệnh, nuôi cấy tế bào gốc, điều khiển sinh trưởng vật nuôi, cây trồng."
+            ] },
+          { title: "Dễ nhầm", points: [
+              "Đột biến làm **hỏng gene điều hòa lacI** (protein ức chế mất chức năng) thì các gene Z, Y, A phiên mã kể cả khi không có lactose.",
+              "Gene điều hòa **vẫn phiên mã** cả khi có lactose; chỉ protein ức chế bị bất hoạt."
+            ] }
+        ],
+          questions: [
+      { id: "biology-3-B-01", type: "single", tag: "Biết",
+        question: "Trong cơ chế điều hòa biểu hiện gene của operon Lac ở E. coli, lactose đóng vai trò là",
+        options: [
+          "chất xúc tác.",
+          "chất ức chế.",
+          "chất cảm ứng.",
+          "chất trung gian."
+        ],
+        answer: 2 },
+      { id: "biology-3-H-01", type: "single", tag: "Hiểu",
+        question: "Trong cơ chế điều hòa biểu hiện gene của operon Lac ở E. coli, đột biến xảy ra tại vị trí nào sau đây thì quá trình phiên mã của các gene cấu trúc Z, Y, A có thể diễn ra ngay cả khi môi trường không có lactose?",
+        options: [
+          "Gene điều hòa lacI.",
+          "Vùng promoter.",
+          "Gene cấu trúc A.",
+          "Gene cấu trúc Z."
+        ],
+        answer: 0 },
+      { id: "biology-3-B-02", type: "single", tag: "Biết",
+        question: "Trong điều hòa biểu hiện gene của operon Lac ở E. coli, các enzyme phân giải đường lactose là sản phẩm của",
+        options: [
+          "các gene cấu trúc Z, Y, A.",
+          "gene điều hòa.",
+          "vùng operator.",
+          "vùng promoter."
+        ],
+        answer: 0 },
+      { id: "biology-3-H-02", type: "single", tag: "Hiểu",
+        question: "Trong cơ chế điều hòa biểu hiện gene của operon Lac ở E. coli, khi môi trường có lactose thì",
+        options: [
+          "protein ức chế không được tổng hợp.",
+          "protein ức chế không gắn vào vùng operator.",
+          "sản phẩm của gene cấu trúc không được tạo ra.",
+          "RNA polymerase không gắn vào vùng promoter."
+        ],
+        answer: 1 },
+      { id: "biology-3-H-03", type: "single", tag: "Hiểu",
+        question: "Trong cơ chế điều hòa biểu hiện gene của operon Lac, khi môi trường có lactose thì sự kiện nào sau đây không diễn ra?",
+        options: [
+          "Protein ức chế liên kết với operator.",
+          "Phiên mã của gene điều hòa.",
+          "Phiên mã ở nhóm gene cấu trúc.",
+          "Enzyme RNA polymerase liên kết với promoter."
+        ],
+        answer: 0 },
+      { id: "biology-3-B-03", type: "single", tag: "Biết",
+        question: "Trong cấu trúc operon Lac, vị trí mà protein ức chế bám vào để ngăn cản phiên mã nhóm gene cấu trúc là",
+        options: [
+          "vùng promoter (P).",
+          "vùng operator (O).",
+          "gene điều hòa lacI.",
+          "gene cấu trúc lacZ."
+        ],
+        answer: 1 },
+      { id: "biology-3-H-04", type: "single", tag: "Hiểu",
+        question: "Ở vi khuẩn E. coli, trong quá trình điều hòa hoạt động của operon Lac, khi môi trường có lactose, các gene cấu trúc lacZ, lacY, lacA phiên mã tạo ra bao nhiêu phân tử RNA?",
+        options: [
+          "1.",
+          "2.",
+          "3.",
+          "4."
+        ],
+        answer: 0 },
+      { id: "biology-3-B-04", type: "single", tag: "Biết",
+        question: "Cấu trúc đúng của một operon Lac ở vi khuẩn E. coli là",
+        options: [
+          "P – O – lacA – lacY – lacZ.",
+          "O – P – lacZ – lacY – lacA.",
+          "O – P – lacY – lacZ – lacA.",
+          "P – O – lacZ – lacY – lacA."
+        ],
+        answer: 3 }
+          ] }
+      ]
+    },
     { id: "math", name: "Toán", icon: "📐", description: "", chapters: [] },
     { id: "physics", name: "Vật lý", icon: "⚛️", description: "", chapters: [] }
   ]
@@ -2403,7 +4991,8 @@ const quizData = {
 /* ============================================================
    2. QUIZ ENGINE — dùng chung mọi môn, không biết gì về môn cụ thể
    ============================================================ */
-const shuffle = a => { a = a.slice(); for (let i = a.length; i > 1;) { const j = Math.random() * i-- | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let keepOrder = false; try { keepOrder = localStorage.getItem("quiz.order") === "1"; } catch (e) {}
+const shuffle = a => { a = a.slice(); if (keepOrder) return a; for (let i = a.length; i > 1;) { const j = Math.random() * i-- | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const LETTERS = "ABCDEFGH";
@@ -2440,6 +5029,30 @@ const TYPES = {
 
 const prepare = q => ({ src: q, type: q.type, ...TYPES[q.type].prepare(q) });
 
+/* ---------- Giao diện (theme) ---------- */
+const THEMES = {
+  default: { name: "Tối", tc: "#000000", sw: "linear-gradient(135deg,#8ab4ff,#a78bfa)" },
+  green: { name: "Rừng xuân", tc: "#07120b", sw: "linear-gradient(135deg,#bad17a,#6c9b76)" },
+  blue: { name: "Đêm xanh", tc: "#070e2e", sw: "linear-gradient(135deg,#abd2fa,#1b2cc1)" }
+};
+let theme = document.documentElement.dataset.theme;
+if (!THEMES[theme]) theme = "default";
+function setTheme(t, save) {
+  theme = THEMES[t] ? t : "default";
+  document.documentElement.dataset.theme = theme;
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = THEMES[theme].tc;
+  if (save) { try { localStorage.setItem("quiz.theme", theme); } catch (e) {} }
+}
+setTheme(theme, false);
+const themesHTML = () => Object.entries(THEMES).map(([k, t]) => `<button class="trow${k === theme ? " on" : ""}" data-act="theme" data-t="${k}" style="--sw:${t.sw}"><i></i>${t.name}<span class="ck">✓</span></button>`).join("");
+/* Menu ☰ — thêm mục mới: chỉ cần thêm một object vào MENU */
+const MENU = [
+  { title: "Giao diện", html: themesHTML }
+];
+function openMenu() {
+  $modal.innerHTML = `<div class="dwrap"><div class="dscrim" data-act="stay"></div><aside class="drawer"><div class="dh"><b style="font-size:19px">Menu</b><button class="icon-btn" data-act="stay" aria-label="Đóng">✕</button></div>${MENU.map(m => `<div class="sec">${m.title}</div>${m.html()}`).join("")}</aside></div>`;
+}
+
 /* ---------- Hiệu ứng: âm thanh (Web Audio, không cần file) + pháo giấy ---------- */
 const sfx = { on: true, ctx: null };
 try { sfx.on = localStorage.getItem("quiz.sound") !== "0"; } catch (e) {}
@@ -2468,7 +5081,7 @@ function confetti() {
   const cv = confettiCanvas = document.createElement("canvas"), dpr = Math.min(window.devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
   const g = cv.getContext && cv.getContext("2d"); if (!g) return;
   cv.className = "confetti"; cv.width = W * dpr; cv.height = H * dpr; document.body.appendChild(cv); g.scale(dpr, dpr);
-  const cols = ["#8ab4ff", "#4ade80", "#f2f2f3", "#fbbf24", "#f472b6"], vmax = Math.sqrt(2 * .32 * H * .8), P = [];
+  const cs = getComputedStyle(document.documentElement), cols = ["--ac", "--ac2", "--ac3", "--ok", "--tx"].map(v => cs.getPropertyValue(v).trim()), vmax = Math.sqrt(2 * .32 * H * .8), P = [];
   for (let i = 0; i < 80; i++) {
     const left = i % 2 === 0, a = (Math.random() * 30 + 8) * Math.PI / 180, v = vmax * (.55 + Math.random() * .5);
     P.push({ x: left ? W * .05 : W * .95, y: H + 10, vx: (left ? 1 : -1) * Math.sin(a) * v, vy: -Math.cos(a) * v, r: Math.random() * 6, vr: Math.random() * .3 - .15, f: Math.random() * 6, vf: .1 + Math.random() * .2, w: 6 + Math.random() * 6, h: 4 + Math.random() * 5, c: cols[i % cols.length] });
@@ -2510,11 +5123,38 @@ function startQuiz(subjectId, chapterId, tag = "all", retryList = null) {
 const $app = document.getElementById("app"), $modal = document.getElementById("modal");
 const topbar = (title, sub) => `<div class="top"><button class="icon-btn" data-act="back" aria-label="Quay lại">←</button><div><div class="ttl">${title}</div>${sub ? `<div class="mut">${sub}</div>` : ""}</div></div>`;
 
-const VIEWS = {
-  home: () => `<div class="hero"><div class="logo">📚</div><h1>ÔN TẬP</h1><p class="mut">Chọn môn học để bắt đầu</p></div><div class="grid two stagger">` +
-    quizData.subjects.map((s, i) => { const n = s.chapters.length; return `<button class="tile ${n ? "" : "off"}" style="--i:${i}" ${n ? `data-act="subject" data-id="${s.id}"` : "disabled"}><span class="ico">${s.icon}</span><span class="tt"><b>${esc(s.name)}</b><span class="mut">${n ? `${n} bài học${s.description ? " · " + esc(s.description) : ""}` : "Chưa có dữ liệu"}</span></span>${n ? '<span class="go">›</span>' : ""}</button>`; }).join("") + `</div>`,
 
-  subject: () => { const s = getSubject(S.subjectId); return topbar(`${s.icon} ${esc(s.name)}`, "Chọn bài học") + `<div class="grid stagger">` +
+/* ===== Thống kê học tập (lưu localStorage, chỉ trên máy này) ===== */
+const HK = "quiz.hist";
+const hist = () => { try { return JSON.parse(localStorage.getItem(HK)) || []; } catch (e) { return []; } };
+const dkey = t => { const d = new Date(t); return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate(); };
+function saveResult() { try { const h = hist(); h.push({ t: Date.now(), s: S.subjectId, c: S.chapterId, n: S.list.length, k: S.correct }); localStorage.setItem(HK, JSON.stringify(h.slice(-300))); } catch (e) {} }
+const pcol = p => p >= 80 ? "var(--ok)" : p >= 50 ? "var(--ac)" : "var(--no)";
+function resumeHTML() {
+  const h = hist(); if (!h.length) return "";
+  const l = h[h.length - 1], s = getSubject(l.s), c = getChapter(l.s, l.c); if (!s || !c) return "";
+  return `<button class="tile chap" data-act="resume" data-s="${l.s}" data-c="${l.c}"><span class="eyebrow">Làm tiếp</span><b>${esc(s.name)} · ${esc(c.subtitle)}</b><span class="mut">${esc(c.title)}</span></button>`;
+}
+function statsHTML() {
+  const h = hist();
+  if (!h.length) return "";
+  const N = h.reduce((a, x) => a + x.n, 0), K = h.reduce((a, x) => a + x.k, 0), pc = Math.round(K / N * 100);
+  const days = new Set(h.map(x => dkey(x.t))); let st = 0; const d = new Date();
+  if (!days.has(dkey(d))) d.setDate(d.getDate() - 1);
+  while (days.has(dkey(d))) { st++; d.setDate(d.getDate() - 1); }
+  const wk = []; for (let i = 6; i >= 0; i--) { const e = new Date(); e.setDate(e.getDate() - i); const k = dkey(e); wk.push({ l: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][e.getDay()], v: h.filter(x => dkey(x.t) === k).reduce((a, x) => a + x.n, 0) }); }
+  const mx = Math.max(...wk.map(x => x.v), 1);
+  const bars = wk.map(x => `<div class="${x.v ? "" : "z"}"><span class="mut" style="font-size:11px">${x.v || ""}</span><i style="height:${Math.round(x.v / mx * 62) + 3}px"></i><em>${x.l}</em></div>`).join("");
+  const rows = h.slice(-4).reverse().map(x => { const c = getChapter(x.s, x.c), s = getSubject(x.s), p = Math.round(x.k / x.n * 100); return `<div class="row"><span>${esc(s ? s.name : "")} · ${esc(c ? c.subtitle : "")}<br><span class="mut">${new Date(x.t).toLocaleDateString("vi-VN")} · ${x.k}/${x.n} câu đúng</span></span><b style="color:${pcol(p)}">${p}%</b></div>`; }).join("");
+  return `<div class="sec">Thống kê học tập</div><div class="kpis"><div class="kpi a"><b>${pc}%</b><span>Độ chính xác</span></div><div class="kpi"><b>${h.length}</b><span>Bài đã làm</span></div><div class="kpi"><b>${N}</b><span>Câu đã trả lời</span></div><div class="kpi"><b>${st}</b><span>Ngày liên tiếp</span></div></div>` +
+    `<div class="card" style="margin:10px 0 0"><div class="mut">Số câu đã làm 7 ngày gần đây</div><div class="chart">${bars}</div></div>` +
+    `<div class="sec">Gần đây</div><div class="card" style="margin:0">${rows}</div><button class="lnk" data-act="resetstats">Xóa thống kê</button>`;
+}
+const VIEWS = {
+  home: () => `<div class="top"><button class="icon-btn" data-act="menu" aria-label="Menu">☰</button></div>${resumeHTML()}<div class="sec">Môn học</div><div class="grid two stagger">` +
+    quizData.subjects.filter(s => s.chapters.length).map((s, i) => { const n = s.chapters.length; return `<button class="tile ${n ? "" : "off"}" style="--i:${i}" ${n ? `data-act="subject" data-id="${s.id}"` : "disabled"}><span class="tt"><b>${esc(s.name)}</b><span class="mut">${n ? `${n} bài học${s.description ? " · " + esc(s.description) : ""}` : "Chưa có dữ liệu"}</span></span>${n ? '<span class="go">›</span>' : ""}</button>`; }).join("") + `</div>` + statsHTML(),
+
+  subject: () => { const s = getSubject(S.subjectId); return topbar(`${esc(s.name)}`, "Chọn bài học") + `<div class="grid stagger">` +
     s.chapters.map((c, i) => `<button class="tile chap" style="--i:${i}" data-act="chapter" data-id="${c.id}"><span class="eyebrow">${esc(c.title)}</span><b>${esc(c.subtitle)}</b>${c.description ? `<span class="mut">${esc(c.description)}</span>` : ""}<span class="chips"><span class="chip">${c.questions.length} câu</span>${chapterTags(c).map(([t]) => `<span class="chip">${esc(t)}</span>`).join("")}</span></button>`).join("") + `</div>`; },
 
   intro: () => { const s = getSubject(S.subjectId), c = chap(), tags = chapterTags(c);
@@ -2522,7 +5162,8 @@ const VIEWS = {
     const sum = c.summary && c.summary.length ? `<details class="sum"><summary>📌 Tóm tắt ý cần nhớ<span class="chev">›</span></summary><div class="sumbody">${c.summary.map((g, i) => `<div class="sh"><span class="sn">${i + 1}</span>${esc(g.title)}</div><ul>${g.points.map(p => `<li>${rich(p)}</li>`).join("")}</ul>`).join("")}</div></details>` : "";
     return topbar(esc(s.name)) + `<div class="card"><div class="eyebrow">${esc(c.title)}</div><div class="big">${esc(c.subtitle)}</div>${c.description ? `<p class="mut">${esc(c.description)}</p>` : ""}<p class="mut">${c.questions.length} câu hỏi</p>` +
     (tags.length > 1 ? `<div class="pick" id="pick">${[["all", "Tất cả", c.questions.length], ...tags.map(([t, n]) => [t, t, n])].map(([t, l, n]) => `<button class="${S.tag === t ? "on" : ""}" data-act="tag" data-tag="${esc(t)}">${esc(l)} · ${n}</button>`).join("")}</div>` : "") +
-    `<div class="rules mut"><span>Câu hỏi và đáp án được xáo trộn ngẫu nhiên.</span>${rules.map(r => `<span>${esc(r)}</span>`).join("")}</div></div>` + sum +
+    `<div class="pick"><button id="ordbtn" class="${keepOrder ? "on" : ""}" data-act="order">🔒 Không xáo trộn</button><button data-act="answers">👁 Xem đáp án</button></div>` +
+    `<div class="rules mut"><span id="shuf">${keepOrder ? "Câu hỏi và đáp án giữ nguyên thứ tự như đề." : "Câu hỏi và đáp án được xáo trộn ngẫu nhiên."}</span>${rules.map(r => `<span>${esc(r)}</span>`).join("")}</div></div>` + sum +
     `<div class="dock"><button class="btn" id="start" data-act="start">Bắt đầu kiểm tra (${countFor(c, S.tag)} câu)</button></div>`; },
 
   quiz: () => { const r = cur(), n = S.list.length;
@@ -2536,6 +5177,11 @@ const VIEWS = {
     `<div class="stats"><div class="stat ok"><b>${S.correct}</b>Đúng</div><div class="stat no"><b>${w}</b>Sai</div></div>` +
     (w ? `<button class="btn" data-act="review">Xem lại câu sai</button><button class="btn alt" data-act="retry">Làm lại ${w} câu đã sai</button>` : "") +
     `<button class="btn alt" data-act="restart">Làm lại</button><button class="btn alt" data-act="chapters">Về danh sách bài</button></div>`; },
+
+  answers: () => { const c = chap(), cnt = {};
+    const rows = c.questions.map(q => { cnt[q.tag] = (cnt[q.tag] || 0) + 1; return { q, n: cnt[q.tag] }; }).filter(x => S.tag === "all" || x.q.tag === S.tag);
+    const rv = q => q.type === "single" ? { options: q.options, answer: q.answer, picked: null } : { statements: q.statements.map(t => ({ text: t.text, answer: t.answer, picked: t.answer })) };
+    return topbar(`${esc(c.title)} · Đáp án`, `${rows.length} câu · đúng thứ tự đề`) + rows.map(({ q, n }) => `<div class="card"><div class="tag">${esc(q.tag)} · Câu ${n}</div><p class="q">${esc(q.question)}</p>${TYPES[q.type].review(rv(q))}</div>`).join(""); },
 
   review: () => topbar("Xem lại", `${S.wrong.length} câu sai`) + S.wrong.map(r => `<div class="card"><div class="tag">${esc(r.src.tag)}</div><p class="q">${esc(r.src.question)}</p>${TYPES[r.type].review(r)}</div>`).join("")
 };
@@ -2561,14 +5207,14 @@ function go(view) { S.view = view; render(); }
    ============================================================ */
 function back() {
   if ($modal.innerHTML) return closeModal();
-  const to = { subject: "home", intro: "subject", result: "subject", review: "result" }[S.view];
+  const to = { subject: "home", intro: "subject", result: "subject", review: "result", answers: "intro" }[S.view];
   if (S.view === "quiz") return S.idx === 0 && !S.locked ? go("intro") : openModal();
   if (to) go(to);
 }
 function openModal() { $modal.innerHTML = `<div class="scrim"><div class="dialog"><h2>Thoát bài kiểm tra?</h2><p class="mut">Tiến trình làm bài hiện tại sẽ bị mất.</p><button class="btn" data-act="stay">Tiếp tục làm bài</button><button class="btn alt" data-act="leave">Thoát</button></div></div>`; }
 function closeModal() { $modal.innerHTML = ""; }
 
-function finish() { go("result"); }
+function finish() { saveResult(); go("result"); }
 function next() {
   const r = cur(), T = TYPES[r.type], n = S.list.length, btn = document.getElementById("go");
   if (S.locked) { S.idx++; S.locked = false; return S.idx >= n ? finish() : render(); }
@@ -2584,6 +5230,18 @@ function next() {
 }
 
 const ACTIONS = {
+  menu: openMenu,
+  order: () => {
+    keepOrder = !keepOrder;
+    try { localStorage.setItem("quiz.order", keepOrder ? "1" : "0"); } catch (e) {}
+    const b = document.getElementById("ordbtn"); if (b) b.classList.toggle("on", keepOrder);
+    const t = document.getElementById("shuf"); if (t) t.textContent = keepOrder ? "Câu hỏi và đáp án giữ nguyên thứ tự như đề." : "Câu hỏi và đáp án được xáo trộn ngẫu nhiên.";
+    playSound("tick");
+  },
+  answers: () => go("answers"),
+  theme: d => { setTheme(d.t, true); document.querySelectorAll(".trow").forEach(b => b.classList.toggle("on", b.dataset.t === theme)); playSound("tick"); },
+  resume: d => { S.subjectId = d.s; S.chapterId = d.c; S.tag = "all"; go("intro"); },
+  resetstats: () => { if (confirm("Xóa toàn bộ thống kê học tập?")) { try { localStorage.removeItem(HK); } catch (e) {} render(false); } },
   subject: d => { S.subjectId = d.id; go("subject"); },
   chapter: d => { S.chapterId = d.id; S.tag = "all"; go("intro"); },
   tag: d => {
@@ -2615,7 +5273,9 @@ document.addEventListener("click", e => {
 
 /* nút Back của điện thoại: quay lại màn trước thay vì thoát trang */
 const guard = () => { try { history.pushState({ q: 1 }, ""); } catch (e) {} };
-window.addEventListener("popstate", () => { if (S.view !== "home") { guard(); back(); } });
+window.addEventListener("popstate", () => { if (S.view !== "home" || $modal.innerHTML) { guard(); back(); } });
 guard();
 render();
-</script></body></html>
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
+</body></html>
