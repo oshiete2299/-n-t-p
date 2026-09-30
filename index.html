@@ -178,6 +178,43 @@ p{margin:0}.mut{color:var(--mut);font-size:14px}
 @keyframes secIn{from{opacity:0;transform:translateX(-18px)}}
 @media(hover:hover){.stagger>.tile:not(.off):hover{transform:translateY(-3px);box-shadow:0 14px 30px -14px var(--ac),0 0 0 1px var(--bd2)}}
 .stagger>.tile{transition:transform .2s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease}
+
+/* ===== màn kết quả ===== */
+.result.card{padding:0;text-align:left;overflow:hidden;animation:in .4s ease backwards}
+.rscore{display:flex;align-items:baseline;justify-content:center;gap:12px;padding:26px 16px 22px;border-bottom:1px solid var(--bd)}
+.rscore span{font-size:15px;font-weight:600;color:var(--tx2)}
+.rscore b{font-size:40px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.rscore b.of{margin-left:-10px}
+.rbody{padding:20px 18px 18px}
+.rname{text-align:center;font-weight:600;font-size:16px;margin-bottom:16px;overflow-wrap:anywhere}
+.rrow{display:flex;align-items:center;gap:12px;padding:11px 2px;font-size:16px}
+.rrow .ri{flex:none;width:26px;height:26px;color:var(--tx2);display:grid;place-items:center}
+.rrow .ri svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rrow .rl{flex:1;min-width:0}
+.rrow b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.result .btn{margin-top:12px}
+.btn.alt.or{color:#fb923c;border-color:#fb923c;background:transparent}
+.btn.alt.bl{color:var(--ac);border-color:var(--ac);background:transparent}
+
+/* ===== hiệu ứng xuất hiện: thống kê học tập (đồng bộ với danh sách) ===== */
+.kpis{perspective:900px}
+.kpis>.kpi{animation:tileIn .7s cubic-bezier(.22,.9,.3,1) backwards;transform-origin:50% 100%}
+.kpis>.kpi:nth-child(1){animation-delay:.35s}.kpis>.kpi:nth-child(2){animation-delay:.44s}.kpis>.kpi:nth-child(3){animation-delay:.53s}.kpis>.kpi:nth-child(4){animation-delay:.62s}
+.screen.enter .sec.st1{animation-delay:.25s}
+.st-chart{animation:tileIn .7s cubic-bezier(.22,.9,.3,1) .75s backwards;transform-origin:50% 100%}
+.chart>div:nth-child(1){--b:1}.chart>div:nth-child(2){--b:2}.chart>div:nth-child(3){--b:3}.chart>div:nth-child(4){--b:4}.chart>div:nth-child(5){--b:5}.chart>div:nth-child(6){--b:6}.chart>div:nth-child(7){--b:7}
+.chart i{transform-origin:bottom;animation:barGrow .8s cubic-bezier(.3,1.35,.5,1) calc(.95s + var(--b,0)*70ms) backwards}
+.chart span{animation:fadeUp .4s ease calc(1.3s + var(--b,0)*70ms) backwards}
+.chart em{animation:fadeUp .4s ease calc(1s + var(--b,0)*50ms) backwards}
+@keyframes barGrow{from{transform:scaleY(0);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}}
+.screen.enter .sec.st2{animation-delay:1.1s}
+.st-rows{animation:tileIn .7s cubic-bezier(.22,.9,.3,1) 1.15s backwards;transform-origin:50% 100%}
+.st-rows .hrow{animation:secIn .5s cubic-bezier(.2,.9,.3,1) backwards}
+.st-rows .hrow:nth-child(1){animation-delay:1.45s}.st-rows .hrow:nth-child(2){animation-delay:1.55s}.st-rows .hrow:nth-child(3){animation-delay:1.65s}.st-rows .hrow:nth-child(4){animation-delay:1.75s}
+.st-rows .hrow>b{animation:chipPop .45s cubic-bezier(.3,1.7,.5,1) backwards}
+.st-rows .hrow:nth-child(1)>b{animation-delay:1.65s}.st-rows .hrow:nth-child(2)>b{animation-delay:1.75s}.st-rows .hrow:nth-child(3)>b{animation-delay:1.85s}.st-rows .hrow:nth-child(4)>b{animation-delay:1.95s}
+.st-lnk{animation:fadeUp .5s ease 1.9s backwards}
 </style>
 <script>try{var _t=localStorage.getItem("quiz.theme");if(_t)document.documentElement.dataset.theme=_t}catch(e){}</script>
 <link rel="manifest" href="manifest.json">
@@ -4351,7 +4388,7 @@ function startQuiz(subjectId, chapterId, tag = "all", retryList = null) {
   const ch = getChapter(subjectId, chapterId); if (!ch) return;
   const src = retryList || ch.questions.filter(q => tag === "all" || q.tag === tag);
   if (!src.length) return;
-  Object.assign(S, { subjectId, chapterId, tag, retry: !!retryList, list: shuffle(src).map(prepare), idx: 0, correct: 0, wrong: [], locked: false });
+  Object.assign(S, { subjectId, chapterId, tag, retry: !!retryList, list: shuffle(src).map(prepare), idx: 0, correct: 0, wrong: [], locked: false, t0: Date.now(), dur: 0 });
   go("quiz");
 }
 
@@ -4384,10 +4421,12 @@ function statsHTML() {
   const mx = Math.max(...wk.map(x => x.v), 1);
   const bars = wk.map(x => `<div class="${x.v ? "" : "z"}"><span class="mut" style="font-size:11px">${x.v || ""}</span><i style="height:${Math.round(x.v / mx * 62) + 3}px"></i><em>${x.l}</em></div>`).join("");
   const rows = h.slice(-4).reverse().map(x => { const c = getChapter(x.s, x.c), s = getSubject(x.s), p = Math.round(x.k / x.n * 100); return `<div class="hrow"><span>${esc(s ? s.name : "")} · ${esc(c ? c.subtitle : "")}<br><span class="mut">${new Date(x.t).toLocaleDateString("vi-VN")} · ${x.k}/${x.n} câu đúng</span></span><b style="color:${pcol(p)}">${p}%</b></div>`; }).join("");
-  return `<div class="sec">Thống kê học tập</div><div class="kpis"><div class="kpi a"><b>${pc}%</b><span>Độ chính xác</span></div><div class="kpi"><b>${h.length}</b><span>Bài đã làm</span></div><div class="kpi"><b>${N}</b><span>Câu đã trả lời</span></div><div class="kpi"><b>${st}</b><span>Ngày liên tiếp</span></div></div>` +
-    `<div class="card" style="margin:10px 0 0"><div class="mut">Số câu đã làm 7 ngày gần đây</div><div class="chart">${bars}</div></div>` +
-    `<div class="sec">Gần đây</div><div class="card" style="margin:0">${rows}</div><button class="lnk" data-act="resetstats">Xóa thống kê</button>`;
+  return `<div class="sec st1">Thống kê học tập</div><div class="kpis"><div class="kpi a"><b data-n="${pc}" data-s="%">${pc}%</b><span>Độ chính xác</span></div><div class="kpi"><b data-n="${h.length}">${h.length}</b><span>Bài đã làm</span></div><div class="kpi"><b data-n="${N}">${N}</b><span>Câu đã trả lời</span></div><div class="kpi"><b data-n="${st}">${st}</b><span>Ngày liên tiếp</span></div></div>` +
+    `<div class="card st-chart" style="margin:10px 0 0"><div class="mut">Số câu đã làm 7 ngày gần đây</div><div class="chart">${bars}</div></div>` +
+    `<div class="sec st2">Gần đây</div><div class="card st-rows" style="margin:0">${rows}</div><button class="lnk st-lnk" data-act="resetstats">Xóa thống kê</button>`;
 }
+function fmtScore(x) { return String(+x.toFixed(2)); }
+function fmtDur(ms) { const t = Math.max(0, Math.round(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), sec = t % 60; return (h ? h + " giờ " : "") + (h || m ? m + " phút " : "") + sec + " giây"; }
 const VIEWS = {
   home: () => `<div class="top"><button class="icon-btn" data-act="menu" aria-label="Menu">☰</button></div>${resumeHTML()}<div class="sec">Môn học</div><div class="grid two stagger">` +
     quizData.subjects.filter(s => s.chapters.length).map((s, i) => { const n = s.chapters.length; return `<button class="tile ${n ? "" : "off"}" style="--i:${i}" ${n ? `data-act="subject" data-id="${s.id}"` : "disabled"}><span class="tt"><b>${esc(s.name)}</b><span class="mut">${n ? `${n} bài học${s.description ? " · " + esc(s.description) : ""}` : "Chưa có dữ liệu"}</span></span>${n ? '<span class="go">›</span>' : ""}</button>`; }).join("") + `</div>` + statsHTML(),
@@ -4409,12 +4448,15 @@ const VIEWS = {
     `<div class="card"><div class="tag">${S.retry ? "LÀM LẠI · " : ""}${esc(chap().title)} · ${esc(r.src.tag)}</div><p class="q">${esc(r.src.question)}</p><div id="opts">${TYPES[r.type].render(r)}</div><div id="res"></div></div>` +
     `<div class="dock"><button class="btn" id="go" data-act="next" disabled>Xác nhận</button></div>`; },
 
-  result: () => { const n = S.list.length, w = n - S.correct;
-    return `<div class="result"><div class="emoji">🎉</div><h1>Hoàn thành!</h1><p class="mut">${w ? `Bạn sai ${w} câu.` : "Tuyệt vời, không sai câu nào!"}</p>` +
-    `<div class="ring"><svg viewBox="0 0 120 120"><circle class="rt" cx="60" cy="60" r="52"/><circle class="rf" id="ringf" cx="60" cy="60" r="52" transform="rotate(-90 60 60)" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><div class="rc"><b>${S.correct} / ${n}</b><span id="pct">0%</span></div></div>` +
-    `<div class="stats"><div class="stat ok"><b>${S.correct}</b>Đúng</div><div class="stat no"><b>${w}</b>Sai</div></div>` +
-    (w ? `<button class="btn" data-act="review">Xem lại câu sai</button><button class="btn alt" data-act="retry">Làm lại ${w} câu đã sai</button>` : "") +
-    `<button class="btn alt" data-act="restart">Làm lại</button><button class="btn alt" data-act="chapters">Về danh sách bài</button></div>`; },
+  result: () => { const n = S.list.length, w = n - S.correct, sc = fmtScore(S.correct / n * 10), c = chap(), sb = getSubject(S.subjectId);
+    const ico = { clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>', ok: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg>' };
+    return `<div class="result card"><div class="rscore"><span>Điểm của bạn:</span><b id="scoreN" data-v="${S.correct / n * 10}">${sc}</b><b class="of">/10</b></div>` +
+    `<div class="rbody"><div class="rname">${esc(sb ? sb.name : "")} · ${esc(c ? c.subtitle : "")}</div>` +
+    `<div class="rrow"><span class="ri">${ico.clock}</span><span class="rl">Thời gian làm bài</span><b>${fmtDur(S.dur)}</b></div>` +
+    `<div class="rrow"><span class="ri">${ico.ok}</span><span class="rl">Số câu trắc nghiệm đúng</span><b>${S.correct}/${n}</b></div>` +
+    `<button class="btn alt or" data-act="restart">Luyện tập lại</button>` +
+    (w ? `<button class="btn alt bl" data-act="review">Xem đáp án ›</button><button class="btn alt" data-act="retry">Làm lại ${w} câu đã sai</button>` : "") +
+    `<button class="lnk" data-act="chapters">Về danh sách bài</button></div></div>`; },
 
   answers: () => { const c = chap(), cnt = {};
     const rows = c.questions.map(q => { cnt[q.tag] = (cnt[q.tag] || 0) + 1; return { q, n: cnt[q.tag] }; }).filter(x => S.tag === "all" || x.q.tag === S.tag);
@@ -4426,10 +4468,17 @@ const VIEWS = {
 
 /* hiệu ứng sau khi render */
 const AFTER = {
+  home() {
+    document.querySelectorAll(".kpi b[data-n]").forEach((el, i) => {
+      const v = +el.dataset.n, suf = el.dataset.s || "", t0 = performance.now() + 450 + i * 90;
+      el.textContent = "0" + suf;
+      (function tick(now) { const k = Math.max(0, Math.min(1, (now - t0) / 800)), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(v * e) + suf; if (k < 1) requestAnimationFrame(tick); })(t0);
+    });
+  },
   result() {
-    const p = S.correct / S.list.length, f = document.getElementById("ringf"), t = document.getElementById("pct"), t0 = performance.now();
-    requestAnimationFrame(() => f.style.strokeDashoffset = 326.7 * (1 - p));
-    (function tick(now) { const k = Math.min(1, (now - t0) / 900); t.textContent = (p * 100 * k).toFixed(1) + "%"; if (k < 1) requestAnimationFrame(tick); })(t0);
+    const el = document.getElementById("scoreN"); if (!el) return;
+    const v = +el.dataset.v, t0 = performance.now();
+    (function tick(now) { const k = Math.min(1, (now - t0) / 900), e = 1 - Math.pow(1 - k, 3); el.textContent = k < 1 ? (v * e).toFixed(2) : fmtScore(v); if (k < 1) requestAnimationFrame(tick); })(t0);
   }
 };
 
@@ -4452,7 +4501,7 @@ function back() {
 function openModal() { $modal.innerHTML = `<div class="scrim"><div class="dialog"><h2>Thoát bài kiểm tra?</h2><p class="mut">Tiến trình làm bài hiện tại sẽ bị mất.</p><button class="btn" data-act="stay">Tiếp tục làm bài</button><button class="btn alt" data-act="leave">Thoát</button></div></div>`; }
 function closeModal() { $modal.innerHTML = ""; }
 
-function finish() { saveResult(); go("result"); }
+function finish() { S.dur = Date.now() - S.t0; saveResult(); go("result"); }
 function next() {
   const r = cur(), T = TYPES[r.type], n = S.list.length, btn = document.getElementById("go");
   if (S.locked) { S.idx++; S.locked = false; return S.idx >= n ? finish() : render(); }
@@ -4461,7 +4510,8 @@ function next() {
   const good = T.check(r);
   T.reveal(r, $app);
   document.getElementById("opts").classList.add("locked");
-  if (good) { S.correct++; confetti(); playSound("ok"); } else { S.wrong.push(r); playSound("wrong"); }
+  const last = S.idx === n - 1;
+  if (good) { S.correct++; if (!last) { confetti(); playSound("ok"); } } else { S.wrong.push(r); if (!last) playSound("wrong"); }
   document.getElementById("res").innerHTML = good ? `<div class="msg ok">✓ Chính xác!</div>` : `<div class="msg bad">✗ Bạn đã sai. ${T.feedback(r)}</div>`;
   document.getElementById("bar").style.transform = `scaleX(${(S.idx + 1) / n})`;
   btn.textContent = S.idx === n - 1 ? "Xem kết quả" : "Câu tiếp theo";
